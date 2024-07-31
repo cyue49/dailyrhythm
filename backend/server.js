@@ -1,10 +1,13 @@
 const express = require('express');
 const cors = require('cors');
+const pool = require('./dbconfig');
 
 const app = express();
 
 // connect to database
-// todo
+pool.connect()
+    .then(() => console.log('Connected to PostgreSQL'))
+    .catch(err => console.error('Could not connect to PostgreSQL', err));
 
 // middleware
 app.use(cors());
