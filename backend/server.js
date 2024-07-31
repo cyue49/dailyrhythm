@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const pool = require('./dbconfig');
+const users = require('./routes/users')
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-// todo
+app.use('/api/users', users);
 
 // host and port
 const hostname = '127.0.0.1';
