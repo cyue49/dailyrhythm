@@ -101,6 +101,25 @@ router.get('/notverified', async (req, res) => {
     }
 });
 
+// get a user's settings
+router.get('/id/:id/settings', async (req, res) => {
+    try {
+        // query to database
+        pool.query('SELECT * FROM settings WHERE user_id = $1', [req.params.id], (err, result) => {
+            if (err) {
+                console.log('Error executing query.', err);
+            } else {
+                // send response
+                console.log(result.rows[0]);
+                res.status(200).send(result.rows[0]);
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send(e.message);
+    }
+});
+
 // ============================================= POST =============================================
 // create a new user
 router.post('/', async (req, res) => {
