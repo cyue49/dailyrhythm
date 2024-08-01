@@ -156,6 +156,9 @@ router.post('/', async (req, res) => {
                     pool.query('INSERT INTO settings (settings_id, user_id) VALUES ($1, $2)', [settings_id, user_id],
                         (err1, result1) => {
                             if (err1) {
+                                // if error, delete newly created user entry from db
+                                pool.query('DELETE FROM users WHERE user_id = $1', [user_id]);
+
                                 console.log('Error creating new settings.', err);
                                 res.status(400).send('failed');
                             } else {
@@ -304,7 +307,23 @@ router.put('/id/:id/verified', async (req, res) => {
 });
 
 // ============================================= DELETE =============================================
-
+router.delete('/id/:id', async (req, res) => {
+    try {
+        // query to database
+        pool.query('DELETE FROM users WHERE user_id = $1', [req.params.id], (err, result) => {
+            if (err) {
+                console.log('Error deleting item.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                res.status(200).send('success');
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send(e.message);
+    }
+});
 
 // export router
 module.exports = router;
