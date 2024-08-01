@@ -126,6 +126,36 @@ router.get('/id/:id/settings', async (req, res) => {
     }
 });
 
+// get hashed password to compare with user password
+router.get('/email/:email/login/:password', async (req, res) => {
+    try {
+        // query to database
+        pool.query('SELECT user_password FROM users WHERE email = $1', [req.params.email], (err, result) => {
+            if (err) {
+                console.log('Error executing query.', err);
+                res.status(400).send('failed');
+            } else {
+                // hashed password from db
+                const { user_password } = result.rows[0];
+
+                // password entered by user
+                const { password } = req.params;
+
+                // compare passwords and send response
+                compare(password, user_password)
+                .then((value) => res.status(200).send(value))
+                .catch((error) => {
+                    console.log(error.message);
+                    res.status(400).send(false);
+                });
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send(e.message);
+    }
+});
+
 // ============================================= POST =============================================
 // create a new user
 router.post('/', async (req, res) => {
