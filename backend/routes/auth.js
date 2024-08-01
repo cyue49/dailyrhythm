@@ -9,7 +9,10 @@ const { compare } = require('../modules/password');
 router.post('/', async (req, res) => {
     // input validation
     const { error } = validateAuth(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+        console.log(error.details[0].message);
+        return res.status(400).send(false);
+    }
 
     // inputs
     const { email } = req.body;
@@ -20,7 +23,7 @@ router.post('/', async (req, res) => {
         pool.query('SELECT user_password FROM users WHERE email = $1', [email], (err, result) => {
             if (err) {
                 console.log('Error executing query.', err);
-                res.status(400).send('failed');
+                res.status(400).send(false);
             } else {
                 // hashed password from db
                 const hashed_password = result.rows[0].user_password;

@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -42,7 +42,7 @@ router.get('/id/:id', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -62,7 +62,7 @@ router.get('/email/:email', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -82,7 +82,7 @@ router.get('/verified', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -102,7 +102,7 @@ router.get('/notverified', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -122,7 +122,7 @@ router.get('/id/:id/settings', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -131,7 +131,10 @@ router.get('/id/:id/settings', async (req, res) => {
 router.post('/', async (req, res) => {
     // input validation 
     const { error } = validateNew(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+        console.log(error.details[0].message);
+        return res.status(400).send('failed');
+    }
 
     try {
         // generate uuids
@@ -171,7 +174,7 @@ router.post('/', async (req, res) => {
             });
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -180,7 +183,10 @@ router.post('/', async (req, res) => {
 router.put('/id/:id/username', async (req, res) => {
     // input validation
     const { error } = validateUpdate(req.body, 'username')
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+        console.log(error.details[0].message);
+        return res.status(400).send('failed');
+    }
 
     try {
         // value to update
@@ -198,7 +204,7 @@ router.put('/id/:id/username', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -206,7 +212,10 @@ router.put('/id/:id/username', async (req, res) => {
 router.put('/id/:id/imageurl', async (req, res) => {
     // input validation
     const { error } = validateUpdate(req.body, 'imageurl')
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+        console.log(error.details[0].message);
+        return res.status(400).send('failed');
+    }
 
     try {
         // value to update
@@ -224,7 +233,7 @@ router.put('/id/:id/imageurl', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -232,7 +241,10 @@ router.put('/id/:id/imageurl', async (req, res) => {
 router.put('/id/:id/email', async (req, res) => {
     // input validation
     const { error } = validateUpdate(req.body, 'email')
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+        console.log(error.details[0].message);
+        return res.status(400).send('failed');
+    }
 
     try {
         // value to update
@@ -250,7 +262,7 @@ router.put('/id/:id/email', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -258,7 +270,10 @@ router.put('/id/:id/email', async (req, res) => {
 router.put('/id/:id/password', async (req, res) => {
     // input validation
     const { error } = validateUpdate(req.body, 'password')
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+        console.log(error.details[0].message);
+        return res.status(400).send('failed');
+    }
 
     try {
         // value to update
@@ -276,7 +291,7 @@ router.put('/id/:id/password', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -284,7 +299,10 @@ router.put('/id/:id/password', async (req, res) => {
 router.put('/id/:id/verified', async (req, res) => {
     // input validation
     const { error } = validateUpdate(req.body, 'verified')
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+        console.log(error.details[0].message);
+        return res.status(400).send('failed');
+    }
 
     try {
         // value to update
@@ -302,7 +320,7 @@ router.put('/id/:id/verified', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -310,7 +328,10 @@ router.put('/id/:id/verified', async (req, res) => {
 router.put('/id/:id/theme', async (req, res) => {
     // input validation
     const { error } = validateUpdate(req.body, 'theme')
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+        console.log(error.details[0].message);
+        return res.status(400).send('failed');
+    }
 
     try {
         // value to update
@@ -328,7 +349,7 @@ router.put('/id/:id/theme', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -336,7 +357,10 @@ router.put('/id/:id/theme', async (req, res) => {
 router.put('/id/:id/timedaystarts', async (req, res) => {
     // input validation
     const { error } = validateUpdate(req.body, 'time')
-    if (error) return res.status(400).send(error.details[0].message);
+    if (error) {
+        console.log(error.details[0].message);
+        return res.status(400).send('failed');
+    }
 
     try {
         // value to update
@@ -354,7 +378,7 @@ router.put('/id/:id/timedaystarts', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
@@ -373,7 +397,7 @@ router.delete('/id/:id', async (req, res) => {
         })
     } catch (e) {
         console.log(e.message);
-        res.status(400).send(e.message);
+        res.status(400).send('failed');
     }
 });
 
