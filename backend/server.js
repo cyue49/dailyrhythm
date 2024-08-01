@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const pool = require('./dbconfig');
 const users = require('./routes/users')
+const auth = require('./routes/auth')
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.use('/api/users', users);
+app.use('/api/auth', auth);
 
 // host and port
 const hostname = '127.0.0.1';
