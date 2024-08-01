@@ -1,3 +1,4 @@
+const config = require('config');
 const express = require('express');
 const cors = require('cors');
 const pool = require('./dbconfig');
@@ -27,8 +28,8 @@ app.use('/api/custom_habits', custom_habits);
 app.use('/api/custom_habits_checkins', custom_habits_checkins);
 
 // host and port
-const hostname = '127.0.0.1';
-const port = 5000;
+const hostname = config.get('App.host');
+const port = config.get('App.port');
 
 // listen on port and hostname
 app.listen(port, hostname, () => {
