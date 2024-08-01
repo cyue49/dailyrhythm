@@ -241,7 +241,7 @@ router.put('/id/:id/email', async (req, res) => {
         // update in the database
         pool.query('UPDATE users SET email = $1 WHERE user_id = $2', [email, req.params.id], (err, result) => {
             if (err) {
-                console.log('Error updating image url.', err);
+                console.log('Error updating email.', err);
                 res.status(400).send('failed');
             } else {
                 // send response
@@ -267,7 +267,7 @@ router.put('/id/:id/password', async (req, res) => {
         // update in the database
         pool.query('UPDATE users SET user_password = $1 WHERE user_id = $2', [user_password, req.params.id], (err, result) => {
             if (err) {
-                console.log('Error updating image url.', err);
+                console.log('Error updating password.', err);
                 res.status(400).send('failed');
             } else {
                 // send response
@@ -293,7 +293,59 @@ router.put('/id/:id/verified', async (req, res) => {
         // update in the database
         pool.query('UPDATE users SET is_verified = $1 WHERE user_id = $2', [is_verified, req.params.id], (err, result) => {
             if (err) {
-                console.log('Error updating image url.', err);
+                console.log('Error updating verified status.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                res.status(200).send('success');
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send(e.message);
+    }
+});
+
+// update the app theme in user settings
+router.put('/id/:id/theme', async (req, res) => {
+    // input validation
+    const { error } = validateUpdate(req.body, 'theme')
+    if (error) return res.status(400).send(error.details[0].message);
+
+    try {
+        // value to update
+        const { theme } = req.body;
+
+        // update in the database
+        pool.query('UPDATE settings SET theme = $1 WHERE user_id = $2', [theme, req.params.id], (err, result) => {
+            if (err) {
+                console.log('Error updating user settings.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                res.status(200).send('success');
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send(e.message);
+    }
+});
+
+// update the time the day starts in user settings
+router.put('/id/:id/timedaystarts', async (req, res) => {
+    // input validation
+    const { error } = validateUpdate(req.body, 'time')
+    if (error) return res.status(400).send(error.details[0].message);
+
+    try {
+        // value to update
+        const { time_day_starts } = req.body;
+
+        // update in the database
+        pool.query('UPDATE settings SET time_day_starts = $1 WHERE user_id = $2', [time_day_starts, req.params.id], (err, result) => {
+            if (err) {
+                console.log('Error updating user settings.', err);
                 res.status(400).send('failed');
             } else {
                 // send response
