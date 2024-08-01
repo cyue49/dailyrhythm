@@ -3,6 +3,9 @@ const cors = require('cors');
 const pool = require('./dbconfig');
 const users = require('./routes/users')
 const auth = require('./routes/auth')
+const categories = require('./routes/categories')
+const custom_habits = require('./routes/custom_habits')
+const custom_habits_checkins = require('./routes/custom_habits_checkins')
 
 const app = express();
 
@@ -19,6 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 // routes
 app.use('/api/users', users);
 app.use('/api/auth', auth);
+app.use('/api/categories', categories);
+app.use('/api/custom_habits', custom_habits);
+app.use('/api/custom_habits_checkins', custom_habits_checkins);
 
 // host and port
 const hostname = '127.0.0.1';
