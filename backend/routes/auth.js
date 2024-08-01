@@ -8,7 +8,7 @@ const { compare } = require('../modules/password');
 
 // ============================================= POST =============================================
 // validate whether password is correct for user with email
-router.post('/', async (req, res) => {
+router.post('/signin', async (req, res) => {
     // input validation
     const { error } = validateAuth(req.body);
     if (error) {
@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
                             const token = jwt.sign(payload, jwtSecretKey, { expiresIn: '24h'});
 
                             // send response
-                            res.status(200).header('X-Auth-Token', token).send({ user_id: result.rows[0].user_id });
+                            res.status(200).header('X-Auth-Token', token).send('success');
                         } else {
                             res.status(400).send('failed');
                         }

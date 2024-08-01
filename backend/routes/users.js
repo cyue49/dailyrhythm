@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const pool = require('../dbconfig');
 const { validateUser } = require('../validations/users');
 const { hash } = require('../modules/password');
+const auth = require('../middlewares/auth')
 
 // ============================================= GET =============================================
 // get all users
@@ -26,11 +27,11 @@ router.get('/', async (req, res) => {
     }
 });
 
-// get a specific user by id
-router.get('/id/:id', async (req, res) => {
+// get the current user
+router.get('/me', auth, async (req, res) => {
     try {
         // query to database
-        pool.query('SELECT * FROM users WHERE user_id = $1', [req.params.id], (err, result) => {
+        pool.query('SELECT * FROM users WHERE user_id = $1', [req.user_id], (err, result) => {
             if (err) {
                 console.log('Error executing query.', err);
                 res.status(400).send('failed');
