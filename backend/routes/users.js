@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
 const pool = require('../dbconfig');
-const { validateNew, validateUpdate } = require('../validations/users');
+const { validateUser } = require('../validations/users');
 const { hash } = require('../modules/password');
 
 // ============================================= GET =============================================
@@ -130,7 +130,7 @@ router.get('/id/:id/settings', async (req, res) => {
 // create a new user
 router.post('/', async (req, res) => {
     // input validation 
-    const { error } = validateNew(req.body);
+    const { error } = validateUser(req.body, 'new');
     if (error) {
         console.log(error.details[0].message);
         return res.status(400).send('failed');
@@ -182,7 +182,7 @@ router.post('/', async (req, res) => {
 // update a user's username
 router.put('/id/:id/username', async (req, res) => {
     // input validation
-    const { error } = validateUpdate(req.body, 'username')
+    const { error } = validateUser(req.body, 'username')
     if (error) {
         console.log(error.details[0].message);
         return res.status(400).send('failed');
@@ -211,7 +211,7 @@ router.put('/id/:id/username', async (req, res) => {
 // update a user's profile image url
 router.put('/id/:id/imageurl', async (req, res) => {
     // input validation
-    const { error } = validateUpdate(req.body, 'imageurl')
+    const { error } = validateUser(req.body, 'imageurl')
     if (error) {
         console.log(error.details[0].message);
         return res.status(400).send('failed');
@@ -240,7 +240,7 @@ router.put('/id/:id/imageurl', async (req, res) => {
 // update a user's email
 router.put('/id/:id/email', async (req, res) => {
     // input validation
-    const { error } = validateUpdate(req.body, 'email')
+    const { error } = validateUser(req.body, 'email')
     if (error) {
         console.log(error.details[0].message);
         return res.status(400).send('failed');
@@ -269,7 +269,7 @@ router.put('/id/:id/email', async (req, res) => {
 // update a user's password
 router.put('/id/:id/password', async (req, res) => {
     // input validation
-    const { error } = validateUpdate(req.body, 'password')
+    const { error } = validateUser(req.body, 'password')
     if (error) {
         console.log(error.details[0].message);
         return res.status(400).send('failed');
@@ -298,7 +298,7 @@ router.put('/id/:id/password', async (req, res) => {
 // update a user's is verified
 router.put('/id/:id/verified', async (req, res) => {
     // input validation
-    const { error } = validateUpdate(req.body, 'verified')
+    const { error } = validateUser(req.body, 'verified')
     if (error) {
         console.log(error.details[0].message);
         return res.status(400).send('failed');
@@ -327,7 +327,7 @@ router.put('/id/:id/verified', async (req, res) => {
 // update the app theme in user settings
 router.put('/id/:id/theme', async (req, res) => {
     // input validation
-    const { error } = validateUpdate(req.body, 'theme')
+    const { error } = validateUser(req.body, 'theme')
     if (error) {
         console.log(error.details[0].message);
         return res.status(400).send('failed');
@@ -356,7 +356,7 @@ router.put('/id/:id/theme', async (req, res) => {
 // update the time the day starts in user settings
 router.put('/id/:id/timedaystarts', async (req, res) => {
     // input validation
-    const { error } = validateUpdate(req.body, 'time')
+    const { error } = validateUser(req.body, 'time')
     if (error) {
         console.log(error.details[0].message);
         return res.status(400).send('failed');

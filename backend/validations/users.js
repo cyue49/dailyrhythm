@@ -12,19 +12,14 @@ const image_url = Joi.string();
 const theme = Joi.string();
 const time_day_starts = Joi.string().pattern(/^([0-9]{2})\:([0-9]{2})\:([0-9]{2})$/);
 
-// for creating user
-function validateNewUser(user) {
-    const userSchema = Joi.object().keys({
+// validation
+function validateUser(user, option) {
+    const newUserSchema = Joi.object().keys({
         email: email.required(),
         username: username.required(),
         user_password: user_password.required()
     });
 
-    return userSchema.validate(user);
-}
-
-// for updating user
-function validateUpdateUser(user, field) {
     const updateUsernameSchema = Joi.object().keys({
         username: username.required()
     });
@@ -53,7 +48,9 @@ function validateUpdateUser(user, field) {
         time_day_starts: time_day_starts.required()
     });
 
-    switch (field) {
+    switch (option) {
+        case 'new':
+            return newUserSchema.validate(user);
         case 'username':
             return updateUsernameSchema.validate(user);
         case 'email':
@@ -69,9 +66,8 @@ function validateUpdateUser(user, field) {
         case 'time':
             return updateDayStartTimeSchema.validate(user);
         default:
-            throw new Error("Error: invalid field");
+            throw new Error("Error: invalid option");
     }
 }
 
-exports.validateNew = validateNewUser;
-exports.validateUpdate = validateUpdateUser;
+exports.validateUser = validateUser;
