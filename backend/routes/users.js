@@ -5,7 +5,7 @@ const router = express.Router();
 const crypto = require('crypto');
 const pool = require('../dbconfig');
 const { validateUser } = require('../validations/users');
-const { hash } = require('../modules/password');
+const { hash, compare } = require('../modules/password');
 const auth = require('../middlewares/auth')
 
 // ============================================= GET =============================================
@@ -69,7 +69,7 @@ router.post('/signup', async (req, res) => {
         const { username } = req.body;
         const { user_password } = req.body;
         const created_on = new Date();
-        const hashed_password = await hash(user_password); 
+        const hashed_password = await hash(user_password);
 
         // create and insert new user into db
         pool.query('INSERT INTO users(user_id, email, username, user_password, created_on) VALUES ($1, $2, $3, $4, $5)', [user_id, email, username, hashed_password, created_on],
@@ -91,7 +91,7 @@ router.post('/signup', async (req, res) => {
                                 // generate jwt token
                                 const payload = { user_id: user_id }
                                 const jwtSecretKey = config.get('App.jwtPrivateKey');
-                                const token = jwt.sign(payload, jwtSecretKey, { expiresIn: '24h'});
+                                const token = jwt.sign(payload, jwtSecretKey, { expiresIn: '24h' });
 
                                 // send response
                                 res.status(200).header('X-Auth-Token', token).send('success');
@@ -204,20 +204,53 @@ router.put('/me/edit/password', auth, async (req, res) => {
     }
 
     try {
-        // hash password
-        const { user_password } = req.body;
-        const hashed_password = await hash(user_password); 
+        // old & new passwords 
+        const { old_password } = req.body;
+        const { new_password } = req.body;
 
-        // update in the database
-        pool.query('UPDATE users SET user_password = $1 WHERE user_id = $2', [hashed_password, req.user_id], (err, result) => {
+        // verify if old password is valid
+        pool.query('SELECT user_password FROM users WHERE user_id = $1', [req.user_id], (err, result) => {
             if (err) {
-                console.log('Error updating password.', err);
+                console.log('Error executing query.', err);
                 res.status(400).send('failed');
             } else {
-                // send response
-                res.status(200).send('success');
+                // hashed password from db
+                const hashed_password = result.rows[0].user_password;
+
+                // compare old passwords 
+                compare(old_password, hashed_password)
+                    .then((value) => {
+                        if (value) {
+                            // hash new password
+                            hash(new_password)
+                                .then((value2) => {
+                                    const new_hashed_password = value2;
+
+                                    // update in the database
+                                    pool.query('UPDATE users SET user_password = $1 WHERE user_id = $2', [new_hashed_password, req.user_id], (err, result) => {
+                                        if (err) {
+                                            console.log('Error updating password.', err);
+                                            res.status(400).send('failed');
+                                        } else {
+                                            // send response
+                                            res.status(200).send('success');
+                                        }
+                                    })
+                                })
+                                .catch((error2) => {
+                                    console.log(error2.message);
+                                    res.status(400).send('failed');
+                                })
+                        } else {
+                            res.status(400).send('wrong password');
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error.message);
+                        res.status(400).send('failed');
+                    });
             }
-        })
+        });
     } catch (e) {
         console.log(e.message);
         res.status(400).send('failed');

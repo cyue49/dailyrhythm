@@ -28,7 +28,8 @@ function validateUser(user, option) {
     });
 
     const updatePasswordSchema = Joi.object().keys({
-        user_password: user_password.required()
+        new_password: user_password.required(), 
+        old_password: user_password.required()
     });
 
     const updateVerifiedSchema = Joi.object().keys({
