@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+const config = require('config');
 const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
@@ -7,31 +9,11 @@ const { hash } = require('../modules/password');
 const auth = require('../middlewares/auth')
 
 // ============================================= GET =============================================
-// get all users
-router.get('/', async (req, res) => {
-    try {
-        // query to database
-        pool.query('SELECT * FROM users', (err, result) => {
-            if (err) {
-                console.log('Error executing query.', err);
-                res.status(400).send('failed');
-            } else {
-                // send response
-                console.log(result.rows);
-                res.status(200).send(result.rows);
-            }
-        })
-    } catch (e) {
-        console.log(e.message);
-        res.status(400).send('failed');
-    }
-});
-
 // get the current user
 router.get('/me', auth, async (req, res) => {
     try {
         // query to database
-        pool.query('SELECT * FROM users WHERE user_id = $1', [req.user_id], (err, result) => {
+        pool.query('SELECT email, username, is_verified, image_url, created_on FROM users WHERE user_id = $1', [req.user_id], (err, result) => {
             if (err) {
                 console.log('Error executing query.', err);
                 res.status(400).send('failed');
@@ -39,66 +21,6 @@ router.get('/me', auth, async (req, res) => {
                 // send response
                 console.log(result.rows[0]);
                 res.status(200).send(result.rows[0]);
-            }
-        })
-    } catch (e) {
-        console.log(e.message);
-        res.status(400).send('failed');
-    }
-});
-
-// get a specific user by email
-router.get('/email/:email', async (req, res) => {
-    try {
-        // query to database
-        pool.query('SELECT * FROM users WHERE email = $1', [req.params.email], (err, result) => {
-            if (err) {
-                console.log('Error executing query.', err);
-                res.status(400).send('failed');
-            } else {
-                // send response
-                console.log(result.rows[0]);
-                res.status(200).send(result.rows[0]);
-            }
-        })
-    } catch (e) {
-        console.log(e.message);
-        res.status(400).send('failed');
-    }
-});
-
-// get all verified users
-router.get('/verified', async (req, res) => {
-    try {
-        // query to database
-        pool.query('SELECT * FROM users WHERE is_verified = true', (err, result) => {
-            if (err) {
-                console.log('Error executing query.', err);
-                res.status(400).send('failed');
-            } else {
-                // send response
-                console.log(result.rows);
-                res.status(200).send(result.rows);
-            }
-        })
-    } catch (e) {
-        console.log(e.message);
-        res.status(400).send('failed');
-    }
-});
-
-// get all non-verified users
-router.get('/notverified', async (req, res) => {
-    try {
-        // query to database
-        pool.query('SELECT * FROM users WHERE is_verified = false', (err, result) => {
-            if (err) {
-                console.log('Error executing query.', err);
-                res.status(400).send('failed');
-            } else {
-                // send response
-                console.log(result.rows);
-                res.status(200).send(result.rows);
             }
         })
     } catch (e) {
@@ -108,10 +30,10 @@ router.get('/notverified', async (req, res) => {
 });
 
 // get a user's settings
-router.get('/id/:id/settings', async (req, res) => {
+router.get('/me/settings', auth, async (req, res) => {
     try {
         // query to database
-        pool.query('SELECT * FROM settings WHERE user_id = $1', [req.params.id], (err, result) => {
+        pool.query('SELECT theme, time_day_starts FROM settings WHERE user_id = $1', [req.user_id], (err, result) => {
             if (err) {
                 console.log('Error executing query.', err);
                 res.status(400).send('failed');
@@ -129,7 +51,7 @@ router.get('/id/:id/settings', async (req, res) => {
 
 // ============================================= POST =============================================
 // create a new user
-router.post('/', async (req, res) => {
+router.post('/signup', async (req, res) => {
     // input validation 
     const { error } = validateUser(req.body, 'new');
     if (error) {
@@ -166,8 +88,13 @@ router.post('/', async (req, res) => {
                                 console.log('Error creating new settings.', err);
                                 res.status(400).send('failed');
                             } else {
+                                // generate jwt token
+                                const payload = { user_id: user_id }
+                                const jwtSecretKey = config.get('App.jwtPrivateKey');
+                                const token = jwt.sign(payload, jwtSecretKey, { expiresIn: '24h'});
+
                                 // send response
-                                res.status(200).send('success');
+                                res.status(200).header('X-Auth-Token', token).send('success');
                             }
                         }
                     );
@@ -181,7 +108,7 @@ router.post('/', async (req, res) => {
 
 // ============================================= PUT =============================================
 // update a user's username
-router.put('/id/:id/username', async (req, res) => {
+router.put('/me/edit/username', auth, async (req, res) => {
     // input validation
     const { error } = validateUser(req.body, 'username')
     if (error) {
@@ -194,7 +121,7 @@ router.put('/id/:id/username', async (req, res) => {
         const { username } = req.body;
 
         // update in the database
-        pool.query('UPDATE users SET username = $1 WHERE user_id = $2', [username, req.params.id], (err, result) => {
+        pool.query('UPDATE users SET username = $1 WHERE user_id = $2', [username, req.user_id], (err, result) => {
             if (err) {
                 console.log('Error updating username.', err);
                 res.status(400).send('failed');
@@ -210,7 +137,7 @@ router.put('/id/:id/username', async (req, res) => {
 });
 
 // update a user's profile image url
-router.put('/id/:id/imageurl', async (req, res) => {
+router.put('/me/edit/imageurl', auth, async (req, res) => {
     // input validation
     const { error } = validateUser(req.body, 'imageurl')
     if (error) {
@@ -223,7 +150,7 @@ router.put('/id/:id/imageurl', async (req, res) => {
         const { image_url } = req.body;
 
         // update in the database
-        pool.query('UPDATE users SET image_url = $1 WHERE user_id = $2', [image_url, req.params.id], (err, result) => {
+        pool.query('UPDATE users SET image_url = $1 WHERE user_id = $2', [image_url, req.user_id], (err, result) => {
             if (err) {
                 console.log('Error updating image url.', err);
                 res.status(400).send('failed');
@@ -239,7 +166,7 @@ router.put('/id/:id/imageurl', async (req, res) => {
 });
 
 // update a user's email
-router.put('/id/:id/email', async (req, res) => {
+router.put('/me/edit/email', auth, async (req, res) => {
     // input validation
     const { error } = validateUser(req.body, 'email')
     if (error) {
@@ -252,7 +179,7 @@ router.put('/id/:id/email', async (req, res) => {
         const { email } = req.body;
 
         // update in the database
-        pool.query('UPDATE users SET email = $1 WHERE user_id = $2', [email, req.params.id], (err, result) => {
+        pool.query('UPDATE users SET email = $1 WHERE user_id = $2', [email, req.user_id], (err, result) => {
             if (err) {
                 console.log('Error updating email.', err);
                 res.status(400).send('failed');
@@ -268,7 +195,7 @@ router.put('/id/:id/email', async (req, res) => {
 });
 
 // update a user's password
-router.put('/id/:id/password', async (req, res) => {
+router.put('/me/edit/password', auth, async (req, res) => {
     // input validation
     const { error } = validateUser(req.body, 'password')
     if (error) {
@@ -277,11 +204,12 @@ router.put('/id/:id/password', async (req, res) => {
     }
 
     try {
-        // value to update
+        // hash password
         const { user_password } = req.body;
+        const hashed_password = await hash(user_password); 
 
         // update in the database
-        pool.query('UPDATE users SET user_password = $1 WHERE user_id = $2', [user_password, req.params.id], (err, result) => {
+        pool.query('UPDATE users SET user_password = $1 WHERE user_id = $2', [hashed_password, req.user_id], (err, result) => {
             if (err) {
                 console.log('Error updating password.', err);
                 res.status(400).send('failed');
@@ -297,7 +225,7 @@ router.put('/id/:id/password', async (req, res) => {
 });
 
 // update a user's is verified
-router.put('/id/:id/verified', async (req, res) => {
+router.put('/me/edit/verified', auth, async (req, res) => {
     // input validation
     const { error } = validateUser(req.body, 'verified')
     if (error) {
@@ -310,7 +238,7 @@ router.put('/id/:id/verified', async (req, res) => {
         const { is_verified } = req.body;
 
         // update in the database
-        pool.query('UPDATE users SET is_verified = $1 WHERE user_id = $2', [is_verified, req.params.id], (err, result) => {
+        pool.query('UPDATE users SET is_verified = $1 WHERE user_id = $2', [is_verified, req.user_id], (err, result) => {
             if (err) {
                 console.log('Error updating verified status.', err);
                 res.status(400).send('failed');
@@ -326,7 +254,7 @@ router.put('/id/:id/verified', async (req, res) => {
 });
 
 // update the app theme in user settings
-router.put('/id/:id/theme', async (req, res) => {
+router.put('/me/edit/theme', auth, async (req, res) => {
     // input validation
     const { error } = validateUser(req.body, 'theme')
     if (error) {
@@ -339,7 +267,7 @@ router.put('/id/:id/theme', async (req, res) => {
         const { theme } = req.body;
 
         // update in the database
-        pool.query('UPDATE settings SET theme = $1 WHERE user_id = $2', [theme, req.params.id], (err, result) => {
+        pool.query('UPDATE settings SET theme = $1 WHERE user_id = $2', [theme, req.user_id], (err, result) => {
             if (err) {
                 console.log('Error updating user settings.', err);
                 res.status(400).send('failed');
@@ -355,7 +283,7 @@ router.put('/id/:id/theme', async (req, res) => {
 });
 
 // update the time the day starts in user settings
-router.put('/id/:id/timedaystarts', async (req, res) => {
+router.put('/me/edit/timedaystarts', auth, async (req, res) => {
     // input validation
     const { error } = validateUser(req.body, 'time')
     if (error) {
@@ -368,7 +296,7 @@ router.put('/id/:id/timedaystarts', async (req, res) => {
         const { time_day_starts } = req.body;
 
         // update in the database
-        pool.query('UPDATE settings SET time_day_starts = $1 WHERE user_id = $2', [time_day_starts, req.params.id], (err, result) => {
+        pool.query('UPDATE settings SET time_day_starts = $1 WHERE user_id = $2', [time_day_starts, req.user_id], (err, result) => {
             if (err) {
                 console.log('Error updating user settings.', err);
                 res.status(400).send('failed');
