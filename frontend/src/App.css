@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    /* Common positions */
+    .center-of-div {
+        @apply flex justify-center items-center;
+    }
+
+    /* Main buttons */
+    .primary-green-button {
+        @apply bg-appGreen text-appWhite border-appGreen border-solid border-2 rounded-full px-3 py-2 font-semibold
+    }
+
+    .secondary-green-button {
+        @apply bg-appWhite text-appGreen border-appGreen border-solid border-2 rounded-full px-3 py-2 font-semibold
+    }
+
+    .primary-red-button {
+        @apply bg-appRed text-appWhite border-appRed border-solid border-2 rounded-full px-3 py-2 font-semibold
+    }
+
+    .secondary-red-button {
+        @apply bg-appWhite text-appRed border-appRed border-solid border-2 rounded-full px-3 py-2 font-semibold
+    }
+
+    .primary-gray-button {
+        @apply bg-appGray-1 text-appBlack border-appGray-2 border-solid border-2 rounded-full px-3 py-2 font-semibold
+    }
+}
