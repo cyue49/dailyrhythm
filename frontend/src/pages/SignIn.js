@@ -19,7 +19,7 @@ const SignIn = () => {
                     <input className='primary-green-button hover:secondary-green-button mt-8' type="submit" value="Sign In" />
                 </form>
                 <div className='text-sm text-center mt-4 mb-8 hover:underline hover:text-appGreen'>
-                    <Link to={'/signup'}>Don't have an account? Sign up instead!</Link>
+                    <Link to={'/signup'} className='underline underline-offset-2'>Don't have an account? Sign up instead!</Link>
                 </div>
 
             </div>
