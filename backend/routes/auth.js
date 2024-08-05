@@ -6,6 +6,12 @@ const pool = require('../dbconfig');
 const { validateAuth } = require('../validations/auth');
 const { compare } = require('../modules/password');
 
+// ============================================= GET =============================================
+// clear cookies and logout
+router.get('/signout', async (req, res) => {
+    res.status(200).clearCookie('token').send('success');
+});
+
 // ============================================= POST =============================================
 // validate whether password is correct for user with email
 router.post('/signin', async (req, res) => {
@@ -39,8 +45,8 @@ router.post('/signin', async (req, res) => {
                             const jwtSecretKey = config.get('App.jwtPrivateKey');
                             const token = jwt.sign(payload, jwtSecretKey, { expiresIn: '24h'});
 
-                            // send response
-                            res.status(200).header('X-Auth-Token', token).send('success');
+                            // save token in cookies and send response
+                            res.status(200).cookie('token', token, {httpOnly: true, secure: false, maxAge: 3600000 }).send('success');
                         } else {
                             res.status(400).send('failed');
                         }

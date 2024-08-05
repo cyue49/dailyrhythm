@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 
 function auth(req, res, next) {
-    // get token from request header
-    const token = req.header('X-Auth-Token');
+    // get token from request cookies
+    const token = req.cookies.token || '';
 
     // if no token provided in header, return with access denied
     if (!token) return res.status(401).send('Access denied. No token provided.');

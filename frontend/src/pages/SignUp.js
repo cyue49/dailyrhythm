@@ -21,7 +21,7 @@ const SignUp = () => {
                     <input className='form-text-input' type='password' name='user_password' />
                     <label className='form-label'>Confirm Password: </label>
                     <input className='form-text-input' type='password' name='confirm_password' />
-                    <input className='primary-green-button hover:secondary-green-button mt-8' type="submit" value="Sign In" />
+                    <input className='primary-green-button hover:secondary-green-button mt-8' type="submit" value="Sign Up" />
                 </form>
                 <div className='text-sm text-center mt-4 mb-8 hover:underline hover:text-appGreen'>
                     <Link to={'/signin'} className='underline underline-offset-2'>Already have an account? Sign in instead!</Link>
