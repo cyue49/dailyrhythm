@@ -94,7 +94,7 @@ router.post('/signup', async (req, res) => {
                                 const token = jwt.sign(payload, jwtSecretKey, { expiresIn: '24h' });
 
                                 // send response
-                                res.status(200).header('X-Auth-Token', token).send('success');
+                                res.status(200).cookie('token', token, { httpOnly: true, secure: false, maxAge: 86400000 }).send('success');
                             }
                         }
                     );

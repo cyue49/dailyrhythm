@@ -43,10 +43,10 @@ router.post('/signin', async (req, res) => {
                             // generate jwt token
                             const payload = { user_id: result.rows[0].user_id }
                             const jwtSecretKey = config.get('App.jwtPrivateKey');
-                            const token = jwt.sign(payload, jwtSecretKey, { expiresIn: '24h'});
+                            const token = jwt.sign(payload, jwtSecretKey, { expiresIn: '24h' });
 
                             // save token in cookies and send response
-                            res.status(200).cookie('token', token, {httpOnly: true, secure: false, maxAge: 3600000 }).send('success');
+                            res.status(200).cookie('token', token, { httpOnly: true, secure: false, maxAge: 86400000 }).send('success');
                         } else {
                             res.status(400).send('failed');
                         }
