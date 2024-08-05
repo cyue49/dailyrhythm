@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Home = () => {
     return (
-        <div className='h-screen w-screen p-8 center-of-div flex-col gap-8 text-appBlack bg-appWhite'>
+        <div className='h-screen w-screen p-8 center-of-div flex-col gap-8 bg-appWhite'>
             <img
                 className='w-20 h-20'
                 src={require(`../assets/applogo.png`)}

@@ -2,7 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    html {
+        @apply text-appBlack bg-appWhite;
+        box-sizing: border-box;
+    }
+
+    body::-webkit-scrollbar {
+        display: none;
+    }
+}
+
 @layer components {
+
     /* Common positions */
     .center-of-div {
         @apply flex justify-center items-center;
@@ -10,31 +22,31 @@
 
     /* Main buttons */
     .primary-green-button {
-        @apply bg-appGreen text-appWhite border-appGreen border-solid border-2 rounded-full px-3 py-2 font-semibold;
+        @apply bg-appGreen text-appWhite border-appGreen border-solid border-2 rounded-full px-3 py-2 font-semibold disabled:opacity-75;
     }
 
     .secondary-green-button {
-        @apply bg-appWhite text-appGreen border-appGreen border-solid border-2 rounded-full px-3 py-2 font-semibold;
+        @apply bg-appWhite text-appGreen border-appGreen border-solid border-2 rounded-full px-3 py-2 font-semibold disabled:opacity-75;
     }
 
     .primary-red-button {
-        @apply bg-appRed text-appWhite border-appRed border-solid border-2 rounded-full px-3 py-2 font-semibold;
+        @apply bg-appRed text-appWhite border-appRed border-solid border-2 rounded-full px-3 py-2 font-semibold disabled:opacity-75;
     }
 
     .secondary-red-button {
-        @apply bg-appWhite text-appRed border-appRed border-solid border-2 rounded-full px-3 py-2 font-semibold;
+        @apply bg-appWhite text-appRed border-appRed border-solid border-2 rounded-full px-3 py-2 font-semibold disabled:opacity-75;
     }
 
     .primary-gray-button {
-        @apply bg-appGray-1 text-appBlack border-appGray-2 border-solid border-2 rounded-full px-3 py-2 font-semibold;
+        @apply bg-appGray-3 text-appWhite border-appGray-3 border-solid border-2 rounded-full px-3 py-2 font-semibold disabled:opacity-75;
+    }
+
+    .secondary-gray-button {
+        @apply bg-appWhite text-appGray-3 border-appGray-3 border-solid border-2 rounded-full px-3 py-2 font-semibold disabled:opacity-75;
     }
 
     /* Froms */
     .form-text-input {
         @apply px-4 py-2 my-2 rounded-full bg-appWhite border-appGreen border-[1px] border-solid;
-    }
-
-    .form-label {
-        @apply mt-2;
     }
 }
