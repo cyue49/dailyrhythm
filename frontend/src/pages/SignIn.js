@@ -1,48 +1,42 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 const SignIn = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [form, setForm] = useState({ email: '', user_password: '' })
     const [validEmail, setValidEmail] = useState(false)
-    const [validForm, setValidForm] = useState(false)
+    const [validPassword, setValidPassword] = useState(false)
     const [generalErrorMessage, setGeneralErrorMessage] = useState('')
 
     const navigate = useNavigate()
 
-    const validateInputs = () => {
+    const validateInputs = useCallback(() => {
         // email regex
-        const emailRe = new RegExp(/^[\w\.\-]+@([\w\-]+\.)+[\w\-]{2,4}$/)
-        const emailMatch = emailRe.test(email)
+        const emailRe = new RegExp(/^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/)
 
-        // invalid email
-        if (!emailMatch) {
+        if (emailRe.test(form.email)){
+            setValidEmail(true)
+        } else {
             setValidEmail(false)
-            setValidForm(false)
         }
-
-        // invalid password
-        if (password === '') setValidForm(false)
-
-        // valid email && password
-        if (emailMatch && password !== '') {
-            setValidEmail(true)
-            setValidForm(true)
-        } 
-        
-        // valid email invalid password
-        if (emailMatch && password === '') { 
-            setValidEmail(true)
-        }
+        (form.user_password === '') ? setValidPassword(false) : setValidPassword(true)
 
         // set general message to empty string when user restarts typing
         setGeneralErrorMessage('')
-    }
+    }, [form])
 
     useEffect(() => {
         validateInputs()
-    }, [email, password]);
+    }, [validateInputs]);
 
+    // handle updating state when typing for each input field
+    const handleChange = (e) => {
+        setForm({
+            ...form,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    // handle submitting the form and sending a request to the server
     const handleSubmit = async (e) => {
         e.preventDefault();
         fetch('http://127.0.0.1:5000/api/auth/signin',
@@ -53,8 +47,8 @@ const SignIn = () => {
                 },
                 credentials: 'include',
                 body: JSON.stringify({
-                    email: email,
-                    user_password: password
+                    email: form.email,
+                    user_password: form.user_password
                 })
             }
         ).then((res) => {
@@ -85,13 +79,13 @@ const SignIn = () => {
 
                 <form className='flex flex-col gap-1' onSubmit={handleSubmit}>
                     <label htmlFor='email'>Email <span className='text-appRed'>*</span> : </label>
-                    <input className='form-text-input' type='text' name='email' id='email' autoComplete='on' autoCapitalize='off' onChange={(e) => { setEmail(e.target.value) }} />
-                    <div className={`text-appRed text-sm ${(email !== '' && !validEmail) ? '' : 'hidden'}`}>Invalid email.</div>
+                    <input className='form-text-input' type='text' name='email' id='email' autoComplete='on' autoCapitalize='off' onChange={handleChange} />
+                    <div className={`text-appRed text-sm ${(form.email !== '' && !validEmail) ? '' : 'hidden'}`}>Invalid email.</div>
 
                     <label htmlFor='user_password' className='mt-3'>Password <span className='text-appRed'>*</span> : </label>
-                    <input className='form-text-input' type='password' name='user_password' id='user_password' onChange={(e) => { setPassword(e.target.value) }} />
+                    <input className='form-text-input' type='password' name='user_password' id='user_password' onChange={handleChange} />
 
-                    <input className='mt-12 primary-green-button hover:secondary-green-button disabled:hover:primary-green-button disabled:cursor-not-allowed' type="submit" value="Sign In" disabled={!validForm} />
+                    <input className='mt-12 primary-green-button hover:secondary-green-button disabled:hover:primary-green-button disabled:cursor-not-allowed' type="submit" value="Sign In" disabled={!(validEmail && validPassword)} />
                 </form>
 
                 <div className='text-sm text-center mt-4 mb-8 hover:underline hover:text-appGreen'>
