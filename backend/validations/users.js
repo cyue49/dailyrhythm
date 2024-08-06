@@ -9,7 +9,7 @@ const image_url = Joi.string();
 
 // settings
 const theme = Joi.string();
-const time_day_starts = Joi.string().pattern(/^([0-9]{2})\:([0-9]{2})\:([0-9]{2})$/);
+const time_day_starts = Joi.string().pattern(/^([0-9]{2})\:([0-9]{2})$/);
 
 // validation
 function validateUser(user, option) {

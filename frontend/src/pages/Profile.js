@@ -1,8 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import TopBar from '../components/TopBar'
+import UserCard from '../components/profile/UserCard'
+import SettingsCard from '../components/profile/SettingsCard'
 
 const Profile = () => {
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({
+        email: '',
+        username: '',
+        is_verified: '',
+        image_url: '',
+        created_on: ''
+    })
     const navigate = useNavigate()
 
     const fetchOptions = {
@@ -39,10 +48,12 @@ const Profile = () => {
     }
 
     return (
-        <div>
-            <button onClick={handleSignOut}>Sign out</button>
-            <button onClick={getUserInfo}>Test</button>
-
+        <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
+            <div className='w-full max-w-5xl h-screen bg-appWhite lg:rounded-3xl overflow-y-hidden flex flex-col gap-3'>
+                <TopBar type={'title'} title={'User Profile'} />
+                <UserCard user={user} />
+                <SettingsCard />
+            </div>
         </div>
     )
 }
