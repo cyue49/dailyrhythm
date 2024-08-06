@@ -33,7 +33,12 @@ router.post('/signin', async (req, res) => {
                 console.log('Error executing query.', err);
                 res.status(400).send('failed');
             } else {
-                // hashed password from db
+                // if result array empty (non-existing email)
+                if (result.rowCount === 0) {
+                    return res.status(400).send('failed');
+                }
+
+                // get hashed password from db
                 const hashed_password = result.rows[0].user_password;
 
                 // compare passwords and send response

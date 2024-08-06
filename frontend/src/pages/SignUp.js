@@ -53,16 +53,16 @@ const SignUp = () => {
                         <label htmlFor='email'>Email <span className='text-appRed'>*</span> : </label>
                         <input className='form-text-input' type='text' name='email' id='email' autoComplete='on' autoCapitalize='off' onChange={(e) => { setEmail(e.target.value) }} />
 
-                        <label htmlFor='username'>Username <span className='text-appRed'>*</span> : </label>
+                        <label htmlFor='username' className='mt-3'>Username <span className='text-appRed'>*</span> : </label>
                         <input className='form-text-input' type='text' name='username' id='username' autoComplete='on' autoCapitalize='off' onChange={(e) => { setUsername(e.target.value) }} />
 
-                        <label htmlFor='user_password'>Password <span className='text-appRed'>*</span> : </label>
+                        <label htmlFor='user_password' className='mt-3'>Password <span className='text-appRed'>*</span> : </label>
                         <input className='form-text-input' type='password' name='user_password' id='user_password' onChange={(e) => { setPassword(e.target.value) }} />
 
-                        <label htmlFor='confirm_password'>Confirm Password <span className='text-appRed'>*</span> : </label>
+                        <label htmlFor='confirm_password' className='mt-3'>Confirm Password <span className='text-appRed'>*</span> : </label>
                         <input className='form-text-input' type='password' name='confirm_password' id='confirm_password' onChange={(e) => { setConfirmPassowrd(e.target.value) }} />
 
-                        <input className='primary-green-button hover:secondary-green-button disabled:hover:primary-green-button mt-8 disabled:cursor-not-allowed' type="submit" value="Sign Up" disabled={!validForm} />
+                        <input className='primary-green-button hover:secondary-green-button disabled:hover:primary-green-button mt-12 disabled:cursor-not-allowed' type="submit" value="Sign Up" disabled={!validForm} />
                     </form>
 
                     <div className='text-sm text-center mt-4 mb-8 hover:underline hover:text-appGreen'>
