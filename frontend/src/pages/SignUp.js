@@ -8,6 +8,33 @@ const SignUp = () => {
     const [confirmPassowrd, setConfirmPassowrd] = useState('')
     const [validForm, setValidForm] = useState(false)
 
+    const navigate = useNavigate()
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        fetch('http://127.0.0.1:5000/api/users/signup',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    email: email,
+                    username: username,
+                    user_password: password
+                })
+            }
+        ).then((res) => {
+            if (res.status === 200 && res.ok) {
+                // redirects to profile page
+                navigate('/profile')
+            }
+        }).catch((e) => {
+            console.log(e.message)
+        })
+    }
+
     return (
         <div>
             <div className='h-screen w-screen min-w-screen min-h-screen center-of-div bg-appGreen'>
@@ -22,7 +49,7 @@ const SignUp = () => {
                     
                     <p className='text-2xl font-bold font-sans my-6'>Sign Up</p>
 
-                    <form className='flex flex-col gap-1'>
+                    <form className='flex flex-col gap-1' onSubmit={handleSubmit}>
                         <label htmlFor='email'>Email <span className='text-appRed'>*</span> : </label>
                         <input className='form-text-input' type='text' name='email' id='email' autoComplete='on' autoCapitalize='off' onChange={(e) => { setEmail(e.target.value) }} />
 
