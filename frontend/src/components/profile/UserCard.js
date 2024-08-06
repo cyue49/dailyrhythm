@@ -1,7 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 
 const UserCard = ({ user }) => {
     return (
