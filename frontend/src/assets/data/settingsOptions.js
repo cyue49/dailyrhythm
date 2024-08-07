@@ -1,5 +1,5 @@
 export const themeOptions = [
-    { value: 'default', label: 'Dailyrhythm default' },
+    { value: 'default', label: 'Default' },
     { value: 'light', label: 'Light' },
     { value: 'dark', label: 'Dark' }
 ]

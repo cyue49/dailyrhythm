@@ -194,6 +194,36 @@ router.put('/me/edit/email', auth, async (req, res) => {
     }
 });
 
+// update a user's username and email
+router.put('/me/edit/general', auth, async (req, res) => {
+    // input validation
+    const { error } = validateUser(req.body, 'general')
+    if (error) {
+        console.log(error.details[0].message);
+        return res.status(400).send('failed');
+    }
+
+    try {
+        // value to update
+        const { username } = req.body;
+        const { email } = req.body;
+
+        // update in the database
+        pool.query('UPDATE users SET username = $1, email = $2 WHERE user_id = $3', [username, email, req.user_id], (err, result) => {
+            if (err) {
+                console.log('Error updating user info.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                res.status(200).send('success');
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send('failed');
+    }
+});
+
 // update a user's password
 router.put('/me/edit/password', auth, async (req, res) => {
     // input validation

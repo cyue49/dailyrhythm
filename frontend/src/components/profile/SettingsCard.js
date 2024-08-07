@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import Select from 'react-select'
@@ -6,8 +6,28 @@ import { themeOptions, timeOptions } from '../../assets/data/settingsOptions'
 
 const SettingsCard = () => {
     const [isEdit, setIsEdit] = useState(false)
-    const [appTheme, setAppTheme] = useState('')
-    const [dayStartTime, setDayStartTime] = useState('')
+    const [appTheme, setAppTheme] = useState('default')
+    const [dayStartTime, setDayStartTime] = useState('00:00')
+
+    // useEffect(() => {
+    //     const getUserSettings = async () => {
+    //         fetch('http://127.0.0.1:5000/api/users/me/settings', { credentials: 'include' })
+    //             .then((res) => {
+    //                 if (res.status === 200 && res.ok) {
+    //                     res.json()
+    //                         .then((data) => {
+    //                             setAppTheme(data.theme)
+    //                             setDayStartTime(data.time_day_starts)
+    //                         })
+    //                 }
+    //             })
+    //             .catch((e) => {
+    //                 console.log(e.message)
+    //             })
+    //     }
+
+    //     getUserSettings();
+    // }, [])
 
     const selectStyles = {
         control: (baseStyles, state) => ({
@@ -30,8 +50,6 @@ const SettingsCard = () => {
         } else {
             setIsEdit(true)
         }
-        console.log(appTheme)
-        console.log(dayStartTime)
     }
 
     return (
@@ -45,7 +63,7 @@ const SettingsCard = () => {
                 <div className='font-bold'>App theme:</div>
                 <Select
                     styles={selectStyles}
-                    defaultValue={themeOptions[0]}
+                    defaultValue={themeOptions.filter(item => (item.value === appTheme))}
                     isClearable={false}
                     isLoading={false}
                     isRtl={false}
@@ -57,7 +75,7 @@ const SettingsCard = () => {
                 <div className='font-bold'>Start time for a day:</div>
                 <Select
                     styles={selectStyles}
-                    defaultValue={timeOptions[0]}
+                    defaultValue={timeOptions.filter(item => (item.value === dayStartTime))}
                     isClearable={false}
                     isLoading={false}
                     isRtl={false}

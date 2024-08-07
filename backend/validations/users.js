@@ -27,8 +27,13 @@ function validateUser(user, option) {
         email: email.required()
     });
 
+    const updateUserGeneral = Joi.object().keys({
+        username: username.required(),
+        email: email.required()
+    });
+
     const updatePasswordSchema = Joi.object().keys({
-        new_password: user_password.required(), 
+        new_password: user_password.required(),
         old_password: user_password.required()
     });
 
@@ -65,6 +70,8 @@ function validateUser(user, option) {
             return updateThemeSchema.validate(user);
         case 'time':
             return updateDayStartTimeSchema.validate(user);
+        case 'general':
+            return updateUserGeneral.validate(user);
         default:
             throw new Error("Error: invalid option");
     }

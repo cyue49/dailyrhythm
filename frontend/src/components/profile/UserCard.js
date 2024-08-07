@@ -63,10 +63,28 @@ const UserCard = () => {
 
     const handleEdit = () => {
         if (isEdit) {
-            
-            // handle request to db
-            console.log('saving to db')
-            setIsEdit(false)
+            fetch(' http://127.0.0.1:5000/api/users/me/edit/general', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    username: form.username,
+                    email: form.email
+                })
+            })
+                .then((res) => {
+                    if (res.status === 200 && res.ok) {
+                        console.log('User info updated successfully')
+                        setIsEdit(false)
+                    } else {
+                        console.log('Error updating user info')
+                    }
+                })
+                .catch((e) => {
+                    console.log(e.message)
+                })
         } else {
             setIsEdit(true)
         }
