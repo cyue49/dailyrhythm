@@ -2,28 +2,53 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faPenToSquare, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 
-const UserCard = ({ user }) => {
+const UserCard = () => {
     const [isEdit, setIsEdit] = useState(false)
-    const [form, setForm] = useState({ username: 'Chen Yue', email: 'yuechen049@gmail.com' })
-    const [validEmail, setValidEmail] = useState(false)
-    const [validUsername, setValidUsername] = useState(false)
+    const [form, setForm] = useState({ username: '', email: '' })
+    const [validEmail, setValidEmail] = useState(true)
+    const [validUsername, setValidUsername] = useState(true)
+
+    useEffect(() => {
+        const getUserInfo = async () => {
+            fetch('http://127.0.0.1:5000/api/users/me', { credentials: 'include' })
+                .then((res) => {
+                    if (res.status === 200 && res.ok) {
+                        res.json()
+                            .then((data) => {
+                                setForm({
+                                    username: data.username,
+                                    email: data.email
+                                })
+                            })
+                    }
+                })
+                .catch((e) => {
+                    console.log(e.message)
+                })
+        }
+
+        getUserInfo();
+    }, [])
 
     const validateInputs = useCallback(() => {
-        // validations & regex
-        const emailRe = new RegExp(/^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/)
-        const usernameRe = new RegExp(/^[\w\s-]{1,50}$/)
+        if (isEdit) {
+            // validations & regex
+            const emailRe = new RegExp(/^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/)
+            const usernameRe = new RegExp(/^[\w\s-]{1,50}$/)
 
-        if (emailRe.test(form.email)) {
-            setValidEmail(true)
-        } else {
-            setValidEmail(false)
+            if (emailRe.test(form.email)) {
+                setValidEmail(true)
+            } else {
+                setValidEmail(false)
+            }
+            if (usernameRe.test(form.username)) {
+                setValidUsername(true)
+            } else {
+                setValidUsername(false)
+            }
         }
-        if (usernameRe.test(form.username)) {
-            setValidUsername(true)
-        } else {
-            setValidUsername(false)
-        }
-    }, [form]);
+
+    }, [form, isEdit]);
 
     useEffect(() => {
         validateInputs()
@@ -38,6 +63,7 @@ const UserCard = ({ user }) => {
 
     const handleEdit = () => {
         if (isEdit) {
+            
             // handle request to db
             console.log('saving to db')
             setIsEdit(false)
@@ -54,7 +80,7 @@ const UserCard = ({ user }) => {
                 alt="default profile"
             />
             <div className='flex flex-col gap-3 truncate w-full'>
-                <div className='flex flex-row gap-2 items-center justify-between'>
+                <div className='flex flex-row gap-2 justify-between items-start'>
                     {!isEdit ?
                         <span className='font-bold text-2xl truncate'>{form.username}</span> :
                         <div className='flex flex-col w-10/12'>
@@ -64,7 +90,7 @@ const UserCard = ({ user }) => {
                         </div>
 
                     }
-                    <FontAwesomeIcon icon={isEdit ? faCircleCheck : faPenToSquare} className='text-2xl text-appGreen cursor-pointer' onClick={handleEdit} />
+                    <FontAwesomeIcon icon={isEdit ? faCircleCheck : faPenToSquare} className={`text-2xl text-appGreen cursor-pointer ${(isEdit && (!validEmail || !validUsername)) ? 'cursor-not-allowed opacity-70' : ''}`} onClick={handleEdit} />
                 </div>
 
                 <div>
