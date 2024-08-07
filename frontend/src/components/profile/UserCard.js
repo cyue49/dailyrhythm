@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faPenToSquare, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faPenToSquare, faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+const classNames = x => x;
 
 const UserCard = () => {
     const [isEdit, setIsEdit] = useState(false)
@@ -76,10 +79,10 @@ const UserCard = () => {
             })
                 .then((res) => {
                     if (res.status === 200 && res.ok) {
-                        console.log('User info updated successfully')
+                        toast('User info updated successfully!')
                         setIsEdit(false)
                     } else {
-                        console.log('Error updating user info')
+                        toast('Error updating user info.')
                     }
                 })
                 .catch((e) => {
@@ -123,6 +126,24 @@ const UserCard = () => {
                             <div className={`text-appRed text-sm ${(form.email !== '' && !validEmail) ? '' : 'hidden'}`}>Invalid email.</div>
                         </div>
                     }
+                    <ToastContainer
+                        position="bottom-center"
+                        autoClose={3000}
+                        hideProgressBar={true}
+                        newestOnTop={true}
+                        closeOnClick
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                        closeButton={({ closeToast }) => (
+                            <FontAwesomeIcon icon={faCircleXmark} className='p-1 text-appGray-3' onClick={closeToast} />
+                        )}
+                        icon={<FontAwesomeIcon icon={faCircleCheck} className='text-appGreen text-xl' />}
+                        toastClassName={() =>
+                            classNames('border border-appGreen bg-appWhite text-appBlack flex flex-row p-2 rounded-2xl m-3')
+                        }
+                    />
                 </div>
             </div>
         </div>
