@@ -40,7 +40,7 @@ const UserCard = ({ user }) => {
                         </div>
 
                     }
-                    <FontAwesomeIcon icon={isEdit ? faCircleCheck : faPenToSquare} className='text-2xl text-appGreen' onClick={handleEdit} />
+                    <FontAwesomeIcon icon={isEdit ? faCircleCheck : faPenToSquare} className='text-2xl text-appGreen cursor-pointer' onClick={handleEdit} />
                 </div>
 
                 <div>

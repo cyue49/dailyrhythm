@@ -56,7 +56,7 @@ const Profile = () => {
 
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
-            <div className='w-full max-w-4xl h-screen bg-appWhite lg:rounded-3xl overflow-y-hidden flex flex-col gap-3 lg:gap-4'>
+            <div className='w-full max-w-4xl h-screen bg-appWhite overflow-y-hidden flex flex-col pt-4 mt-[56px]'>
                 <TopBar type={'title'} title={'User Profile'} />
                 
                 <div className='flex flex-col gap-4 mx-3 lg:mx-5'>

@@ -68,7 +68,7 @@ const SignIn = () => {
             <div className='w-11/12 h-fit max-w-[450px] max-h-fit min-w-80 min-h-96 p-8 rounded-3xl bg-appGray-1 flex flex-col'>
                 <Link to={'/'} className='self-center'>
                     <img
-                        className='w-10 h-10'
+                        className='size-10 hover:scale-110 button-amination'
                         src={require(`../assets/applogo.png`)}
                         alt="app logo"
                     />
