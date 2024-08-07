@@ -54,4 +54,18 @@
     .button-animation {
         @apply transition duration-200 ease-in-out
     }
+
+    .fade-animation {
+        animation: fade-in-out 3s;
+    }
+
+    @keyframes fade-in-out {
+        0%,100% {
+            opacity: 0;
+        }
+
+        30%, 70% {
+            opacity: 100;
+        }
+    }
 }

@@ -1,16 +1,30 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faPenToSquare, faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-const classNames = x => x;
+import { faEnvelope, faPenToSquare, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
+import Toast from '../common/Toast'
 
 const UserCard = () => {
+    // states for editing username and email 
     const [isEdit, setIsEdit] = useState(false)
     const [form, setForm] = useState({ username: '', email: '' })
     const [validEmail, setValidEmail] = useState(true)
     const [validUsername, setValidUsername] = useState(true)
 
+    // states for toast message
+    const [isVisible, setIsVisible] = useState(false)
+    const [message, setMessage] = useState('')
+
+    // toast a notif message
+    const toast = (mess) => {
+        setIsVisible(true);
+        setMessage(mess)
+
+        setTimeout(() => {
+            setIsVisible(false);
+        }, 3000);
+    }
+
+    // fetch user info
     useEffect(() => {
         const getUserInfo = async () => {
             fetch('http://127.0.0.1:5000/api/users/me', { credentials: 'include' })
@@ -33,6 +47,7 @@ const UserCard = () => {
         getUserInfo();
     }, [])
 
+    // validate form inputs 
     const validateInputs = useCallback(() => {
         if (isEdit) {
             // validations & regex
@@ -64,6 +79,7 @@ const UserCard = () => {
         })
     }
 
+    // update username and email in database
     const handleEdit = () => {
         if (isEdit) {
             fetch(' http://127.0.0.1:5000/api/users/me/edit/general', {
@@ -126,26 +142,9 @@ const UserCard = () => {
                             <div className={`text-appRed text-sm ${(form.email !== '' && !validEmail) ? '' : 'hidden'}`}>Invalid email.</div>
                         </div>
                     }
-                    <ToastContainer
-                        position="bottom-center"
-                        autoClose={3000}
-                        hideProgressBar={true}
-                        newestOnTop={true}
-                        closeOnClick
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme="light"
-                        closeButton={({ closeToast }) => (
-                            <FontAwesomeIcon icon={faCircleXmark} className='p-1 text-appGray-3' onClick={closeToast} />
-                        )}
-                        icon={<FontAwesomeIcon icon={faCircleCheck} className='text-appGreen text-xl' />}
-                        toastClassName={() =>
-                            classNames('border border-appGreen bg-appWhite text-appBlack flex flex-row p-2 rounded-2xl m-3')
-                        }
-                    />
                 </div>
             </div>
+            <Toast icon={faCircleCheck} message={message} isVisible={isVisible} />
         </div>
     )
 }

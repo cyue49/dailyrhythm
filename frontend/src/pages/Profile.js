@@ -10,17 +10,14 @@ import { faCaretRight } from '@fortawesome/free-solid-svg-icons'
 const Profile = () => {
     const navigate = useNavigate()
 
-    const fetchOptions = {
-        credentials: 'include'
-    }
-
     const handlePasswordChange = () => {
         // bring pop up modal to enter old pwd and new pwd, if old pwd correct set pwd as new pwd
         // create new component for pop up modal
     }
 
+    // sign out user
     const handleSignOut = async () => {
-        fetch('http://127.0.0.1:5000/api/auth/signout', fetchOptions)
+        fetch('http://127.0.0.1:5000/api/auth/signout', { credentials: 'include' })
             .then((res) => {
                 if (res.status === 200 && res.ok) {
                     // redirects to home page

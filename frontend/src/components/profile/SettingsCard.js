@@ -1,17 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleCheck, faPenToSquare, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import Select from 'react-select'
 import { themeOptions, timeOptions } from '../../assets/data/settingsOptions'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-const classNames = x => x;
+import Toast from '../common/Toast'
 
 const SettingsCard = () => {
+    // states for editing user settings
     const [isEdit, setIsEdit] = useState(false)
     const [appTheme, setAppTheme] = useState({ value: 'default', label: 'Default' })
     const [dayStartTime, setDayStartTime] = useState({ value: '00:00', label: '00:00' })
 
+    // states for toast message
+    const [isVisible, setIsVisible] = useState(false)
+    const [message, setMessage] = useState('')
+
+    // toast a notif message
+    const toast = (mess) => {
+        setIsVisible(true);
+        setMessage(mess)
+
+        setTimeout(() => {
+            setIsVisible(false);
+        }, 3000);
+    }
+
+    // fetch user settings from db
     useEffect(() => {
         const getUserSettings = async () => {
             fetch('http://127.0.0.1:5000/api/users/me/settings', { credentials: 'include' })
@@ -33,6 +47,7 @@ const SettingsCard = () => {
         getUserSettings();
     }, [])
 
+    // styles of selection boxes
     const selectStyles = {
         control: (baseStyles, state) => ({
             ...baseStyles,
@@ -46,6 +61,7 @@ const SettingsCard = () => {
         })
     }
 
+    // update user settings in db
     const handleEdit = () => {
         if (isEdit) {
             fetch(' http://127.0.0.1:5000/api/users/me/edit/settings', {
@@ -61,10 +77,10 @@ const SettingsCard = () => {
             })
                 .then((res) => {
                     if (res.status === 200 && res.ok) {
-                        toast('User info updated successfully!')
+                        toast('User settings updated successfully!')
                         setIsEdit(false)
                     } else {
-                        toast('Error updating user info.')
+                        toast('Error updating user settings.')
                     }
                 })
                 .catch((e) => {
@@ -106,24 +122,7 @@ const SettingsCard = () => {
                     onChange={e => setDayStartTime(e)}
                     options={timeOptions} />
             </div>
-            <ToastContainer
-                position="bottom-center"
-                autoClose={3000}
-                hideProgressBar={true}
-                newestOnTop={true}
-                closeOnClick
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                closeButton={({ closeToast }) => (
-                    <FontAwesomeIcon icon={faCircleXmark} className='p-1 text-appGray-3' onClick={closeToast} />
-                )}
-                icon={<FontAwesomeIcon icon={faCircleCheck} className='text-appGreen text-xl' />}
-                toastClassName={() =>
-                    classNames('border border-appGreen bg-appWhite text-appBlack flex flex-row p-2 rounded-2xl m-3')
-                }
-            />
+            <Toast icon={faCircleCheck} message={message} isVisible={isVisible} />
         </div>
     )
 }
