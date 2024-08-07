@@ -6,6 +6,8 @@ import { themeOptions, timeOptions } from '../../assets/data/settingsOptions'
 
 const SettingsCard = () => {
     const [isEdit, setIsEdit] = useState(false)
+    const [appTheme, setAppTheme] = useState('')
+    const [dayStartTime, setDayStartTime] = useState('')
 
     const selectStyles = {
         control: (baseStyles, state) => ({
@@ -13,9 +15,10 @@ const SettingsCard = () => {
             borderColor: state.isDisabled ? '#858585' : '#528E6C',
             borderRadius: '25px'
         }),
-        option: (baseStyles, { isSelected }) => ({
+        option: (baseStyles, { data, isDisabled, isFocused, isSelected }) => ({
             ...baseStyles,
-            backgroundColor: isSelected ? '#528E6C' : 'white'
+            backgroundColor: isFocused ? '#528E6C' : 'white',
+            color: isFocused? '#F3F3F3' : '#353535'
         })
     }
 
@@ -27,6 +30,8 @@ const SettingsCard = () => {
         } else {
             setIsEdit(true)
         }
+        console.log(appTheme)
+        console.log(dayStartTime)
     }
 
     return (
@@ -46,6 +51,7 @@ const SettingsCard = () => {
                     isRtl={false}
                     isSearchable={false}
                     isDisabled={!isEdit}
+                    onChange={e => setAppTheme(e.value)}
                     options={themeOptions} />
 
                 <div className='font-bold'>Start time for a day:</div>
@@ -57,6 +63,7 @@ const SettingsCard = () => {
                     isRtl={false}
                     isSearchable={false}
                     isDisabled={!isEdit}
+                    onChange={e => setDayStartTime(e.value)}
                     options={timeOptions} />
             </div>
         </div>
