@@ -10,6 +10,7 @@ import MyHabits from './pages/MyHabits'
 import Profile from './pages/Profile'
 import MyStatistics from './pages/MyStatistics'
 import Home from './pages/Home'
+import ArchivedHabits from './pages/ArchivedHabits'
 
 import './App.css';
 
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/myhabits" element={<MyHabits />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/mystatistics" element={<MyStatistics />} />
+                <Route path="/archivedhabits" element={<ArchivedHabits />} />
             </Routes>
         </Router>
     );

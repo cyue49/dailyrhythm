@@ -24,7 +24,7 @@ const UserCard = ({ user }) => {
     }
 
     return (
-        <div className='flex flex-row gap-5 p-5 mx-3 items-center bg-appGray-1 rounded-3xl'>
+        <div className='flex flex-row gap-5 p-5 items-center bg-appGray-1 rounded-3xl'>
             <img
                 className='size-[70px]'
                 src={require(`../../assets/profiles/profile1.png`)}
@@ -34,7 +34,11 @@ const UserCard = ({ user }) => {
                 <div className='flex flex-row gap-2 items-center justify-between'>
                     {!isEdit ?
                         <span className='font-bold text-2xl truncate'>{form.username}</span> :
-                        <input className='form-text-input w-10/12 truncate' type='text' name='username' id='username' autoComplete='on' autoCapitalize='off' placeholder='Username' value={form.username} onChange={handleChange} />
+                        <div className='flex flex-col w-10/12'>
+                            <div className='font-bold'>Username:</div>
+                            <input className='form-text-input w-full truncate' type='text' name='username' id='username' autoComplete='on' autoCapitalize='off' placeholder='Username' value={form.username} onChange={handleChange} />
+                        </div>
+
                     }
                     <FontAwesomeIcon icon={isEdit ? faCircleCheck : faPenToSquare} className='text-2xl text-appGreen' onClick={handleEdit} />
                 </div>
@@ -45,7 +49,10 @@ const UserCard = ({ user }) => {
                             <FontAwesomeIcon icon={faEnvelope} />
                             <span className='truncate'>{form.email}</span>
                         </div> :
-                        <input className='form-text-input w-10/12 truncate' type='text' name='email' id='email' autoComplete='on' autoCapitalize='off' placeholder='Email' value={form.email} onChange={handleChange} />
+                        <div className='flex flex-col w-10/12'>
+                            <div className='font-bold'>Email:</div>
+                            <input className='form-text-input w-full truncate' type='text' name='email' id='email' autoComplete='on' autoCapitalize='off' placeholder='Email' value={form.email} onChange={handleChange} />
+                        </div>
                     }
                 </div>
             </div>

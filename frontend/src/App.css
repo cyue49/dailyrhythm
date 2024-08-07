@@ -47,6 +47,6 @@
 
     /* Form Input box */
     .form-text-input {
-        @apply px-4 py-2 mt-2 rounded-full bg-appWhite border-appGreen border-[1px] border-solid;
+        @apply px-4 py-2 mt-1 rounded-full bg-appWhite border-appGreen border-[1px] border-solid;
     }
 }

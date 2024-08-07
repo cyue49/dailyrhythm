@@ -31,7 +31,7 @@ const SettingsCard = () => {
 
     return (
         <div>
-            <div className='flex flex-col gap-3 p-5 mx-3 bg-appGray-1 rounded-3xl'>
+            <div className='flex flex-col gap-3 p-5 bg-appGray-1 rounded-3xl'>
                 <div className='w-full flex flex-row justify-between items-center'>
                     <span className='font-bold text-lg'>Settings</span>
                     <FontAwesomeIcon icon={isEdit ? faCircleCheck : faPenToSquare} className='text-2xl text-appGreen' onClick={handleEdit} />
