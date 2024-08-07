@@ -20,10 +20,13 @@ const SettingsCard = () => {
     }
 
     const handleEdit = () => {
-        isEdit ? setIsEdit(false) : setIsEdit(true)
-
-        // todo: handle requests to db
-
+        if (isEdit) {
+            // handle request to db
+            console.log('saving to db')
+            setIsEdit(false)
+        } else {
+            setIsEdit(true)
+        }
     }
 
     return (
