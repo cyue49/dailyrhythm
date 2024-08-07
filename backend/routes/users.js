@@ -374,6 +374,36 @@ router.put('/me/edit/timedaystarts', auth, async (req, res) => {
     }
 });
 
+// update the app theme and the time the day starts in user settings
+router.put('/me/edit/settings', auth, async (req, res) => {
+    // input validation
+    const { error } = validateUser(req.body, 'settings')
+    if (error) {
+        console.log(error.details[0].message);
+        return res.status(400).send('failed');
+    }
+
+    try {
+        // value to update
+        const { theme } = req.body;
+        const { time_day_starts } = req.body;
+
+        // update in the database
+        pool.query('UPDATE settings SET theme = $1, time_day_starts = $2 WHERE user_id = $3', [theme, time_day_starts, req.user_id], (err, result) => {
+            if (err) {
+                console.log('Error updating user settings.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                res.status(200).send('success');
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send('failed');
+    }
+});
+
 // ============================================= DELETE =============================================
 router.delete('/id/:id', async (req, res) => {
     try {

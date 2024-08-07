@@ -53,6 +53,11 @@ function validateUser(user, option) {
         time_day_starts: time_day_starts.required()
     });
 
+    const updateUserSettings = Joi.object().keys({
+        theme: theme.required(),
+        time_day_starts: time_day_starts.required()
+    });
+
     switch (option) {
         case 'new':
             return newUserSchema.validate(user);
@@ -72,6 +77,8 @@ function validateUser(user, option) {
             return updateDayStartTimeSchema.validate(user);
         case 'general':
             return updateUserGeneral.validate(user);
+        case 'settings':
+            return updateUserSettings.validate(user);
         default:
             throw new Error("Error: invalid option");
     }

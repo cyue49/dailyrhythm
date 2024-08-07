@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleCheck, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck, faPenToSquare, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import Select from 'react-select'
 import { themeOptions, timeOptions } from '../../assets/data/settingsOptions'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+const classNames = x => x;
 
 const SettingsCard = () => {
     const [isEdit, setIsEdit] = useState(false)
@@ -45,9 +48,28 @@ const SettingsCard = () => {
 
     const handleEdit = () => {
         if (isEdit) {
-            // handle request to db
-            console.log('saving to db')
-            setIsEdit(false)
+            fetch(' http://127.0.0.1:5000/api/users/me/edit/settings', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({
+                    theme: appTheme.value,
+                    time_day_starts: dayStartTime.value
+                })
+            })
+                .then((res) => {
+                    if (res.status === 200 && res.ok) {
+                        toast('User info updated successfully!')
+                        setIsEdit(false)
+                    } else {
+                        toast('Error updating user info.')
+                    }
+                })
+                .catch((e) => {
+                    console.log(e.message)
+                })
         } else {
             setIsEdit(true)
         }
@@ -84,6 +106,24 @@ const SettingsCard = () => {
                     onChange={e => setDayStartTime(e)}
                     options={timeOptions} />
             </div>
+            <ToastContainer
+                position="bottom-center"
+                autoClose={3000}
+                hideProgressBar={true}
+                newestOnTop={true}
+                closeOnClick
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                closeButton={({ closeToast }) => (
+                    <FontAwesomeIcon icon={faCircleXmark} className='p-1 text-appGray-3' onClick={closeToast} />
+                )}
+                icon={<FontAwesomeIcon icon={faCircleCheck} className='text-appGreen text-xl' />}
+                toastClassName={() =>
+                    classNames('border border-appGreen bg-appWhite text-appBlack flex flex-row p-2 rounded-2xl m-3')
+                }
+            />
         </div>
     )
 }
