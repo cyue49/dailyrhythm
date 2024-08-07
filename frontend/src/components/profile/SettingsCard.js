@@ -6,28 +6,29 @@ import { themeOptions, timeOptions } from '../../assets/data/settingsOptions'
 
 const SettingsCard = () => {
     const [isEdit, setIsEdit] = useState(false)
-    const [appTheme, setAppTheme] = useState('default')
-    const [dayStartTime, setDayStartTime] = useState('00:00')
+    const [appTheme, setAppTheme] = useState({ value: 'default', label: 'Default' })
+    const [dayStartTime, setDayStartTime] = useState({ value: '00:00', label: '00:00' })
 
-    // useEffect(() => {
-    //     const getUserSettings = async () => {
-    //         fetch('http://127.0.0.1:5000/api/users/me/settings', { credentials: 'include' })
-    //             .then((res) => {
-    //                 if (res.status === 200 && res.ok) {
-    //                     res.json()
-    //                         .then((data) => {
-    //                             setAppTheme(data.theme)
-    //                             setDayStartTime(data.time_day_starts)
-    //                         })
-    //                 }
-    //             })
-    //             .catch((e) => {
-    //                 console.log(e.message)
-    //             })
-    //     }
+    useEffect(() => {
+        const getUserSettings = async () => {
+            fetch('http://127.0.0.1:5000/api/users/me/settings', { credentials: 'include' })
+                .then((res) => {
+                    if (res.status === 200 && res.ok) {
+                        res.json()
+                            .then((data) => {
+                                // setAppTheme(data.theme)
+                                setAppTheme(themeOptions.find(item => (item.value === data.theme)))
+                                setDayStartTime(timeOptions.find(item => (item.value === data.time_day_starts.slice(0, 5))))
+                            })
+                    }
+                })
+                .catch((e) => {
+                    console.log(e.message)
+                })
+        }
 
-    //     getUserSettings();
-    // }, [])
+        getUserSettings();
+    }, [])
 
     const selectStyles = {
         control: (baseStyles, state) => ({
@@ -38,7 +39,7 @@ const SettingsCard = () => {
         option: (baseStyles, { data, isDisabled, isFocused, isSelected }) => ({
             ...baseStyles,
             backgroundColor: isFocused ? '#528E6C' : 'white',
-            color: isFocused? '#F3F3F3' : '#353535'
+            color: isFocused ? '#F3F3F3' : '#353535'
         })
     }
 
@@ -59,29 +60,28 @@ const SettingsCard = () => {
                     <span className='font-bold text-lg'>Settings</span>
                     <FontAwesomeIcon icon={isEdit ? faCircleCheck : faPenToSquare} className='text-2xl text-appGreen cursor-pointer' onClick={handleEdit} />
                 </div>
-
                 <div className='font-bold'>App theme:</div>
                 <Select
                     styles={selectStyles}
-                    defaultValue={themeOptions.filter(item => (item.value === appTheme))}
+                    value={appTheme}
                     isClearable={false}
                     isLoading={false}
                     isRtl={false}
                     isSearchable={false}
                     isDisabled={!isEdit}
-                    onChange={e => setAppTheme(e.value)}
+                    onChange={e => setAppTheme(e)}
                     options={themeOptions} />
 
                 <div className='font-bold'>Start time for a day:</div>
                 <Select
                     styles={selectStyles}
-                    defaultValue={timeOptions.filter(item => (item.value === dayStartTime))}
+                    value={dayStartTime}
                     isClearable={false}
                     isLoading={false}
                     isRtl={false}
                     isSearchable={false}
                     isDisabled={!isEdit}
-                    onChange={e => setDayStartTime(e.value)}
+                    onChange={e => setDayStartTime(e)}
                     options={timeOptions} />
             </div>
         </div>
