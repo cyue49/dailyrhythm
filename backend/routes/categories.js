@@ -7,7 +7,7 @@ const auth = require('../middlewares/auth')
 
 // ============================================= GET =============================================
 // get all categories for current user
-router.get('/me', auth, async (req, res) => {
+router.get('/all', auth, async (req, res) => {
     try {
         // query to database
         pool.query('SELECT category_id, category_name FROM categories WHERE user_id = $1', [req.user_id], (err, result) => {
@@ -61,7 +61,7 @@ router.post('/', auth, async (req, res) => {
 
 // ============================================= PUT =============================================
 // update a category name
-router.put('/me/edit/:id', auth, async (req, res) => {
+router.put('/edit/:id', auth, async (req, res) => {
     // input validation 
     const { error } = validateCategory(req.body);
     if (error) {
@@ -91,7 +91,7 @@ router.put('/me/edit/:id', auth, async (req, res) => {
 
 // ============================================= DELETE =============================================
 // delete a category
-router.delete('/me/delete/:id', auth, async (req, res) => {
+router.delete('/delete/:id', auth, async (req, res) => {
     try {
         // query to database
         pool.query('DELETE FROM categories WHERE category_id = $1', [req.params.id], (err, result) => {

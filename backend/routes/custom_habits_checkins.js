@@ -83,7 +83,7 @@ router.post('/', auth, async (req, res) => {
 
 // ============================================= DELETE =============================================
 // delete a checkin
-router.delete('/me/delete/:id', auth, async (req, res) => {
+router.delete('/delete/:id', auth, async (req, res) => {
     try {
         // query to database
         pool.query('DELETE FROM custom_habits_checkins WHERE checkin_id = $1', [req.params.id], (err, result) => {
