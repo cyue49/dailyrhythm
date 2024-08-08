@@ -111,7 +111,7 @@ const Profile = () => {
                     <div className='font-bold'>Manage archived habits</div>
                     <FontAwesomeIcon icon={faCaretRight} className='text-appGreen text-2xl' />
                 </Link>
-                <div className='flex flex-row gap-2 flex-wrap'>
+                <div className='flex flex-row gap-4 flex-wrap'>
                     <button className='primary-green-button hover:secondary-green-button button-animation w-full md:flex-1' onClick={() => setModalOpen(true)}>Change password</button>
                     <button className='primary-red-button hover:secondary-red-button button-animation w-full md:flex-1' onClick={handleSignOut}>Logout</button>
                 </div>

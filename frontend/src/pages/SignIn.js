@@ -2,18 +2,37 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 const SignIn = () => {
+    const navigate = useNavigate()
+
+    // check if user already logged in, if yes, redirect to signed in page
+    useEffect(() => {
+        const getUserInfo = async () => {
+            fetch('http://127.0.0.1:5000/api/users/me', { credentials: 'include' })
+                .then((res) => {
+                    if (res.status === 200 && res.ok) {
+                        // user already signed in redirect to homepage
+                        navigate('/profile')
+                    } 
+                })
+                .catch((e) => {
+                    console.log(e.message)
+                })
+        }
+
+        getUserInfo();
+    }, [navigate])
+
+    // states for sign in form
     const [form, setForm] = useState({ email: '', user_password: '' })
     const [validEmail, setValidEmail] = useState(false)
     const [validPassword, setValidPassword] = useState(false)
     const [generalErrorMessage, setGeneralErrorMessage] = useState('')
 
-    const navigate = useNavigate()
-
     const validateInputs = useCallback(() => {
         // email regex
         const emailRe = new RegExp(/^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/)
 
-        if (emailRe.test(form.email)){
+        if (emailRe.test(form.email)) {
             setValidEmail(true)
         } else {
             setValidEmail(false)
