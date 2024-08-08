@@ -11,7 +11,7 @@ const SignIn = () => {
                 .then((res) => {
                     if (res.status === 200 && res.ok) {
                         // user already signed in redirect to homepage
-                        navigate('/profile')
+                        navigate('/myhabits')
                     } 
                 })
                 .catch((e) => {

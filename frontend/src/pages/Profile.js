@@ -118,7 +118,7 @@ const Profile = () => {
 
 
                 <Dialog open={modalOpen} onClose={() => setModalOpen(false)} className="relative z-50">
-                    <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-75 p-4">
+                    <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
                         <DialogPanel className="w-full max-w-lg p-4 center-of-div flex-col bg-appWhite border-2 rounded-3xl border-appGreen">
                             <DialogTitle className="font-bold text-lg mb-4">Change Password</DialogTitle>
                             <div className={`text-appRed text-sm border-[1px] border-appRed rounded-full py-2 px-6 mb-6  ${(generalErrorMessage !== '') ? '' : 'hidden'}`}>{generalErrorMessage}</div>
