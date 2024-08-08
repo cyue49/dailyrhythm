@@ -11,6 +11,9 @@ import Profile from './pages/Profile'
 import MyStatistics from './pages/MyStatistics'
 import Home from './pages/Home'
 import ArchivedHabits from './pages/ArchivedHabits'
+import HabitDetails from './pages/HabitDetails'
+import StatisticDetails from './pages/StatisticDetails'
+import HabitForm from './pages/HabitForm'
 
 import './App.css';
 
@@ -25,6 +28,9 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/mystatistics" element={<MyStatistics />} />
                 <Route path="/archivedhabits" element={<ArchivedHabits />} />
+                <Route path="/myhabits/details" element={<HabitDetails />} />
+                <Route path="/mystatistics/details" element={<StatisticDetails />} />
+                <Route path="/myhabits/form" element={<HabitForm />} />
             </Routes>
         </Router>
     );

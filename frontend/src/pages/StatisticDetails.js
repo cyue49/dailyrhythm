@@ -2,16 +2,16 @@ import React from 'react'
 import TopBar from '../components/common/TopBar'
 import BottomBar from '../components/common/BottomBar'
 
-const MyHabits = () => {
+const StatisticDetails = () => {
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
-            <TopBar icons={['plus']} title={'My Habits'} />
+            <TopBar icons={['back']} title={'Habit title here'} />
             <div className='w-full max-w-4xl h-screen bg-appWhite overflow-y-hidden flex flex-col gap-4 pt-4 mt-[56px] px-3 lg:px-5'>
-                My Habits Page
+                Statistic details page
             </div>
-            <BottomBar current={2} />
+            <BottomBar current={1} />
         </div>
     )
 }
 
-export default MyHabits
+export default StatisticDetails
