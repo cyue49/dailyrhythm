@@ -404,24 +404,5 @@ router.put('/me/edit/settings', auth, async (req, res) => {
     }
 });
 
-// ============================================= DELETE =============================================
-router.delete('/id/:id', async (req, res) => {
-    try {
-        // query to database
-        pool.query('DELETE FROM users WHERE user_id = $1', [req.params.id], (err, result) => {
-            if (err) {
-                console.log('Error deleting item.', err);
-                res.status(400).send('failed');
-            } else {
-                // send response
-                res.status(200).send('success');
-            }
-        })
-    } catch (e) {
-        console.log(e.message);
-        res.status(400).send('failed');
-    }
-});
-
 // export router
 module.exports = router;

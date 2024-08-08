@@ -16,7 +16,7 @@ router.get('/me/active', auth, async (req, res) => {
                 res.status(400).send('failed');
             } else {
                 // send response
-                console.log(result.rows[0]);
+                console.log(result.rows);
                 res.status(200).send(result.rows);
             }
         })
@@ -36,7 +36,7 @@ router.get('/me/active/:id', auth, async (req, res) => {
                 res.status(400).send('failed');
             } else {
                 // send response
-                console.log(result.rows[0]);
+                console.log(result.rows);
                 res.status(200).send(result.rows);
             }
         })
@@ -56,7 +56,7 @@ router.get('/me/archived', auth, async (req, res) => {
                 res.status(400).send('failed');
             } else {
                 // send response
-                console.log(result.rows[0]);
+                console.log(result.rows);
                 res.status(200).send(result.rows);
             }
         })
@@ -76,7 +76,7 @@ router.get('/me/active/today/:day', auth, async (req, res) => {
                 res.status(400).send('failed');
             } else {
                 // send response
-                console.log(result.rows[0]);
+                console.log(result.rows);
                 res.status(200).send(result.rows);
             }
         })
@@ -96,7 +96,7 @@ router.get('/me/active/today/:day/category/:id', auth, async (req, res) => {
                 res.status(400).send('failed');
             } else {
                 // send response
-                console.log(result.rows[0]);
+                console.log(result.rows);
                 res.status(200).send(result.rows);
             }
         })

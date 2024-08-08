@@ -6,7 +6,7 @@ const { validateCategory } = require('../validations/categories');
 const auth = require('../middlewares/auth')
 
 // ============================================= GET =============================================
-// get all categories for a user
+// get all categories for current user
 router.get('/me', auth, async (req, res) => {
     try {
         // query to database
@@ -16,7 +16,7 @@ router.get('/me', auth, async (req, res) => {
                 res.status(400).send('failed');
             } else {
                 // send response
-                console.log(result.rows[0]);
+                console.log(result.rows);
                 res.status(200).send(result.rows);
             }
         })
