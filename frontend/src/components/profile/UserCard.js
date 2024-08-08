@@ -95,8 +95,8 @@ const UserCard = () => {
             })
                 .then((res) => {
                     if (res.status === 200 && res.ok) {
-                        toast('User info updated successfully!')
                         setIsEdit(false)
+                        toast('User info updated successfully!')
                     } else {
                         toast('Error updating user info.')
                     }
@@ -144,7 +144,7 @@ const UserCard = () => {
                     }
                 </div>
             </div>
-            <Toast icon={faCircleCheck} message={message} isVisible={isVisible} />
+            <Toast isSuccess={!isEdit} message={message} isVisible={isVisible} />
         </div>
     )
 }

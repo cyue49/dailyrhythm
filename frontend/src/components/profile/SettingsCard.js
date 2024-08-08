@@ -82,8 +82,8 @@ const SettingsCard = () => {
             })
                 .then((res) => {
                     if (res.status === 200 && res.ok) {
-                        toast('User settings updated successfully!')
                         setIsEdit(false)
+                        toast('User settings updated successfully!')
                     } else {
                         toast('Error updating user settings.')
                     }
@@ -123,7 +123,7 @@ const SettingsCard = () => {
                     onChange={e => setDayStartTime(e)}
                     options={timeOptions} />
             </div>
-            <Toast icon={faCircleCheck} message={message} isVisible={isVisible} />
+            <Toast isSuccess={!isEdit} message={message} isVisible={isVisible} />
         </div>
     )
 }
