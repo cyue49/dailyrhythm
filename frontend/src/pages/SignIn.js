@@ -85,7 +85,7 @@ const SignIn = () => {
                     <label htmlFor='user_password' className='mt-3'>Password <span className='text-appRed'>*</span> : </label>
                     <input className='form-text-input' type='password' name='user_password' id='user_password' onChange={handleChange} />
 
-                    <input className='mt-12 primary-green-button hover:secondary-green-button disabled:hover:primary-green-button disabled:cursor-not-allowed' type="submit" value="Sign In" disabled={!(validEmail && validPassword)} />
+                    <input className='mt-12 primary-green-button hover:secondary-green-button button-animation disabled:hover:primary-green-button disabled:cursor-not-allowed' type="submit" value="Sign In" disabled={!(validEmail && validPassword)} />
                 </form>
 
                 <div className='text-sm text-center mt-4 mb-8 hover:underline hover:text-appGreen'>

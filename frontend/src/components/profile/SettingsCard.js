@@ -48,16 +48,21 @@ const SettingsCard = () => {
     }, [])
 
     // styles of selection boxes
+    const appGreen = '#528E6C'
+    const appGray3 = '#858585'
+    const appWhite = '#F3F3F3'
+    const appBlack = '#353535'
+
     const selectStyles = {
         control: (baseStyles, state) => ({
             ...baseStyles,
-            borderColor: state.isDisabled ? '#858585' : '#528E6C',
+            borderColor: state.isDisabled ? appGray3 : appGreen,
             borderRadius: '25px'
         }),
         option: (baseStyles, { data, isDisabled, isFocused, isSelected }) => ({
             ...baseStyles,
-            backgroundColor: isFocused ? '#528E6C' : 'white',
-            color: isFocused ? '#F3F3F3' : '#353535'
+            backgroundColor: isFocused ? appGreen : 'white',
+            color: isFocused ? appWhite : appBlack
         })
     }
 
@@ -103,8 +108,6 @@ const SettingsCard = () => {
                     styles={selectStyles}
                     value={appTheme}
                     isClearable={false}
-                    isLoading={false}
-                    isRtl={false}
                     isSearchable={false}
                     isDisabled={!isEdit}
                     onChange={e => setAppTheme(e)}
@@ -115,8 +118,6 @@ const SettingsCard = () => {
                     styles={selectStyles}
                     value={dayStartTime}
                     isClearable={false}
-                    isLoading={false}
-                    isRtl={false}
                     isSearchable={false}
                     isDisabled={!isEdit}
                     onChange={e => setDayStartTime(e)}

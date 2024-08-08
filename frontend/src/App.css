@@ -55,6 +55,7 @@
         @apply transition duration-200 ease-in-out
     }
 
+    /* fade in fade out animation for 3 seconds */
     .fade-animation {
         animation: fade-in-out 3s;
     }

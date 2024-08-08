@@ -116,7 +116,7 @@ const SignUp = () => {
                         <input className='form-text-input' type='password' name='confirm_password' id='confirm_password' onChange={handleChange} />
                         <div className={`text-appRed text-sm ${(form.confirm_password !== '' && !validPasswordConfirm) ? '' : 'hidden'}`}>Passwords don't match.</div>
 
-                        <input className='primary-green-button hover:secondary-green-button disabled:hover:primary-green-button mt-12 disabled:cursor-not-allowed' type="submit" value="Sign Up" disabled={!(validEmail && validUsername && validPassword && validPasswordConfirm)} />
+                        <input className='primary-green-button hover:secondary-green-button button-animation disabled:hover:primary-green-button mt-12 disabled:cursor-not-allowed' type="submit" value="Sign Up" disabled={!(validEmail && validUsername && validPassword && validPasswordConfirm)} />
                     </form>
 
                     <div className='text-sm text-center mt-4 mb-8 hover:underline hover:text-appGreen'>
