@@ -7,7 +7,7 @@ const TopBar = ({ icons, title, backOnclick, plusOnclick, ellipsisOnClick }) => 
 
     useEffect(() => {
         setIcons(icons)
-    }, []);
+    }, [icons]);
 
     return (
         <div className={`bg-appGreen text-appWhite fixed top-0 z-10 w-full max-w-4xl h-[56px] grid grid-cols-[10%_auto_10%]  gap-3 ${(barIcons.length !== 0) ? '' : ''}`}>
