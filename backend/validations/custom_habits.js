@@ -13,16 +13,7 @@ const category_id = Joi.string();
 
 // validation
 function validateHabit(habit, option) {
-    const newHabitSchema = Joi.object().keys({
-        habit_name: habit_name.required(),
-        habit_description: habit_description.required(),
-        frequency_count: frequency_count.required(),
-        frequency_type: frequency_type.required(),
-        weekdays: weekdays.required(),
-        category_id: category_id.required()
-    });
-
-    const updateHabitGeneralSchema = Joi.object().keys({
+    const generalHabitSchema = Joi.object().keys({
         habit_name: habit_name.required(),
         habit_description: habit_description.required(),
         frequency_count: frequency_count.required(),
@@ -36,10 +27,8 @@ function validateHabit(habit, option) {
     });
 
     switch (option) {
-        case 'new':
-            return newHabitSchema.validate(habit);
-        case 'update':
-            return updateHabitGeneralSchema.validate(habit);
+        case 'general':
+            return generalHabitSchema.validate(habit);
         case 'active':
             return updateHabitActiveSchema.validate(habit);
         default:

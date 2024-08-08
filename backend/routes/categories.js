@@ -76,7 +76,7 @@ router.put('/me/edit/:id', auth, async (req, res) => {
         // update in the database
         pool.query('UPDATE categories SET category_name = $1 WHERE category_id = $2', [category_name, req.params.id], (err, result) => {
             if (err) {
-                console.log('Error updating username.', err);
+                console.log('Error updating category.', err);
                 res.status(400).send('failed');
             } else {
                 // send response
@@ -91,7 +91,7 @@ router.put('/me/edit/:id', auth, async (req, res) => {
 
 // ============================================= DELETE =============================================
 // delete a category
-router.delete('/me/delete/:id', async (req, res) => {
+router.delete('/me/delete/:id', auth, async (req, res) => {
     try {
         // query to database
         pool.query('DELETE FROM categories WHERE category_id = $1', [req.params.id], (err, result) => {

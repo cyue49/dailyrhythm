@@ -110,7 +110,7 @@ router.get('/me/active/today/:day/category/:id', auth, async (req, res) => {
 // create a new habit 
 router.post('/', auth, async (req, res) => {
     // input validation 
-    const { error } = validateHabit(req.body, 'new');
+    const { error } = validateHabit(req.body, 'general');
     if (error) {
         console.log(error.details[0].message);
         return res.status(400).send('failed');
@@ -146,10 +146,88 @@ router.post('/', auth, async (req, res) => {
 });
 
 // ============================================= PUT =============================================
+// update general info for a habit
+router.put('/me/edit/:id', auth, async (req, res) => {
+    // input validation 
+    const { error } = validateHabit(req.body, 'general');
+    if (error) {
+        console.log(error.details[0].message);
+        return res.status(400).send('failed');
+    }
 
+    try {
+        // values to update
+        const { habit_name } = req.body;
+        const { habit_description } = req.body;
+        const { frequency_count } = req.body;
+        const { frequency_type } = req.body;
+        const { weekdays } = req.body;
+        const { category_id } = req.body;
+
+        // update in the database
+        pool.query('UPDATE custom_habits SET habit_name = $1, habit_description = $2, frequency_count = $3, frequency_type = $4, weekdays = $5, category_id = $6 WHERE habit_id = $7', [habit_name, habit_description, frequency_count, frequency_type, weekdays, category_id, req.params.id], (err, result) => {
+            if (err) {
+                console.log('Error updating habit.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                res.status(200).send('success');
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send('failed');
+    }
+});
+
+// update a habit's is active status
+router.put('/me/edit/active/:id', auth, async (req, res) => {
+    // input validation 
+    const { error } = validateHabit(req.body, 'active');
+    if (error) {
+        console.log(error.details[0].message);
+        return res.status(400).send('failed');
+    }
+
+    try {
+        // value to update
+        const { is_active } = req.body;
+
+        // update in the database
+        pool.query('UPDATE custom_habits SET is_active = $1 WHERE habit_id = $2', [is_active, req.params.id], (err, result) => {
+            if (err) {
+                console.log('Error updating habit.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                res.status(200).send('success');
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send('failed');
+    }
+});
 
 // ============================================= DELETE =============================================
-
+// delete a habit
+router.delete('/me/delete/:id', auth, async (req, res) => {
+    try {
+        // query to database
+        pool.query('DELETE FROM custom_habits WHERE habit_id = $1', [req.params.id], (err, result) => {
+            if (err) {
+                console.log('Error deleting item.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                res.status(200).send('success');
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send('failed');
+    }
+});
 
 // export router
 module.exports = router;
