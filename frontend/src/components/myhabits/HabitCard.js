@@ -51,8 +51,8 @@ const HabitCard = ({ habit, currentDay }) => {
     }, [getTotalCheckins]);
 
     return (
-        <div className='w-full flex flex-row flex-nowrap items-center justify-between px-3 py-2 gap-4 rounded-full bg-appGray-1'>
-            <div className='rounded-full border border-appGreen bg-appWhite px-3 py-1'>{dailyCount}</div>
+        <div className='w-full flex flex-row flex-nowrap items-center justify-between px-3 py-2 gap-4 rounded-full cursor-pointer bg-appGray-1'>
+            <div className='rounded-full border border-appGreen bg-appWhite hover:bg-appGreen hover:text-appWhite cursor-pointer button-animation px-3 py-1'>{dailyCount}</div>
             <div className='flex-1 truncate'>{habit.habit_name}</div>
             <div className='text-xs text-appGray-3 pr-2 font-bold'>Total: {totalCount}</div>
         </div>

@@ -47,7 +47,7 @@ const MyHabits = () => {
                 <div className='flex flex-col items-start justify-start gap-2 px-4 pb-4'>
                     <div className='w-full text-xl font-bold flex flex-row justify-between'>
                         <div>{formatDate(currentDay)}</div>
-                        <FontAwesomeIcon className='text-appGray-3' icon={faFilter} />
+                        <FontAwesomeIcon className='text-appGray-3 cursor-pointer' icon={faFilter} />
                     </div>
                     {categories.map((category, index) => (
                         <CategoryDivider category={category} currentDay={currentDay} key={index}/>

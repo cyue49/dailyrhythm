@@ -27,7 +27,7 @@ const WeeklyCalendar = ({ currentDay, setCurrentDay }) => {
             {weekdays.map((day, index) => (
                 <div className='center-of-div flex-col flex-1 items-center justify-center' key={index}>
                     <div className='text-sm text-appGreen'>{getDayLetter(day.getDay())}</div>
-                    <div className={`cursor-pointer text-appBlack px-3 py-1 ${(currentDay.getDate() === day.getDate()) ? 'text-appWhite rounded-full bg-appGreen font-bold' : ''}`} onClick={() => setCurrentDay(day)}>{day.getDate()}</div>
+                    <div className={`cursor-pointer px-3 py-1 rounded-full hover:border-2 hover:border-appGreen button-animation ${(currentDay.getDate() === day.getDate()) ? 'primary-green-button' : ''}`} onClick={() => setCurrentDay(day)}>{day.getDate()}</div>
                 </div>
             ))}
         </div>
