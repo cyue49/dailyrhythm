@@ -50,7 +50,7 @@ const MyHabits = () => {
                         <FontAwesomeIcon className='text-appGray-3' icon={faFilter} />
                     </div>
                     {categories.map((category, index) => (
-                        <CategoryDivider category={category} key={index}/>
+                        <CategoryDivider category={category} currentDay={currentDay} key={index}/>
                     ))}
                 </div>
             </div>

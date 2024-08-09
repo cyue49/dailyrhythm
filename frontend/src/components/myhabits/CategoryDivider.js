@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import HabitCard from './HabitCard'
 
-const CategoryDivider = ({ category }) => {
+const CategoryDivider = ({ category, currentDay }) => {
     const [habits, setHabits] = useState([])
 
     // fetch all user habits for this category
-    const getCategories = useCallback(() => {
+    const getHabits = useCallback(() => {
         fetch(`http://127.0.0.1:5000/api/custom_habits/active/${category.category_id}`, { credentials: 'include' })
             .then((res) => {
                 if (res.status === 200 && res.ok) {
@@ -21,8 +21,8 @@ const CategoryDivider = ({ category }) => {
     }, []);
 
     useEffect(() => {
-        getCategories()
-    }, [getCategories]);
+        getHabits()
+    }, [getHabits]);
 
     return (
         <div className='center-of-div flex-col flex-nowrap w-full gap-1'>
@@ -32,7 +32,7 @@ const CategoryDivider = ({ category }) => {
                 <div className='text-appGreen font-bold'>{habits.length}</div>
             </div>
             {habits.map((habit, index) => (
-                <HabitCard habit={habit} key={index} />
+                <HabitCard habit={habit} currentDay={currentDay} key={index} />
             ))}
         </div>
 
