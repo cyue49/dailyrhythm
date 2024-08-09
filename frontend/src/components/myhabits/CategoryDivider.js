@@ -18,7 +18,7 @@ const CategoryDivider = ({ category, currentDay }) => {
             .catch((e) => {
                 console.log(e.message)
             })
-    }, []);
+    }, [category.category_id]);
 
     useEffect(() => {
         getHabits()

@@ -23,7 +23,7 @@ const HabitCard = ({ habit, currentDay }) => {
             .catch((e) => {
                 console.log(e.message)
             })
-    }, []);
+    }, [currentDay, habit.habit_id]);
 
     useEffect(() => {
         getDailyCheckins()
@@ -44,7 +44,7 @@ const HabitCard = ({ habit, currentDay }) => {
             .catch((e) => {
                 console.log(e.message)
             })
-    }, []);
+    }, [habit.habit_id]);
 
     useEffect(() => {
         getTotalCheckins()
