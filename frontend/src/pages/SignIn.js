@@ -73,7 +73,7 @@ const SignIn = () => {
         ).then((res) => {
             if (res.status === 200 && res.ok) {
                 // redirects to profile page
-                navigate('/profile')
+                navigate('/myhabits')
             } else if (res.status === 400) { // invalid email / password
                 setGeneralErrorMessage('Invalid email or password.')
             }
