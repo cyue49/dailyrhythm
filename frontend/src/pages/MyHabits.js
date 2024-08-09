@@ -6,6 +6,7 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import WeeklyCalendar from '../components/myhabits/WeeklyCalendar'
 import { weekDaysLong, monthsLong } from '../assets/data/dates'
+import CategoryDivider from '../components/myhabits/CategoryDivider'
 
 const MyHabits = () => {
     const [currentDay, setCurrentDay] = useState(new Date())
@@ -22,11 +23,12 @@ const MyHabits = () => {
             <TopBar icons={['plus']} title={'My Habits'} plusOnclick={() => console.log('plus clicked')} />
             <div className='w-full max-w-4xl h-screen bg-appWhite overflow-y-hidden flex flex-col gap-4 mt-[56px]'>
                 <WeeklyCalendar currentDay={currentDay} setCurrentDay={setCurrentDay} />
-                <div className='flex flex-col items-start justify-start px-3 lg:px-5 pb-4'>
+                <div className='flex flex-col items-start justify-start gap-2 px-4 pb-4'>
                     <div className='w-full text-xl font-bold flex flex-row justify-between'>
                         <div>{formatDate(currentDay)}</div>
                         <FontAwesomeIcon className='text-appGray-3' icon={faFilter} />
                     </div>
+                    <CategoryDivider />
                 </div>
             </div>
             <BottomBar current={2} />
