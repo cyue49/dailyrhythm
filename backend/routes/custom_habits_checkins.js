@@ -26,6 +26,26 @@ router.get('/habit/:id', auth, async (req, res) => {
     }
 });
 
+// get total count of checkins for a habit
+router.get('/habit/:id/count', auth, async (req, res) => {
+    try {
+        // query to database
+        pool.query('SELECT COUNT(checkin_id) FROM custom_habits_checkins WHERE habit_id = $1', [req.params.id], (err, result) => {
+            if (err) {
+                console.log('Error executing query.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                console.log(result.rows[0]);
+                res.status(200).send(result.rows[0]);
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send('failed');
+    }
+});
+
 // get all checkins between two dates for a habit
 router.get('/habit/:id/from/:startDate/to/:endDate', auth, async (req, res) => {
     try {
@@ -38,6 +58,26 @@ router.get('/habit/:id/from/:startDate/to/:endDate', auth, async (req, res) => {
                 // send response
                 console.log(result.rows);
                 res.status(200).send(result.rows);
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send('failed');
+    }
+});
+
+// get total count of checkins for a habit for a specific day
+router.get('/habit/:id/count/day/:day', auth, async (req, res) => {
+    try {
+        // query to database
+        pool.query('SELECT COUNT(checkin_id) FROM custom_habits_checkins WHERE habit_id = $1 AND for_date = $2', [req.params.id, req.params.day], (err, result) => {
+            if (err) {
+                console.log('Error executing query.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                console.log(result.rows[0]);
+                res.status(200).send(result.rows[0]);
             }
         })
     } catch (e) {
