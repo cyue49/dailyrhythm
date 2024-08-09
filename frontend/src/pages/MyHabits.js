@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import TopBar from '../components/common/TopBar'
 import BottomBar from '../components/common/BottomBar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,6 +10,7 @@ import CategoryDivider from '../components/myhabits/CategoryDivider'
 
 const MyHabits = () => {
     const [currentDay, setCurrentDay] = useState(new Date())
+    const [categories, setCategories] = useState([])
 
     const navigate = useNavigate()
     const goTo = () => { navigate('/myhabits/details') }
@@ -17,6 +18,26 @@ const MyHabits = () => {
     const formatDate = (date) => {
         return `${weekDaysLong[date.getDay()]} ${monthsLong[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
     }
+
+    // fetch all user categories
+    const getCategories = useCallback(() => {
+        fetch(' http://127.0.0.1:5000/api/categories/all', { credentials: 'include' })
+            .then((res) => {
+                if (res.status === 200 && res.ok) {
+                    res.json()
+                        .then((data) => {
+                            setCategories(data)
+                        })
+                }
+            })
+            .catch((e) => {
+                console.log(e.message)
+            })
+    }, []);
+
+    useEffect(() => {
+        getCategories()
+    }, [getCategories]);
 
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
@@ -28,7 +49,9 @@ const MyHabits = () => {
                         <div>{formatDate(currentDay)}</div>
                         <FontAwesomeIcon className='text-appGray-3' icon={faFilter} />
                     </div>
-                    <CategoryDivider />
+                    {categories.map((category, index) => (
+                        <CategoryDivider category={category} key={index}/>
+                    ))}
                 </div>
             </div>
             <BottomBar current={2} />
