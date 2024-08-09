@@ -11,7 +11,7 @@ const MyStatistics = () => {
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
             <TopBar icons={[]} title={'My Statistics'} />
-            <div className='w-full max-w-4xl h-screen bg-appWhite overflow-y-hidden flex flex-col gap-4 pt-4 mt-[56px] px-3 lg:px-5'>
+            <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 pt-4 mt-[56px] px-3 lg:px-5'>
                 <div>My Statistics Page</div>
                 <button className='secondary-gray-button' onClick={goTo}>Details page </button>
             </div>

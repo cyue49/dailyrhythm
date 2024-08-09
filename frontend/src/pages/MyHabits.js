@@ -75,7 +75,7 @@ const MyHabits = () => {
             <TopBar icons={['plus']} title={'My Habits'} plusOnclick={() => console.log('plus clicked')} />
             <div className='w-full max-w-4xl h-screen bg-appWhite overflow-y-hidden flex flex-col gap-4 mt-[56px]'>
                 <WeeklyCalendar currentDay={currentDay} setCurrentDay={setCurrentDay} dayStartTime={dayStartTime} />
-                <div className='flex flex-col items-start justify-start gap-2 px-4 pb-4'>
+                <div className='flex flex-col items-start justify-start gap-2 px-4 pb-4 no-scrollbar overflow-y-auto'>
                     <div className='w-full text-xl font-bold flex flex-row justify-between'>
                         <div>{formatDate(currentDay)}</div>
                         <FontAwesomeIcon className='text-appGray-3 cursor-pointer' icon={faFilter} />
