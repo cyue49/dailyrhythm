@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { weekDaysShort } from '../../assets/data/dates'
 
-const WeeklyCalendar = ({ currentDay, setCurrentDay }) => {
+const WeeklyCalendar = ({ currentDay, setCurrentDay, dayStartTime }) => {
     const [weekdays, setWeekdays] = useState([]);
 
-    const getWeekdays = () => {
+    const getWeekdays = useCallback(() => {
         const pastWeekdays = []
         for (var i = 6; i >= 0; i--) {
-            var d = new Date()
+            var d = new Date(Date.now() - parseInt(dayStartTime) * 60 * 60 * 1000)
             d.setDate(d.getDate() - i)
             pastWeekdays.push(d)
         }
         setWeekdays(pastWeekdays)
-    }
+    }, [dayStartTime]);
 
     const getDayLetter = (date) => {
         return (weekDaysShort[date])
@@ -20,7 +20,7 @@ const WeeklyCalendar = ({ currentDay, setCurrentDay }) => {
 
     useEffect(() => {
         getWeekdays()
-    }, []);
+    }, [getWeekdays]);
 
     return (
         <div className='flex flex-row flex-nowrap gap-2 border-b-2 border-appGreen w-full py-2'>

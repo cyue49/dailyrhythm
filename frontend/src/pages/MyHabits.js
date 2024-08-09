@@ -11,6 +11,7 @@ import CategoryDivider from '../components/myhabits/CategoryDivider'
 const MyHabits = () => {
     const [currentDay, setCurrentDay] = useState(new Date())
     const [categories, setCategories] = useState([])
+    const [dayStartTime, setDayStartTime] = useState('0')
 
     const navigate = useNavigate()
     const goTo = () => { navigate('/myhabits/details') }
@@ -39,18 +40,48 @@ const MyHabits = () => {
         getCategories()
     }, [getCategories]);
 
+    // fetch day start time from user setting
+    const getDayStartTime = useCallback(() => {
+        fetch('http://127.0.0.1:5000/api/users/me/settings', { credentials: 'include' })
+            .then((res) => {
+                if (res.status === 200 && res.ok) {
+                    res.json()
+                        .then((data) => {
+                            setDayStartTime(data.time_day_starts.toString().slice(0, 2))
+                        })
+                }
+            })
+            .catch((e) => {
+                console.log(e.message)
+            })
+    }, []);
+
+    useEffect(() => {
+        getDayStartTime()
+    }, [getDayStartTime]);
+
+    // update current day based on user's day start time settings
+    const adjustCurrentDay = useCallback(() => {
+        const adjustedDay = new Date(Date.now() - parseInt(dayStartTime) * 60 * 60 * 1000)
+        setCurrentDay(adjustedDay)
+    }, [dayStartTime]);
+
+    useEffect(() => {
+        adjustCurrentDay()
+    }, [adjustCurrentDay]);
+
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
             <TopBar icons={['plus']} title={'My Habits'} plusOnclick={() => console.log('plus clicked')} />
             <div className='w-full max-w-4xl h-screen bg-appWhite overflow-y-hidden flex flex-col gap-4 mt-[56px]'>
-                <WeeklyCalendar currentDay={currentDay} setCurrentDay={setCurrentDay} />
+                <WeeklyCalendar currentDay={currentDay} setCurrentDay={setCurrentDay} dayStartTime={dayStartTime} />
                 <div className='flex flex-col items-start justify-start gap-2 px-4 pb-4'>
                     <div className='w-full text-xl font-bold flex flex-row justify-between'>
                         <div>{formatDate(currentDay)}</div>
                         <FontAwesomeIcon className='text-appGray-3 cursor-pointer' icon={faFilter} />
                     </div>
                     {categories.map((category, index) => (
-                        <CategoryDivider category={category} currentDay={currentDay} key={index}/>
+                        <CategoryDivider category={category} currentDay={currentDay} key={index} />
                     ))}
                 </div>
             </div>
