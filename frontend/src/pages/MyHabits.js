@@ -9,12 +9,10 @@ import { weekDaysLong, monthsLong } from '../assets/data/dates'
 import CategoryDivider from '../components/myhabits/CategoryDivider'
 
 const MyHabits = () => {
+    // states for current day, day start time, list of categories
     const [currentDay, setCurrentDay] = useState(new Date())
     const [categories, setCategories] = useState([])
     const [dayStartTime, setDayStartTime] = useState('0')
-
-    const navigate = useNavigate()
-    const goTo = () => { navigate('/myhabits/details') }
 
     const formatDate = (date) => {
         return `${weekDaysLong[date.getDay()]} ${monthsLong[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
@@ -70,9 +68,18 @@ const MyHabits = () => {
         adjustCurrentDay()
     }, [adjustCurrentDay]);
 
+    const navigate = useNavigate()
+
+    // navigate to create new habit page
+    const handleNavigate = () => {
+        navigate('/myhabits/form', 
+            { state: {mode: 'New', habit: {}}}
+        )
+    }
+
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
-            <TopBar icons={['plus']} title={'My Habits'} plusOnclick={() => console.log('plus clicked')} />
+            <TopBar icons={['plus']} title={'My Habits'} plusOnclick={handleNavigate} />
             <div className='w-full max-w-4xl h-screen bg-appWhite overflow-y-hidden flex flex-col gap-4 mt-[56px]'>
                 <WeeklyCalendar currentDay={currentDay} setCurrentDay={setCurrentDay} dayStartTime={dayStartTime} />
                 <div className='flex flex-col items-start justify-start gap-2 px-4 pb-4 no-scrollbar overflow-y-auto'>

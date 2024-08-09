@@ -14,7 +14,7 @@ const TopBar = ({ icons, title, backOnclick, plusOnclick, ellipsisOnClick }) => 
             <div className='text-3xl flex items-center justify-start pl-6'>
                 <FontAwesomeIcon icon={faCaretLeft} className={`cursor-pointer ${barIcons.includes('back') ? '' : 'hidden'}`} onClick={backOnclick} />
             </div>
-            <div className='font-bold text-2xl center-of-div'>{title}</div>
+            <div className='font-bold text-2xl center-of-div truncate'><div className='truncate'>{title}</div></div>
             <div className='text-2xl flex items-center justify-end pr-6'>
                 <FontAwesomeIcon icon={faCirclePlus} className={`cursor-pointer ${barIcons.includes('plus') ? '' : 'hidden'}`} onClick={plusOnclick}/>
                 <FontAwesomeIcon icon={faEllipsisVertical} className={`cursor-pointer ${barIcons.includes('ellipsis') ? '' : 'hidden'}`} onClick={ellipsisOnClick}/>
