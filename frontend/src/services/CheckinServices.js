@@ -57,3 +57,20 @@ export const incrementCheckin = (data) => {
 } 
 
 // make a post request to delete the latest checkin for a day
+export const removeCheckin = (habit_id, date) => {
+    return fetch(` http://127.0.0.1:5000/api/custom_habits_checkins/delete/habit/${habit_id}/date/${date}`, 
+        { 
+            method: 'DELETE',
+            credentials: 'include' 
+        })
+        .then((res) => {
+            if (res.status === 200 && res.ok) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        .catch((e) => {
+            console.log(e.message)
+        })
+}

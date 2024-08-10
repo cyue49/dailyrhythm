@@ -161,5 +161,37 @@ router.delete('/delete/:id', auth, async (req, res) => {
     }
 });
 
+// delete the last checkin for habit on a specific date
+router.delete('/delete/habit/:id/date/:date', auth, async (req, res) => {
+    try {
+        pool.query('SELECT checkin_id, for_date, checkin_timestamp FROM custom_habits_checkins WHERE habit_id = $1 AND for_date = $2 ORDER BY checkin_timestamp DESC', [req.params.id, req.params.date], (err, result) => {
+            if (err) {
+                console.log('Error deleting item.', err);
+                res.status(400).send('failed');
+            } else {
+                // if no checkin on that date return
+                if (result.rowCount === 0) return res.status(200).send('success');
+                
+                // delete the one with the latest timestamp
+                const latest = result.rowCount-1 
+                const latestID = result.rows[latest].checkin_id
+                
+                pool.query('DELETE FROM custom_habits_checkins WHERE checkin_id = $1', [latestID], (err1, result1) => {
+                    if (err1) {
+                        console.log('Error deleting item.', err1);
+                        res.status(400).send('failed');
+                    } else {
+                        // send response
+                        res.status(200).send('success');
+                    }
+                })
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send('failed');
+    }
+})
+
 // export router
 module.exports = router;

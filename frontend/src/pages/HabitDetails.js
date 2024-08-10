@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TopBar from '../components/common/TopBar'
 import BottomBar from '../components/common/BottomBar'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarWeek, faCalendarDays, faClipboardList, faClock } from '@fortawesome/free-solid-svg-icons'
-import { weekDaysLong, formatDate } from '../utils/DateUtils'
-import { incrementCheckin } from '../services/CheckinServices'
+import { weekDaysLong, formatDate, formatDateMonthStart, formatDateWeekAgo } from '../utils/DateUtils'
+import { incrementCheckin, removeCheckin, getCountBetween } from '../services/CheckinServices'
 
 const HabitDetails = () => {
     // habit passed from route state
-    const { state: { currentDay, habit, dailyCount, weeklyCount, monthlyCount, totalCount } = {} } = useLocation();
+    const { state: { currentDay, habit, dailyCount, totalCount } = {} } = useLocation();
 
     // states for habit checkin counts
     const [dailyCountState, setDailyCount] = useState(dailyCount)
-    const [weeklyCountState, setWeeklyCount] = useState(weeklyCount)
-    const [monthlyCountState, setMonthlyCount] = useState(monthlyCount)
+    const [weeklyCountState, setWeeklyCount] = useState(0)
+    const [monthlyCountState, setMonthlyCount] = useState(0)
     const [totalCountState, setTotalCount] = useState(totalCount)
 
     const navigate = useNavigate()
@@ -25,7 +25,7 @@ const HabitDetails = () => {
     // navigate to edit habit page
     const navigateTo = () => {
         navigate('/myhabits/form', {
-            state: { mode: 'Edit', habit: habit, dailyCount: dailyCountState, weeklyCount: weeklyCountState, monthlyCount: monthlyCountState, totalCount: totalCountState }
+            state: { mode: 'Edit', habit: habit, dailyCount: dailyCountState, totalCount: totalCountState }
         })
     }
 
@@ -37,7 +37,23 @@ const HabitDetails = () => {
         return days.join(', ');
     }
 
-    // handle user clickin on check-in
+    // fetch weekly checkin count
+    useEffect(() => {
+        const today = formatDate(new Date())
+        const weekAgo = formatDateWeekAgo(currentDay)
+        getCountBetween(habit.habit_id, weekAgo, today)
+            .then(response => setWeeklyCount(response))
+    }, [currentDay, habit.habit_id]);
+
+    // fetch monthly checkin count
+    useEffect(() => {
+        const today = formatDate(new Date())
+        const monthStart = formatDateMonthStart(currentDay)
+        getCountBetween(habit.habit_id, monthStart, today)
+            .then(response => setMonthlyCount(response))
+    }, [currentDay, habit.habit_id, dailyCountState]);
+
+    // handle user clicking on check-in
     const handleCheckin = () => {
         const data = JSON.stringify({
             for_date: formatDate(currentDay),
@@ -48,8 +64,20 @@ const HabitDetails = () => {
                 if (response === 1) {
                     setDailyCount(dailyCountState + 1)
                     setWeeklyCount(weeklyCountState + 1)
-                    setMonthlyCount(monthlyCountState + 1)
                     setTotalCount(totalCountState + 1)
+                }
+            })
+    }
+
+    // handle user clicking on uncheck-in
+    const handleUncheckin = () => {
+        if (dailyCountState === 0) return
+        removeCheckin(habit.habit_id, formatDate(currentDay))
+            .then(response => {
+                if (response === 1) {
+                    setDailyCount(dailyCountState - 1)
+                    setWeeklyCount(weeklyCountState - 1)
+                    setTotalCount(totalCountState - 1)
                 }
             })
     }
@@ -105,7 +133,7 @@ const HabitDetails = () => {
                 </div>
 
                 <div className='center-of-div flex-row gap-3'>
-                    <div className='secondary-red-button hover:primary-red-button button-animation flex-1 center-of-div'>Uncheck-in</div>
+                    <div className='secondary-red-button hover:primary-red-button button-animation flex-1 center-of-div' onClick={handleUncheckin}>Uncheck-in</div>
                     <div className='secondary-green-button hover:primary-green-button button-animation flex-1 center-of-div' onClick={handleCheckin}>Check-in</div>
                 </div>
             </div>

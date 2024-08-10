@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { formatDate, formatDateMonthStart, formatDateWeekAgo } from '../../utils/DateUtils'
-import { getCountBetween, getDayCount, getTotalCount, incrementCheckin } from '../../services/CheckinServices'
+import { formatDate } from '../../utils/DateUtils'
+import { getDayCount, getTotalCount, incrementCheckin } from '../../services/CheckinServices'
 
 const HabitCard = ({ habit, currentDay }) => {
     // states for habit checkin counts
     const [dailyCount, setDailyCount] = useState(0)
-    const [weeklyCount, setWeeklyCount] = useState(0)
-    const [monthlyCount, setMonthlyCount] = useState(0)
     const [totalCount, setTotalCount] = useState(0)
 
     // fetch daily checkin count
@@ -15,22 +13,6 @@ const HabitCard = ({ habit, currentDay }) => {
         const today = formatDate(currentDay)
         getDayCount(habit.habit_id, today)
             .then(response => setDailyCount(response))
-    }, [currentDay, habit.habit_id]);
-
-    // fetch weekly checkin count
-    useEffect(() => {
-        const today = formatDate(new Date())
-        const weekAgo = formatDateWeekAgo(currentDay)
-        getCountBetween(habit.habit_id, weekAgo, today)
-            .then(response => setWeeklyCount(response))
-    }, [currentDay, habit.habit_id]);
-
-    // fetch monthly checkin count
-    useEffect(() => {
-        const today = formatDate(new Date())
-        const monthStart = formatDateMonthStart(currentDay)
-        getCountBetween(habit.habit_id, monthStart, today)
-            .then(response => setMonthlyCount(response))
     }, [currentDay, habit.habit_id]);
 
     // fetch total checkin count
@@ -49,8 +31,6 @@ const HabitCard = ({ habit, currentDay }) => {
             .then(response => {
                 if (response === 1) {
                     setDailyCount(dailyCount + 1)
-                    setWeeklyCount(weeklyCount + 1)
-                    setMonthlyCount(monthlyCount + 1)
                     setTotalCount(totalCount + 1)
                 }
             })
@@ -61,7 +41,7 @@ const HabitCard = ({ habit, currentDay }) => {
     // navigate to habit details page
     const handleNavigate = () => {
         navigate('/myhabits/details', {
-            state: { currentDay: currentDay, habit: habit, dailyCount: dailyCount, weeklyCount: weeklyCount, monthlyCount: monthlyCount, totalCount: totalCount }
+            state: { currentDay: currentDay, habit: habit, dailyCount: dailyCount, totalCount: totalCount }
         })
     }
 
