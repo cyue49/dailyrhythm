@@ -7,7 +7,6 @@ export const getDayCount = (habit_id, date) => {
         })
         .catch((e) => {
             console.log(e.message);
-            return 0
         })
 }
 
@@ -20,7 +19,6 @@ export const getCountBetween = (habit_id, startDate, endDate) => {
         })
         .catch((e) => {
             console.log(e.message);
-            return 0
         })
 }
 
@@ -33,7 +31,6 @@ export const getTotalCount = (habit_id) => {
         })
         .catch((e) => {
             console.log(e.message);
-            return 0
         })
 }
 
@@ -56,6 +53,5 @@ export const incrementCheckin = (data) => {
         }
     }).catch((e) => {
         console.log(e.message)
-        return 0
     })
 } 

@@ -4,6 +4,7 @@ import { faCircleCheck, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import Select from 'react-select'
 import { themeOptions, timeOptions } from '../../assets/data/settingsOptions'
 import Toast from '../common/Toast'
+import { getSettings, updateSettings } from '../../services/UserServices'
 
 const SettingsCard = () => {
     // states for editing user settings
@@ -27,24 +28,11 @@ const SettingsCard = () => {
 
     // fetch user settings from db
     useEffect(() => {
-        const getUserSettings = async () => {
-            fetch('http://127.0.0.1:5000/api/users/me/settings', { credentials: 'include' })
-                .then((res) => {
-                    if (res.status === 200 && res.ok) {
-                        res.json()
-                            .then((data) => {
-                                // setAppTheme(data.theme)
-                                setAppTheme(themeOptions.find(item => (item.value === data.theme)))
-                                setDayStartTime(timeOptions.find(item => (item.value === data.time_day_starts.slice(0, 5))))
-                            })
-                    }
-                })
-                .catch((e) => {
-                    console.log(e.message)
-                })
-        }
-
-        getUserSettings();
+        getSettings()
+            .then(response => {
+                setAppTheme(themeOptions.find(item => (item.value === response.theme)))
+                setDayStartTime(timeOptions.find(item => (item.value === response.time_day_starts.slice(0, 5))))
+            })
     }, [])
 
     // styles of selection boxes
@@ -69,27 +57,18 @@ const SettingsCard = () => {
     // update user settings in db
     const handleEdit = () => {
         if (isEdit) {
-            fetch(' http://127.0.0.1:5000/api/users/me/edit/settings', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    theme: appTheme.value,
-                    time_day_starts: dayStartTime.value
-                })
+            const data = JSON.stringify({
+                theme: appTheme.value,
+                time_day_starts: dayStartTime.value
             })
-                .then((res) => {
-                    if (res.status === 200 && res.ok) {
+            updateSettings(data)
+                .then(response => {
+                    if (response === 1) {
                         setIsEdit(false)
                         toast('User settings updated successfully!')
                     } else {
                         toast('Error updating user settings.')
                     }
-                })
-                .catch((e) => {
-                    console.log(e.message)
                 })
         } else {
             setIsEdit(true)
