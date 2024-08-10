@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import HabitCard from './HabitCard'
 import { getHabitsForCategory } from '../../services/HabitServices'
 
@@ -6,14 +6,10 @@ const CategoryDivider = ({ category, currentDay }) => {
     const [habits, setHabits] = useState([])
 
     // fetch all user habits for this category
-    const getHabits = useCallback(() => {
+    useEffect(() => {
         getHabitsForCategory(category.category_id)
             .then(response => setHabits(response))
     }, [category.category_id]);
-
-    useEffect(() => {
-        getHabits()
-    }, [getHabits]);
 
     return (
         <div className='center-of-div flex-col flex-nowrap w-full gap-1'>

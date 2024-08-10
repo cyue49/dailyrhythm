@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import Toast from '../components/common/Toast'
+import { updatePassword } from '../services/UserServices'
+import { signOut } from '../services/AuthServices'
 
 const Profile = () => {
     // states for popup modal for change password
@@ -64,40 +66,26 @@ const Profile = () => {
     const navigate = useNavigate()
 
     const handlePasswordChange = () => {
-        fetch(' http://127.0.0.1:5000/api/users/me/edit/password', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include',
-            body: JSON.stringify({
-                old_password: form.old_password,
-                new_password: form.new_password
-            })
+        const data = JSON.stringify({
+            old_password: form.old_password,
+            new_password: form.new_password
         })
-            .then((res) => {
-                if (res.status === 200 && res.ok) {
+        updatePassword(data)
+            .then(response => {
+                if (response === 1) {
                     toast('Password updated successfully!')
                     setModalOpen(false)
                 } else {
                     setGeneralErrorMessage('Error updating password. Please make sure you have entered your old password correctly.')
                 }
             })
-            .catch((e) => {
-                console.log(e.message)
-            })
     }
 
     // sign out user
-    const handleSignOut = async () => {
-        fetch('http://127.0.0.1:5000/api/auth/signout', { credentials: 'include' })
-            .then((res) => {
-                if (res.status === 200 && res.ok) {
-                    // redirects to home page
-                    navigate('/')
-                }
-            }).catch((e) => {
-                console.log(e.message)
+    const handleSignOut = () => {
+        signOut()
+            .then(response => {
+                if (response === 1) navigate('/')
             })
     }
 

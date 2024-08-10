@@ -1,25 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { getInfo } from '../services/UserServices'
+import { signIn } from '../services/AuthServices'
 
 const SignIn = () => {
     const navigate = useNavigate()
 
     // check if user already logged in, if yes, redirect to signed in page
     useEffect(() => {
-        const getUserInfo = async () => {
-            fetch('http://127.0.0.1:5000/api/users/me', { credentials: 'include' })
-                .then((res) => {
-                    if (res.status === 200 && res.ok) {
-                        // user already signed in redirect to homepage
-                        navigate('/myhabits')
-                    } 
-                })
-                .catch((e) => {
-                    console.log(e.message)
-                })
-        }
-
-        getUserInfo();
+        getInfo()
+            .then(response => {
+                // if user already signed in, redirect to Habits homepage
+                if (response) navigate('/myhabits')
+            })
     }, [navigate])
 
     // states for sign in form
@@ -56,30 +49,20 @@ const SignIn = () => {
     }
 
     // handle submitting the form and sending a request to the server
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        fetch('http://127.0.0.1:5000/api/auth/signin',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    email: form.email,
-                    user_password: form.user_password
-                })
-            }
-        ).then((res) => {
-            if (res.status === 200 && res.ok) {
-                // redirects to profile page
-                navigate('/myhabits')
-            } else if (res.status === 400) { // invalid email / password
-                setGeneralErrorMessage('Invalid email or password.')
-            }
-        }).catch((e) => {
-            console.log(e.message)
+        const data = JSON.stringify({
+            email: form.email,
+            user_password: form.user_password
         })
+        signIn(data)
+            .then(response => {
+                if (response === 1) {
+                    navigate('/myhabits')
+                } else {
+                    setGeneralErrorMessage('Invalid email or password.')
+                }
+            })
     }
 
     return (

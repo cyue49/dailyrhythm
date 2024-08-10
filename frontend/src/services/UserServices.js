@@ -10,9 +10,31 @@ export const getInfo = () => {
         })
 }
 
-// update user info
+// update general user info
 export const updateInfo = (data) => {
     return fetch(' http://127.0.0.1:5000/api/users/me/edit/general', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: data
+    })
+        .then((res) => {
+            if (res.status === 200 && res.ok) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        .catch((e) => {
+            console.log(e.message)
+        })
+}
+
+// update user password
+export const updatePassword = (data) => {
+    return fetch(' http://127.0.0.1:5000/api/users/me/edit/password', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

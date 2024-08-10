@@ -1,25 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { getInfo } from '../services/UserServices'
+import { signUp } from '../services/AuthServices'
 
 const SignUp = () => {
     const navigate = useNavigate()
 
     // check if user already logged in, if yes, redirect to signed in page
     useEffect(() => {
-        const getUserInfo = async () => {
-            fetch('http://127.0.0.1:5000/api/users/me', { credentials: 'include' })
-                .then((res) => {
-                    if (res.status === 200 && res.ok) {
-                        // user already signed in redirect to homepage
-                        navigate('/myhabits')
-                    } 
-                })
-                .catch((e) => {
-                    console.log(e.message)
-                })
-        }
-
-        getUserInfo();
+        getInfo()
+            .then(response => {
+                // if user already signed in, redirect to Habits homepage
+                if (response) navigate('/myhabits')
+            })
     }, [navigate])
 
     // states for sign up form
@@ -41,17 +34,17 @@ const SignUp = () => {
         const passwordRe = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
         const usernameRe = new RegExp(/^[\w\s-]{1,50}$/)
 
-        if (emailRe.test(form.email)){
+        if (emailRe.test(form.email)) {
             setValidEmail(true)
         } else {
             setValidEmail(false)
         }
-        if (passwordRe.test(form.user_password)){
+        if (passwordRe.test(form.user_password)) {
             setValidPassword(true)
         } else {
             setValidPassword(false)
         }
-        if (usernameRe.test(form.username)){
+        if (usernameRe.test(form.username)) {
             setValidUsername(true)
         } else {
             setValidUsername(false)
@@ -78,29 +71,19 @@ const SignUp = () => {
     // handle submitting the form and sending a request to the server
     const handleSubmit = async (e) => {
         e.preventDefault();
-        fetch('http://127.0.0.1:5000/api/users/signup',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    email: form.email,
-                    username: form.username,
-                    user_password: form.user_password
-                })
-            }
-        ).then((res) => {
-            if (res.status === 200 && res.ok) {
-                // redirects to profile page
-                navigate('/myhabits')
-            } else if (res.status === 400) { // invalid email / password
-                setGeneralErrorMessage('Error signin up.')
-            }
-        }).catch((e) => {
-            console.log(e.message)
+        const data = JSON.stringify({
+            email: form.email,
+            username: form.username,
+            user_password: form.user_password
         })
+        signUp(data)
+            .then(response => {
+                if (response === 1) {
+                    navigate('/myhabits')
+                } else {
+                    setGeneralErrorMessage('Error signin up.')
+                }
+            })
     }
 
     return (
