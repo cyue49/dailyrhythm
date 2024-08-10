@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { weekDaysShort } from '../../assets/data/dates'
+import { weekDaysShort } from '../../utils/DateUtils'
 
 const WeeklyCalendar = ({ currentDay, setCurrentDay, dayStartTime }) => {
     const [weekdays, setWeekdays] = useState([]);

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import WeeklyCalendar from '../components/myhabits/WeeklyCalendar'
-import { weekDaysLong, monthsLong } from '../assets/data/dates'
+import { weekDaysLong, monthsLong } from '../utils/DateUtils'
 import CategoryDivider from '../components/myhabits/CategoryDivider'
 
 const MyHabits = () => {
@@ -72,8 +72,8 @@ const MyHabits = () => {
 
     // navigate to create new habit page
     const handleNavigate = () => {
-        navigate('/myhabits/form', 
-            { state: {mode: 'New', habit: {}}}
+        navigate('/myhabits/form',
+            { state: { mode: 'New', habit: {}, dailyCount: 0, weeklyCount: 0, monthlyCount: 0, totalCount: 0 } }
         )
     }
 

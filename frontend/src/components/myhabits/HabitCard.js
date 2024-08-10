@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { formatDate, formatDateMonthStart, formatDateWeekAgo } from '../../utils/DateUtils'
 
 const HabitCard = ({ habit, currentDay }) => {
     // states for habit checkin counts
     const [dailyCount, setDailyCount] = useState(0)
+    const [weeklyCount, setWeeklyCount] = useState(0)
+    const [monthlyCount, setMonthlyCount] = useState(0)
     const [totalCount, setTotalCount] = useState(0)
 
     // fetch daily checkin count
     const getDailyCheckins = useCallback(() => {
         // get current date in yyyy-mm-dd format
-        const offset = currentDay.getTimezoneOffset()
-        const newDay = new Date(currentDay.getTime() - (offset * 60 * 1000)).toISOString().split('T')[0]
+        const newDay = formatDate(currentDay)
 
         // fetch single day checkin count
         fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/habit/${habit.habit_id}/count/day/${newDay}`, { credentials: 'include' })
@@ -30,6 +32,56 @@ const HabitCard = ({ habit, currentDay }) => {
     useEffect(() => {
         getDailyCheckins()
     }, [getDailyCheckins]);
+
+    // fetch weekly checkin count
+    const getWeeklyCheckins = useCallback(() => {
+        // today and week ago date
+        const today = formatDate(currentDay)
+        const weekAgo = formatDateWeekAgo(currentDay)
+
+        // fetch single day checkin count
+        fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/habit/${habit.habit_id}/count/from/${weekAgo}/to/${today}`, { credentials: 'include' })
+            .then((res) => {
+                if (res.status === 200 && res.ok) {
+                    res.json()
+                        .then((data) => {
+                            setWeeklyCount(parseInt(data.count))
+                        })
+                }
+            })
+            .catch((e) => {
+                console.log(e.message)
+            })
+    }, [currentDay, habit.habit_id]);
+
+    useEffect(() => {
+        getWeeklyCheckins()
+    }, [getWeeklyCheckins]);
+
+    // fetch monthly checkin count
+    const getMonthlyCheckins = useCallback(() => {
+        // today and start of month 
+        const today = formatDate(currentDay)
+        const monthStart = formatDateMonthStart(currentDay)
+
+        // fetch single day checkin count
+        fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/habit/${habit.habit_id}/count/from/${monthStart}/to/${today}`, { credentials: 'include' })
+            .then((res) => {
+                if (res.status === 200 && res.ok) {
+                    res.json()
+                        .then((data) => {
+                            setMonthlyCount(parseInt(data.count))
+                        })
+                }
+            })
+            .catch((e) => {
+                console.log(e.message)
+            })
+    }, [currentDay, habit.habit_id]);
+
+    useEffect(() => {
+        getMonthlyCheckins()
+    }, [getMonthlyCheckins]);
 
     // fetch total checkin count
     const getTotalCheckins = useCallback(() => {
@@ -84,7 +136,7 @@ const HabitCard = ({ habit, currentDay }) => {
     // navigate to habit details page
     const handleNavigate = () => {
         navigate('/myhabits/details', {
-            state: { habit: habit }
+            state: { habit: habit, dailyCount: dailyCount, weeklyCount: weeklyCount, monthlyCount: monthlyCount, totalCount: totalCount }
         })
     }
 
