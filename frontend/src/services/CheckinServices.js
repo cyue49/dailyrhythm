@@ -55,3 +55,5 @@ export const incrementCheckin = (data) => {
         console.log(e.message)
     })
 } 
+
+// make a post request to delete the latest checkin for a day

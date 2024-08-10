@@ -22,27 +22,27 @@
 
     /* Main buttons */
     .primary-green-button {
-        @apply bg-appGreen text-appWhite border-appGreen border-solid border-2 rounded-full px-3 py-2 font-semibold disabled:opacity-75;
+        @apply bg-appGreen text-appWhite border-appGreen border-solid border-2 rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
     .secondary-green-button {
-        @apply bg-appWhite text-appGreen border-appGreen border-solid border-2 rounded-full px-3 py-2 font-semibold disabled:opacity-75;
+        @apply bg-appWhite text-appGreen border-appGreen border-solid border-2 rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
     .primary-red-button {
-        @apply bg-appRed text-appWhite border-appRed border-solid border-2 rounded-full px-3 py-2 font-semibold disabled:opacity-75;
+        @apply bg-appRed text-appWhite border-appRed border-solid border-2 rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
     .secondary-red-button {
-        @apply bg-appWhite text-appRed border-appRed border-solid border-2 rounded-full px-3 py-2 font-semibold disabled:opacity-75;
+        @apply bg-appWhite text-appRed border-appRed border-solid border-2 rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
     .primary-gray-button {
-        @apply bg-appGray-3 text-appWhite border-appGray-3 border-solid border-2 rounded-full px-3 py-2 font-semibold disabled:opacity-75;
+        @apply bg-appGray-3 text-appWhite border-appGray-3 border-solid border-2 rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
     .secondary-gray-button {
-        @apply bg-appWhite text-appGray-3 border-appGray-3 border-solid border-2 rounded-full px-3 py-2 font-semibold disabled:opacity-75;
+        @apply bg-appWhite text-appGray-3 border-appGray-3 border-solid border-2 rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
     /* Form Input box */
