@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faPenToSquare, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import Toast from '../common/Toast'
+import { getInfo, updateInfo } from '../../services/UserServices'
 
 const UserCard = () => {
     // states for editing username and email 
@@ -26,25 +27,13 @@ const UserCard = () => {
 
     // fetch user info
     useEffect(() => {
-        const getUserInfo = async () => {
-            fetch('http://127.0.0.1:5000/api/users/me', { credentials: 'include' })
-                .then((res) => {
-                    if (res.status === 200 && res.ok) {
-                        res.json()
-                            .then((data) => {
-                                setForm({
-                                    username: data.username,
-                                    email: data.email
-                                })
-                            })
-                    }
+        getInfo()
+            .then(response => {
+                setForm({
+                    username: response.username,
+                    email: response.email
                 })
-                .catch((e) => {
-                    console.log(e.message)
-                })
-        }
-
-        getUserInfo();
+            })
     }, [])
 
     // validate form inputs 
@@ -82,27 +71,18 @@ const UserCard = () => {
     // update username and email in database
     const handleEdit = () => {
         if (isEdit) {
-            fetch(' http://127.0.0.1:5000/api/users/me/edit/general', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify({
-                    username: form.username,
-                    email: form.email
-                })
+            const data = JSON.stringify({
+                username: form.username,
+                email: form.email
             })
-                .then((res) => {
-                    if (res.status === 200 && res.ok) {
+            updateInfo(data)
+                .then(response => {
+                    if (response === 1) {
                         setIsEdit(false)
                         toast('User info updated successfully!')
                     } else {
                         toast('Error updating user info.')
                     }
-                })
-                .catch((e) => {
-                    console.log(e.message)
                 })
         } else {
             setIsEdit(true)
