@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import TopBar from '../components/common/TopBar'
 import BottomBar from '../components/common/BottomBar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import WeeklyCalendar from '../components/myhabits/WeeklyCalendar'
 import { weekDaysLong, monthsLong } from '../utils/DateUtils'
 import CategoryDivider from '../components/myhabits/CategoryDivider'
+import { getCategories } from '../services/CategoryServices'
+import { getSettings } from '../services/UserServices'
 
 const MyHabits = () => {
     // states for current day, day start time, list of categories
@@ -19,54 +21,22 @@ const MyHabits = () => {
     }
 
     // fetch all user categories
-    const getCategories = useCallback(() => {
-        fetch(' http://127.0.0.1:5000/api/categories/all', { credentials: 'include' })
-            .then((res) => {
-                if (res.status === 200 && res.ok) {
-                    res.json()
-                        .then((data) => {
-                            setCategories(data)
-                        })
-                }
-            })
-            .catch((e) => {
-                console.log(e.message)
-            })
-    }, []);
-
     useEffect(() => {
         getCategories()
-    }, [getCategories]);
-
-    // fetch day start time from user setting
-    const getDayStartTime = useCallback(() => {
-        fetch('http://127.0.0.1:5000/api/users/me/settings', { credentials: 'include' })
-            .then((res) => {
-                if (res.status === 200 && res.ok) {
-                    res.json()
-                        .then((data) => {
-                            setDayStartTime(data.time_day_starts.toString().slice(0, 2))
-                        })
-                }
-            })
-            .catch((e) => {
-                console.log(e.message)
-            })
+            .then(response => setCategories(response))
     }, []);
 
+    // fetch day start time from user setting
     useEffect(() => {
-        getDayStartTime()
-    }, [getDayStartTime]);
+        getSettings()
+            .then(response => setDayStartTime(response.time_day_starts.toString().slice(0, 2)))
+    }, []);
 
     // update current day based on user's day start time settings
-    const adjustCurrentDay = useCallback(() => {
+    useEffect(() => {
         const adjustedDay = new Date(Date.now() - parseInt(dayStartTime) * 60 * 60 * 1000)
         setCurrentDay(adjustedDay)
     }, [dayStartTime]);
-
-    useEffect(() => {
-        adjustCurrentDay()
-    }, [adjustCurrentDay]);
 
     const navigate = useNavigate()
 
