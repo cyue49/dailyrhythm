@@ -11,8 +11,8 @@ export const getHabitsForCategory = (category_id) => {
 }
 
 // archive a habit
-export const archiveHabit = (id, data) => {
-    return fetch(` http://127.0.0.1:5000/api/custom_habits/edit/active/${id}`, {
+export const archiveHabit = (habit_id, data) => {
+    return fetch(` http://127.0.0.1:5000/api/custom_habits/edit/active/${habit_id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -33,3 +33,20 @@ export const archiveHabit = (id, data) => {
 }
 
 // delete a habit
+export const deleteHabit = (habit_id) => {
+    return fetch(` http://127.0.0.1:5000/api/custom_habits/delete/${habit_id}`,
+        {
+            method: 'DELETE',
+            credentials: 'include'
+        })
+        .then((res) => {
+            if (res.status === 200 && res.ok) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        .catch((e) => {
+            console.log(e.message)
+        })
+}

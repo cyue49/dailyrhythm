@@ -8,7 +8,7 @@ import HabitTitleCard from '../components/habitsdetails/HabitTitleCard'
 import CheckinDetailsCard from '../components/habitsdetails/CheckinDetailsCard'
 import HabitDetailsCard from '../components/habitsdetails/HabitDetailsCard'
 import { Dialog, DialogPanel } from '@headlessui/react'
-import { archiveHabit } from '../services/HabitServices'
+import { archiveHabit, deleteHabit } from '../services/HabitServices'
 
 const HabitDetails = () => {
     // habit passed from route state
@@ -64,6 +64,7 @@ const HabitDetails = () => {
             })
     }
 
+    // handle archiving a habit
     const handleArchive = () => {
         const data = JSON.stringify({
             is_active: false
@@ -77,8 +78,15 @@ const HabitDetails = () => {
             })
     }
 
+    // handle deleting a habit
     const handleDelete = () => {
-        // todo
+        deleteHabit(habit.habit_id)
+            .then(response => {
+                if (response === 1) {
+                    setDialogOpen(false)
+                    navigateBack()
+                }
+            })
     }
 
     return (
