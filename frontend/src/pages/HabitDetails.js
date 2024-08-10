@@ -7,6 +7,8 @@ import { incrementCheckin, removeCheckin } from '../services/CheckinServices'
 import HabitTitleCard from '../components/habitsdetails/HabitTitleCard'
 import CheckinDetailsCard from '../components/habitsdetails/CheckinDetailsCard'
 import HabitDetailsCard from '../components/habitsdetails/HabitDetailsCard'
+import { Dialog, DialogPanel } from '@headlessui/react'
+import { archiveHabit } from '../services/HabitServices'
 
 const HabitDetails = () => {
     // habit passed from route state
@@ -17,6 +19,9 @@ const HabitDetails = () => {
     const [totalCount, setTotalCount] = useState(0)
     const [weeklyCount, setWeeklyCount] = useState(0)
     const [monthlyCount, setMonthlyCount] = useState(0)
+
+    // state for options dialog
+    const [dialogOpen, setDialogOpen] = useState(false)
 
     const navigate = useNavigate()
 
@@ -59,9 +64,26 @@ const HabitDetails = () => {
             })
     }
 
+    const handleArchive = () => {
+        const data = JSON.stringify({
+            is_active: false
+        })
+        archiveHabit(habit.habit_id, data)
+            .then(response => {
+                if (response === 1) {
+                    setDialogOpen(false)
+                    navigateBack()
+                }
+            })
+    }
+
+    const handleDelete = () => {
+        // todo
+    }
+
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
-            <TopBar icons={['back', 'ellipsis']} title={habit.habit_name} backOnclick={navigateBack} ellipsisOnClick={navigateTo} />
+            <TopBar icons={['back', 'ellipsis']} title={habit.habit_name} backOnclick={navigateBack} ellipsisOnClick={(() => setDialogOpen(true))} />
             <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 pt-3 mt-[56px] px-3 lg:px-5'>
                 <HabitTitleCard currentDay={currentDay} habit={habit} dailyCount={dailyCount} setDailyCount={setDailyCount} totalCount={totalCount} setTotalCount={setTotalCount} />
 
@@ -75,6 +97,16 @@ const HabitDetails = () => {
                 </div>
             </div>
             <BottomBar current={2} />
+
+            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                    <DialogPanel className="w-7/12 max-w-xs center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen overflow-hidden">
+                        <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation' onClick={navigateTo}>Edit</div>
+                        <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation' onClick={handleArchive}>Archive</div>
+                        <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation' onClick={handleDelete}>Delete</div>
+                    </DialogPanel>
+                </div>
+            </Dialog>
         </div>
     )
 }
