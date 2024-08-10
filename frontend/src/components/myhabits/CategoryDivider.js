@@ -1,23 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import HabitCard from './HabitCard'
+import { getHabitsForCategory } from '../../services/HabitServices'
 
 const CategoryDivider = ({ category, currentDay }) => {
     const [habits, setHabits] = useState([])
 
     // fetch all user habits for this category
     const getHabits = useCallback(() => {
-        fetch(`http://127.0.0.1:5000/api/custom_habits/active/${category.category_id}`, { credentials: 'include' })
-            .then((res) => {
-                if (res.status === 200 && res.ok) {
-                    res.json()
-                        .then((data) => {
-                            setHabits(data)
-                        })
-                }
-            })
-            .catch((e) => {
-                console.log(e.message)
-            })
+        getHabitsForCategory(category.category_id)
+            .then(response => setHabits(response))
     }, [category.category_id]);
 
     useEffect(() => {
