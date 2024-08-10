@@ -5,10 +5,10 @@ import { useNavigate, useLocation } from 'react-router-dom'
 
 const HabitForm = () => {
     // mode and habit passed from route state
-    const { state: { mode, habit, dailyCount, totalCount } = {} } = useLocation();
+    const { state: { currentDay, mode, habit } = {} } = useLocation();
 
     const navigate = useNavigate()
-    const navigateBack = () => { navigate('/myhabits/details', { state: { habit: habit, dailyCount: dailyCount, totalCount: totalCount } }) }
+    const navigateBack = () => { navigate('/myhabits/details', { state: { currentDay: currentDay, habit: habit } }) }
 
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>

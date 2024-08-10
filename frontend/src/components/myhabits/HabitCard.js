@@ -41,7 +41,7 @@ const HabitCard = ({ habit, currentDay }) => {
     // navigate to habit details page
     const handleNavigate = () => {
         navigate('/myhabits/details', {
-            state: { currentDay: currentDay, habit: habit, dailyCount: dailyCount, totalCount: totalCount }
+            state: { currentDay: currentDay, habit: habit }
         })
     }
 

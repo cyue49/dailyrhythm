@@ -43,7 +43,7 @@ const MyHabits = () => {
     // navigate to create new habit page
     const handleNavigate = () => {
         navigate('/myhabits/form',
-            { state: { mode: 'New', habit: {}, dailyCount: 0, totalCount: 0 } }
+            { state: { currentDay: currentDay, mode: 'New', habit: {} } }
         )
     }
 
