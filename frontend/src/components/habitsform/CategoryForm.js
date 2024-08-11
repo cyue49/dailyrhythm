@@ -5,7 +5,7 @@ import { getCategories } from '../../services/CategoryServices'
 import { Dialog, DialogPanel } from '@headlessui/react'
 import NewCategoryDialog from '../habitsform/NewCategoryDialog'
 
-const CategoryForm = ({ category, setCategory }) => {
+const CategoryForm = ({ category, setCategory, categoryID }) => {
     const [options, setOptions] = useState([])
     const [dialogOpen, setDialogOpen] = useState(false)
     const [newCategory, setNewCategory] = useState('')
@@ -13,14 +13,17 @@ const CategoryForm = ({ category, setCategory }) => {
     // getting all of user's categories
     useEffect(() => {
         const categoryOptions = []
+        var defaultOption = {value: '', label: ''}
 
         getCategories()
             .then(response => {
                 response.forEach(element => {
                     const option = { value: element.category_id, label: element.category_name }
+                    if (element.category_id === categoryID) defaultOption = option 
                     categoryOptions.push(option)
                 });
                 setOptions(categoryOptions)
+                setCategory(defaultOption)
             })
     }, [])
 

@@ -49,7 +49,6 @@ const HabitForm = () => {
                 if (habit.weekdays.includes(i.toString())) habitCheckedDays[i] = true
             }
             setCheckedDays(habitCheckedDays)
-            setCategory({ value: habit.category_id, label: 'temp' })
         }
     }, [setForm, habit, mode])
 
@@ -61,7 +60,7 @@ const HabitForm = () => {
             <TopBar icons={['back']} title={mode} backOnclick={navigateBack} />
             <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5 justify-between'>
                 <div className='flex flex-col gap-4'>
-                    <CategoryForm category={category} setCategory={setCategory} />
+                    <CategoryForm category={category} setCategory={setCategory} categoryID={habit.category_id} />
                     <GeneralForm form={form} setForm={setForm} frequencyType={frequencyType} setFrequencyType={setFrequencyType} />
                     <WeekdaysForm checkedDays={checkedDays} setCheckedDays={setCheckedDays} />
                 </div>
