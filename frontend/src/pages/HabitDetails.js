@@ -7,7 +7,7 @@ import { incrementCheckin, removeCheckin } from '../services/CheckinServices'
 import HabitTitleCard from '../components/habitsdetails/HabitTitleCard'
 import CheckinDetailsCard from '../components/habitsdetails/CheckinDetailsCard'
 import HabitDetailsCard from '../components/habitsdetails/HabitDetailsCard'
-import { Dialog, DialogPanel } from '@headlessui/react'
+import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { archiveHabit, deleteHabit } from '../services/HabitServices'
 
 const HabitDetails = () => {
@@ -22,6 +22,10 @@ const HabitDetails = () => {
 
     // state for options dialog
     const [dialogOpen, setDialogOpen] = useState(false)
+
+    // states for confirm archive / delete dialogs
+    const [confirmDelete, setConfirmDelete] = useState(false)
+    const [confirmArchive, setConfirmArchive] = useState(false)
 
     const navigate = useNavigate()
 
@@ -110,8 +114,40 @@ const HabitDetails = () => {
                 <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
                     <DialogPanel className="w-7/12 max-w-xs center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen overflow-hidden">
                         <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation' onClick={navigateTo}>Edit</div>
-                        <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation border-t border-t-appGray-2 border-b border-b-appGray-2' onClick={handleArchive}>Archive</div>
-                        <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation' onClick={handleDelete}>Delete</div>
+                        <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation border-t border-t-appGray-2 border-b border-b-appGray-2' onClick={() => {
+                            setDialogOpen(false)
+                            setConfirmArchive(true)
+                        }}>Archive</div>
+                        <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation' onClick={() => {
+                            setDialogOpen(false)
+                            setConfirmDelete(true)
+                        }}>Delete</div>
+                    </DialogPanel>
+                </div>
+            </Dialog>
+
+            <Dialog open={confirmArchive} onClose={() => setConfirmArchive(false)} className="relative z-50">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
+                        <DialogTitle className='font-bold'>Are you sure you want to archive this habit?</DialogTitle>
+                        <div className='center-of-div flex-row gap-2 mt-4 w-full'>
+                            <div className='primary-gray-button hover:secondary-gray-button button-animation flex-1 center-of-div'
+                                onClick={() => setConfirmArchive(false)}>Cancel</div>
+                            <div className='primary-red-button hover:secondary-red-button button-animation flex-1 center-of-div' onClick={handleArchive}>Archive</div>
+                        </div>
+                    </DialogPanel>
+                </div>
+            </Dialog>
+
+            <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
+                        <DialogTitle className='font-bold'>Are you sure you want to delete this habit?</DialogTitle>
+                        <div className='center-of-div flex-row gap-2 mt-4 w-full'>
+                            <div className='primary-gray-button hover:secondary-gray-button button-animation flex-1 center-of-div'
+                                onClick={() => setConfirmDelete(false)}>Cancel</div>
+                            <div className='primary-red-button hover:secondary-red-button button-animation flex-1 center-of-div' onClick={handleDelete}>Delete</div>
+                        </div>
                     </DialogPanel>
                 </div>
             </Dialog>
