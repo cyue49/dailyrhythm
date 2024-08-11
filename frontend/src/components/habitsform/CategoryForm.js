@@ -13,7 +13,7 @@ const CategoryForm = ({ category, setCategory, categoryID }) => {
     // getting all of user's categories
     useEffect(() => {
         const categoryOptions = []
-        var defaultOption = {value: '', label: ''}
+        var defaultOption = {value: '', label: 'Select'}
 
         getCategories()
             .then(response => {

@@ -19,9 +19,9 @@ const HabitForm = () => {
         habit_description: '',
         frequency_count: ''
     })
-    const [frequencyType, setFrequencyType] = useState({ value: '', label: '' })
+    const [frequencyType, setFrequencyType] = useState({ value: '', label: 'Select' })
     const [checkedDays, setCheckedDays] = useState(new Array(7).fill(false))
-    const [category, setCategory] = useState({ value: '', label: '' })
+    const [category, setCategory] = useState({ value: '', label: 'Select' })
     const [generalErrorMessage, setGeneralErrorMessage] = useState('')
 
     // handle form submit
