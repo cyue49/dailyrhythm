@@ -49,6 +49,7 @@ const HabitForm = () => {
                 if (habit.weekdays.includes(i.toString())) habitCheckedDays[i] = true
             }
             setCheckedDays(habitCheckedDays)
+            setCategory({ value: habit.category_id, label: 'temp' })
         }
     }, [setForm, habit, mode])
 

@@ -15,13 +15,13 @@ const GeneralForm = ({ form, setForm, frequencyType, setFrequencyType }) => {
         <div className='flex flex-col gap-4'>
             <div className='flex flex-col gap-1'>
                 <div className='font-bold' htmlFor='habit_name'>Name <span className='text-appRed'>*</span> : </div>
-                <input className='form-text-input' type='text' name='habit_name' id='habit_name' value={form.habit_name} onChange={handleChange} />
+                <input className='form-text-input' type='text' name='habit_name' id='habit_name' maxLength='50' value={form.habit_name} onChange={handleChange} />
             </div>
 
 
             <div className='flex flex-col gap-1'>
                 <div className='font-bold' htmlFor='habit_description'>Description: </div>
-                <textarea className='form-text-input rounded-2xl' type='text' rows='5' name='habit_description' id='habit_description' value={form.habit_description} onChange={handleChange}></textarea>
+                <textarea className='form-text-input rounded-2xl' type='text' rows='5' name='habit_description' id='habit_description' maxLength='255' value={form.habit_description} onChange={handleChange}></textarea>
             </div>
 
             <div className='flex flex-col gap-1'>
