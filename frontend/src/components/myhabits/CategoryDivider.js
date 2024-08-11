@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import { Dialog, DialogPanel } from '@headlessui/react'
-import CategoryDialog from '../myhabits/CategoryDialog'
+import RenameCategoryDialog from './RenameCategoryDialog'
 import { deleteCategory } from '../../services/CategoryServices'
 
 const CategoryDivider = ({ category, currentDay, categories, setCategories }) => {
@@ -62,7 +62,7 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories }) =>
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
                 <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
-                        <CategoryDialog categoryID={category.category_id} categoryName={categoryRename} setCategoryName={setCategoryRename} setDialogOpen={setDialogOpen} mode='rename' setCategoryState={setCategoryName} />
+                        <RenameCategoryDialog categoryID={category.category_id} categoryName={categoryRename} setCategoryName={setCategoryRename} setDialogOpen={setDialogOpen} setCategoryState={setCategoryName} />
                     </DialogPanel>
                 </div>
             </Dialog>

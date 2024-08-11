@@ -20,16 +20,14 @@ export const addCategory = (data) => {
             },
             credentials: 'include',
             body: data
-        }
-    ).then((res) => {
-        if (res.status === 200 && res.ok) {
-            return 1
-        } else if (res.status === 400) {
-            return 0
-        }
-    }).catch((e) => {
-        console.log(e.message)
-    })
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            return data
+        })
+        .catch((e) => {
+            console.log(e.message)
+        })
 }
 
 // update a category name

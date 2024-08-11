@@ -50,7 +50,7 @@ router.post('/', auth, async (req, res) => {
                 res.status(400).send('failed');
             } else {
                 // send response
-                res.status(200).send('success');
+                res.status(200).send({category_id: category_id});
             }
         })
     } catch (e) {

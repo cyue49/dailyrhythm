@@ -3,7 +3,7 @@ import Select from 'react-select'
 import { selectStyles } from '../../assets/data/selectOptions'
 import { getCategories } from '../../services/CategoryServices'
 import { Dialog, DialogPanel } from '@headlessui/react'
-import CategoryDialog from '../myhabits/CategoryDialog'
+import NewCategoryDialog from '../habitsform/NewCategoryDialog'
 
 const CategoryForm = ({ category, setCategory }) => {
     const [options, setOptions] = useState([])
@@ -43,7 +43,7 @@ const CategoryForm = ({ category, setCategory }) => {
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
                 <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
-                        <CategoryDialog categoryName={newCategory} setCategoryName={setNewCategory} setDialogOpen={setDialogOpen} mode='add' />
+                        <NewCategoryDialog categoryName={newCategory} setCategoryName={setNewCategory} setDialogOpen={setDialogOpen} categoryOptions={options} setCategoryOptions={setOptions} />
                     </DialogPanel>
                 </div>
             </Dialog>
