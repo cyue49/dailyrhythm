@@ -44,7 +44,6 @@ const HabitForm = () => {
                 weekdays: checkedDays.map((day, index) => day ? index.toString() : '').join(''),
                 category_id: category.value
             })
-            console.log(data)
             if (mode === 'New') {
                 addHabit(data)
                     .then(response => {
@@ -92,7 +91,7 @@ const HabitForm = () => {
                     <WeekdaysForm checkedDays={checkedDays} setCheckedDays={setCheckedDays} />
                 </div>
 
-                <div className='center-of-div flex-row gap-4 py-8'>
+                <div className='center-of-div flex-row gap-4 py-4'>
                     <div className='primary-gray-button hover:secondary-gray-button button-animation flex-1 center-of-div' onClick={navigateBack}>Cancel</div>
                     <div className='primary-green-button hover:secondary-green-button button-animation flex-1 center-of-div' onClick={handleSubmit}>Submit</div>
                 </div>

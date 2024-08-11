@@ -9,7 +9,7 @@ const WeekdaysForm = ({ checkedDays, setCheckedDays }) => {
     }
 
     return (
-        <div className='flex flex-col gap-1'>
+        <div className='flex flex-col gap-1 rounded-3xl p-3 bg-appGray-1'>
             <div className='font-bold'>Weekdays: </div>
             <div className='flex flex-row items-center justify-evenly'>
                 {weekDaysShort.map((day, index) => (

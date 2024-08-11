@@ -19,7 +19,7 @@ const HabitDetailsCard = ({ habit }) => {
             <div className='flex flex-row justify-start items-start gap-2 w-full'>
                 <FontAwesomeIcon className='text-appGreen text-lg' icon={faClipboardList} />
                 <div>Description: </div>
-                <div className='flex-1 border border-appGray-2 rounded-xl px-2 py-1 min-h-12 max-h-20 overflow-auto no-scrollbar'>{habit.habit_description}</div>
+                <div className={`flex-1 max-h-20 px-2 overflow-auto no-scrollbar font-bold text-appGreen ${(habit.habit_description === '') ? '' : 'min-h-12 border rounded-xl border-appGreen'}`}>{habit.habit_description}</div>
             </div>
             <div className='flex flex-row justify-start items-center gap-2 w-full'>
                 <FontAwesomeIcon className='text-appGreen text-lg' icon={faClock} />

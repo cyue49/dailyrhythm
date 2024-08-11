@@ -28,7 +28,7 @@ const CategoryForm = ({ category, setCategory, categoryID }) => {
     }, [categoryID, setCategory])
 
     return (
-        <div className='flex flex-col gap-1'>
+        <div className='flex flex-col gap-1 rounded-3xl p-3 bg-appGray-1'>
             <div className='font-bold'>Category <span className='text-appRed'>*</span> : </div>
             {options.length !== 0 ?
                 <Select
