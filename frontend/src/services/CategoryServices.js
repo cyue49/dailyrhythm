@@ -31,3 +31,25 @@ export const addCategory = (data) => {
         console.log(e.message)
     })
 }
+
+// update a category name
+export const renameCategory = (category_id, data) => {
+    return fetch(`http://127.0.0.1:5000/api/categories/edit/${category_id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: data
+    })
+        .then((res) => {
+            if (res.status === 200 && res.ok) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        .catch((e) => {
+            console.log(e.message)
+        })
+}
