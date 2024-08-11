@@ -110,7 +110,7 @@ const HabitDetails = () => {
                 <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
                     <DialogPanel className="w-7/12 max-w-xs center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen overflow-hidden">
                         <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation' onClick={navigateTo}>Edit</div>
-                        <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation' onClick={handleArchive}>Archive</div>
+                        <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation border-t border-t-appGray-2 border-b border-b-appGray-2' onClick={handleArchive}>Archive</div>
                         <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation' onClick={handleDelete}>Delete</div>
                     </DialogPanel>
                 </div>

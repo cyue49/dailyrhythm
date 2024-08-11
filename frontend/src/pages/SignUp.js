@@ -69,7 +69,7 @@ const SignUp = () => {
     }
 
     // handle submitting the form and sending a request to the server
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const data = JSON.stringify({
             email: form.email,
