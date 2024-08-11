@@ -1,7 +1,7 @@
 import React from 'react'
 import { addCategory, renameCategory } from '../../services/CategoryServices'
 
-const CategoryDialog = ({ categoryID, categoryName, setCategoryName, setDialogOpen, mode }) => {
+const CategoryDialog = ({ categoryID, categoryName, setCategoryName, setDialogOpen, mode, setCategoryState }) => {
     // handle adding/updating a category
     const handleDone = () => {
         if (categoryName !== '') {
@@ -21,6 +21,7 @@ const CategoryDialog = ({ categoryID, categoryName, setCategoryName, setDialogOp
                     .then(response => {
                         if (response === 1) {
                             setCategoryName('')
+                            setCategoryState(categoryName)
                             setDialogOpen(false)
                         }
                     })
