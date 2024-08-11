@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
 import { selectStyles } from '../../assets/data/selectOptions'
-import { getCategories } from '../../services/CategoryServices'
+import { addCategory, getCategories } from '../../services/CategoryServices'
 import { Dialog, DialogPanel } from '@headlessui/react'
 
 const CategoryForm = ({ category, setCategory }) => {
@@ -26,9 +26,16 @@ const CategoryForm = ({ category, setCategory }) => {
     // handle adding a category
     const handleAdd = () => {
         if (newCategory !== '') {
-            console.log('adding a category')
-            setNewCategory('')
-            setDialogOpen(false)
+            const data = JSON.stringify({
+                category_name: newCategory
+            })
+            addCategory(data)
+                .then(response => {
+                    if (response === 1) {
+                        setNewCategory('')
+                        setDialogOpen(false)
+                    }
+                })
         }
     }
 

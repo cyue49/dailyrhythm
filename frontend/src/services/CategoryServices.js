@@ -9,3 +9,25 @@ export const getCategories = () => {
             console.log(e.message)
         })
 }
+
+// add a category for a user
+export const addCategory = (data) => {
+    return fetch(' http://127.0.0.1:5000/api/categories',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: data
+        }
+    ).then((res) => {
+        if (res.status === 200 && res.ok) {
+            return 1
+        } else if (res.status === 400) {
+            return 0
+        }
+    }).catch((e) => {
+        console.log(e.message)
+    })
+}
