@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleCheck, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import Select from 'react-select'
-import { themeOptions, timeOptions } from '../../assets/data/settingsOptions'
+import { themeOptions, timeOptions, selectStyles } from '../../assets/data/selectOptions'
 import Toast from '../common/Toast'
 import { getSettings, updateSettings } from '../../services/UserServices'
 
@@ -34,25 +34,6 @@ const SettingsCard = () => {
                 setDayStartTime(timeOptions.find(item => (item.value === response.time_day_starts.slice(0, 5))))
             })
     }, [])
-
-    // styles of selection boxes
-    const appGreen = '#528E6C'
-    const appGray3 = '#858585'
-    const appWhite = '#F3F3F3'
-    const appBlack = '#353535'
-
-    const selectStyles = {
-        control: (baseStyles, state) => ({
-            ...baseStyles,
-            borderColor: state.isDisabled ? appGray3 : appGreen,
-            borderRadius: '25px'
-        }),
-        option: (baseStyles, { data, isDisabled, isFocused, isSelected }) => ({
-            ...baseStyles,
-            backgroundColor: isFocused ? appGreen : 'white',
-            color: isFocused ? appWhite : appBlack
-        })
-    }
 
     // update user settings in db
     const handleEdit = () => {
