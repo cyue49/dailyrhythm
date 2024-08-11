@@ -11,7 +11,7 @@ const StatisticDetails = () => {
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
             <TopBar icons={['back']} title={'Habit title here'} backOnclick={goBack} />
-            <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 pt-4 mt-[56px] px-3 lg:px-5'>
+            <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5'>
                 Statistic details page
             </div>
             <BottomBar current={1} />

@@ -54,7 +54,7 @@ const HabitForm = () => {
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
             <TopBar icons={['back']} title={mode} backOnclick={navigateBack} />
-            <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 pt-4 mt-[56px] px-3 lg:px-5 justify-between pb-16'>
+            <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5 justify-between'>
                 <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
                     <div className='flex flex-col gap-1'>
                         <label className='font-bold' htmlFor='habit_name'>Name <span className='text-appRed'>*</span> : </label>

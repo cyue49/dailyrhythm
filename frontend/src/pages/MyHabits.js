@@ -50,7 +50,7 @@ const MyHabits = () => {
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
             <TopBar icons={['plus']} title={'My Habits'} plusOnclick={handleNavigate} />
-            <div className='w-full max-w-4xl h-screen bg-appWhite overflow-y-hidden flex flex-col gap-4 mt-[56px]'>
+            <div className='w-full max-w-4xl h-screen bg-appWhite overflow-y-hidden flex flex-col gap-4 my-[56px]'>
                 <WeeklyCalendar currentDay={currentDay} setCurrentDay={setCurrentDay} dayStartTime={dayStartTime} />
                 <div className='flex flex-col items-start justify-start gap-2 px-4 pb-4 no-scrollbar overflow-y-auto'>
                     <div className='w-full text-xl font-bold flex flex-row justify-between'>
