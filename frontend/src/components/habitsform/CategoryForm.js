@@ -25,7 +25,7 @@ const CategoryForm = ({ category, setCategory, categoryID }) => {
                 setOptions(categoryOptions)
                 setCategory(defaultOption)
             })
-    }, [])
+    }, [categoryID, setCategory])
 
     return (
         <div className='flex flex-col gap-1'>
@@ -46,7 +46,7 @@ const CategoryForm = ({ category, setCategory, categoryID }) => {
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
                 <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
-                        <NewCategoryDialog categoryName={newCategory} setCategoryName={setNewCategory} setDialogOpen={setDialogOpen} categoryOptions={options} setCategoryOptions={setOptions} />
+                        <NewCategoryDialog categoryName={newCategory} setCategoryName={setNewCategory} setDialogOpen={setDialogOpen} categoryOptions={options} setCategoryOptions={setOptions} setCurrentOption={setCategory} />
                     </DialogPanel>
                 </div>
             </Dialog>

@@ -3,8 +3,7 @@ import HabitCard from './HabitCard'
 import { getHabitsForCategory } from '../../services/HabitServices'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
-import { DialogTitle, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
-import { Dialog, DialogPanel } from '@headlessui/react'
+import { DialogTitle, Dialog, DialogPanel, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import RenameCategoryDialog from './RenameCategoryDialog'
 import { deleteCategory } from '../../services/CategoryServices'
 
@@ -71,7 +70,7 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories }) =>
             <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50">
                 <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
-                        <div className='font-bold'>Are you sure you want to delete this category?</div>
+                        <DialogTitle className='font-bold'>Are you sure you want to delete this category?</DialogTitle>
                         <div className='center-of-div flex-row gap-2 mt-4 w-full'>
                             <div className='primary-gray-button hover:secondary-gray-button button-animation flex-1 center-of-div'
                                 onClick={() => setConfirmDelete(false)}>Cancel</div>
