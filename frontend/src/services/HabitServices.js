@@ -50,3 +50,42 @@ export const deleteHabit = (habit_id) => {
             console.log(e.message)
         })
 }
+
+// create a new habit
+export const addHabit = (data) => {
+    return fetch(' http://127.0.0.1:5000/api/custom_habits',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: data
+        })
+        .then((res) => res.json())
+        .then((result) => {
+            return result
+        })
+        .catch((e) => {
+            console.log(e.message)
+        })
+}
+
+// update a habit
+export const updateHabit = (habit_id, data) => {
+    return fetch(` http://127.0.0.1:5000/api/custom_habits/edit/${habit_id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: data
+    })
+        .then((res) => res.json())
+        .then((result) => {
+            return result
+        })
+        .catch((e) => {
+            console.log(e.message)
+        })
+}

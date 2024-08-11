@@ -130,13 +130,13 @@ router.post('/', auth, async (req, res) => {
         const created_on = new Date();
 
         // query to database
-        pool.query('INSERT INTO custom_habits(habit_id, habit_name, habit_description, frequency_count, frequency_type, weekdays, created_on, category_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [habit_id, habit_name, habit_description, frequency_count, frequency_type, weekdays, created_on, category_id], (err, result) => {
+        pool.query('INSERT INTO custom_habits(habit_id, habit_name, habit_description, frequency_count, frequency_type, weekdays, created_on, category_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *', [habit_id, habit_name, habit_description, frequency_count, frequency_type, weekdays, created_on, category_id], (err, result) => {
             if (err) {
                 console.log('Error executing query.', err);
                 res.status(400).send('failed');
             } else {
                 // send response
-                res.status(200).send('success');
+                res.status(200).send(result.rows[0]);
             }
         })
     } catch (e) {
@@ -165,13 +165,13 @@ router.put('/edit/:id', auth, async (req, res) => {
         const { category_id } = req.body;
 
         // update in the database
-        pool.query('UPDATE custom_habits SET habit_name = $1, habit_description = $2, frequency_count = $3, frequency_type = $4, weekdays = $5, category_id = $6 WHERE habit_id = $7', [habit_name, habit_description, frequency_count, frequency_type, weekdays, category_id, req.params.id], (err, result) => {
+        pool.query('UPDATE custom_habits SET habit_name = $1, habit_description = $2, frequency_count = $3, frequency_type = $4, weekdays = $5, category_id = $6 WHERE habit_id = $7 RETURNING *', [habit_name, habit_description, frequency_count, frequency_type, weekdays, category_id, req.params.id], (err, result) => {
             if (err) {
                 console.log('Error updating habit.', err);
                 res.status(400).send('failed');
             } else {
                 // send response
-                res.status(200).send('success');
+                res.status(200).send(result.rows[0]);
             }
         })
     } catch (e) {

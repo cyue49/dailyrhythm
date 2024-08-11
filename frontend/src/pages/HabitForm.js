@@ -5,8 +5,11 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import GeneralForm from '../components/habitsform/GeneralForm'
 import WeekdaysForm from '../components/habitsform/WeekdaysForm'
 import CategoryForm from '../components/habitsform/CategoryForm'
+import { addHabit, updateHabit } from '../services/HabitServices'
 
 const HabitForm = () => {
+    const navigate = useNavigate()
+
     // mode and habit passed from route state
     const { state: { currentDay, mode, habit } = {} } = useLocation();
 
@@ -19,20 +22,43 @@ const HabitForm = () => {
     const [frequencyType, setFrequencyType] = useState({ value: '', label: '' })
     const [checkedDays, setCheckedDays] = useState(new Array(7).fill(false))
     const [category, setCategory] = useState({ value: '', label: '' })
+    const [generalErrorMessage, setGeneralErrorMessage] = useState('')
 
     // handle form submit
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = JSON.stringify({
-            habit_name: form.habit_name,
-            habit_description: form.habit_description,
-            frequency_count: parseInt(form.frequency_count),
-            frequency_type: frequencyType.value,
-            weekdays: checkedDays.map((day, index) => day ? index.toString() : '').join(''),
-            category_id: category.value
-        })
-        console.log(data)
-        console.log('submit')
+        // form validation
+        if (form.habit_name === '') {
+            setGeneralErrorMessage('Name must not be empty.')
+        } else if (category.value === '') {
+            setGeneralErrorMessage('A category must be chosen.')
+        } else if (form.frequency_count !== '' && frequencyType.value === '') {
+            setGeneralErrorMessage('Incomplete fields for Frequency.')
+        } else {
+            // create new habit
+            const data = JSON.stringify({
+                habit_name: form.habit_name,
+                habit_description: form.habit_description,
+                frequency_count: form.frequency_count === '' ? 0 : parseInt(form.frequency_count),
+                frequency_type: frequencyType.value,
+                weekdays: checkedDays.map((day, index) => day ? index.toString() : '').join(''),
+                category_id: category.value
+            })
+            console.log(data)
+            if (mode === 'New') {
+                addHabit(data)
+                    .then(response => {
+                        // navigate back to habits details page of the newly created habit
+                        navigate('/myhabits/details', { state: { currentDay: currentDay, habit: response } })
+                    })
+            } else if (mode === 'Edit') {
+                updateHabit(habit.habit_id, data)
+                    .then(response => {
+                        navigate('/myhabits/details', { state: { currentDay: currentDay, habit: response } })
+                    })
+            }
+        }
+
     }
 
     // set default values if is edit
@@ -41,7 +67,7 @@ const HabitForm = () => {
             setForm({
                 habit_name: habit.habit_name,
                 habit_description: habit.habit_description,
-                frequency_count: habit.frequency_count.toString()
+                frequency_count: habit.frequency_count === 0 ? '' : habit.frequency_count.toString()
             })
             setFrequencyType({ value: habit.frequency_type, label: habit.frequency_type })
             const habitCheckedDays = new Array(7).fill(false)
@@ -52,7 +78,6 @@ const HabitForm = () => {
         }
     }, [setForm, habit, mode])
 
-    const navigate = useNavigate()
     const navigateBack = () => { (mode === 'Edit') ? navigate('/myhabits/details', { state: { currentDay: currentDay, habit: habit } }) : navigate('/myhabits') }
 
     return (
@@ -60,6 +85,8 @@ const HabitForm = () => {
             <TopBar icons={['back']} title={mode} backOnclick={navigateBack} />
             <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5 justify-between'>
                 <div className='flex flex-col gap-4'>
+                    <div className={`text-appRed text-sm border-[1px] border-appRed rounded-full p-2 ${(generalErrorMessage !== '') ? '' : 'hidden'}`}>{generalErrorMessage}</div>
+
                     <CategoryForm category={category} setCategory={setCategory} categoryID={habit.category_id} />
                     <GeneralForm form={form} setForm={setForm} frequencyType={frequencyType} setFrequencyType={setFrequencyType} />
                     <WeekdaysForm checkedDays={checkedDays} setCheckedDays={setCheckedDays} />
