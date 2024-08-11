@@ -53,3 +53,22 @@ export const renameCategory = (category_id, data) => {
             console.log(e.message)
         })
 }
+
+// delete a category
+export const deleteCategory = (category_id) => {
+    return fetch(`http://127.0.0.1:5000/api/categories/delete/${category_id}`,
+        {
+            method: 'DELETE',
+            credentials: 'include'
+        })
+        .then((res) => {
+            if (res.status === 200 && res.ok) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        .catch((e) => {
+            console.log(e.message)
+        })
+}
