@@ -4,6 +4,7 @@ import BottomBar from '../components/common/BottomBar'
 import { useNavigate, useLocation } from 'react-router-dom'
 import GeneralForm from '../components/habitsform/GeneralForm'
 import WeekdaysForm from '../components/habitsform/WeekdaysForm'
+import CategoryForm from '../components/habitsform/CategoryForm'
 
 const HabitForm = () => {
     // mode and habit passed from route state
@@ -17,6 +18,7 @@ const HabitForm = () => {
     })
     const [frequencyType, setFrequencyType] = useState({ value: '', label: '' })
     const [checkedDays, setCheckedDays] = useState(new Array(7).fill(false))
+    const [category, setCategory] = useState({ value: '', label: '' })
 
     // handle form submit
     const handleSubmit = (e) => {
@@ -27,7 +29,7 @@ const HabitForm = () => {
             frequency_count: parseInt(form.frequency_count),
             frequency_type: frequencyType.value,
             weekdays: checkedDays.map((day, index) => day ? index.toString() : '').join(''),
-            category_id: ''
+            category_id: category.value
         })
         console.log(data)
         console.log('submit')
@@ -58,6 +60,7 @@ const HabitForm = () => {
             <TopBar icons={['back']} title={mode} backOnclick={navigateBack} />
             <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5 justify-between'>
                 <div className='flex flex-col gap-4'>
+                    <CategoryForm category={category} setCategory={setCategory} />
                     <GeneralForm form={form} setForm={setForm} frequencyType={frequencyType} setFrequencyType={setFrequencyType} />
                     <WeekdaysForm checkedDays={checkedDays} setCheckedDays={setCheckedDays} />
                 </div>
