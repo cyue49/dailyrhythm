@@ -58,7 +58,7 @@ const MyHabits = () => {
                         <FontAwesomeIcon className='text-appGray-3 cursor-pointer' icon={faFilter} />
                     </div>
                     {categories.map((category, index) => (
-                        <CategoryDivider category={category} currentDay={currentDay} key={index} />
+                        <CategoryDivider category={category} currentDay={currentDay} key={index} categories={categories} setCategories={setCategories} />
                     ))}
                 </div>
             </div>

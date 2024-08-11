@@ -8,7 +8,7 @@ import { Dialog, DialogPanel } from '@headlessui/react'
 import CategoryDialog from '../myhabits/CategoryDialog'
 import { deleteCategory } from '../../services/CategoryServices'
 
-const CategoryDivider = ({ category, currentDay }) => {
+const CategoryDivider = ({ category, currentDay, categories, setCategories }) => {
     const [habits, setHabits] = useState([])
     const [categoryName, setCategoryName] = useState(category.category_name)
     const [categoryRename, setCategoryRename] = useState('')
@@ -27,7 +27,13 @@ const CategoryDivider = ({ category, currentDay }) => {
         deleteCategory(category.category_id)
             .then(response => {
                 if (response === 1) {
-                    // todo
+                    const newCategories = []
+                    categories.forEach(element => {
+                        if (element.category_id !== category.category_id) {
+                            newCategories.push(element)
+                        }
+                    })
+                    setCategories(newCategories)
                 }
             })
     }
