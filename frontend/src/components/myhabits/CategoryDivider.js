@@ -47,7 +47,7 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories }) =>
                         transition
                         anchor="right"
                         className='bg-appWhite border border-appGreen rounded-2xl m-2 w-[150px] flex flex-col overflow-hidden transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] data-[closed]:-translate-y-1 data-[closed]:opacity-0'>
-                        <div className='px-4 pt-2 pb-1 center-of-div hover:bg-appGreen hover:text-appWhite button-animation cursor-pointer' onClick={() => setDialogOpen(true)}>Rename</div>
+                        <div className='px-4 pt-2 pb-1 center-of-div hover:bg-appGreen hover:text-appWhite button-animation cursor-pointer border-b border-appGray-2' onClick={() => setDialogOpen(true)}>Rename</div>
                         <div className='px-4 pt-1 pb-2 center-of-div hover:bg-appGreen hover:text-appWhite button-animation cursor-pointer' onClick={() => setConfirmDelete(true)}>Delete</div>
                     </PopoverPanel>
                 </Popover>

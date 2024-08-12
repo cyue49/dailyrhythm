@@ -30,7 +30,7 @@ router.get('/active', auth, async (req, res) => {
 router.get('/active/:id', auth, async (req, res) => {
     try {
         // query to database
-        pool.query('SELECT C.habit_id, C.habit_name, C.habit_description, C.frequency_count, C.frequency_type, C.weekdays, C.created_on, C.category_id FROM custom_habits C JOIN categories Cat ON C.category_id = Cat.category_id JOIN users U ON Cat.user_id = U.user_id WHERE U.user_id = $1 AND C.is_active = TRUE AND C.category_id = $2', [req.user_id, req.params.id], (err, result) => {
+        pool.query('SELECT C.habit_id, C.habit_name, C.habit_description, C.frequency_count, C.frequency_type, C.weekdays, C.created_on, C.category_id FROM custom_habits C JOIN categories Cat ON C.category_id = Cat.category_id JOIN users U ON Cat.user_id = U.user_id WHERE U.user_id = $1 AND C.is_active = TRUE AND C.category_id = $2 ORDER BY C.habit_name', [req.user_id, req.params.id], (err, result) => {
             if (err) {
                 console.log('Error executing query.', err);
                 res.status(400).send('failed');

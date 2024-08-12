@@ -10,7 +10,7 @@ const auth = require('../middlewares/auth')
 router.get('/all', auth, async (req, res) => {
     try {
         // query to database
-        pool.query('SELECT category_id, category_name FROM categories WHERE user_id = $1', [req.user_id], (err, result) => {
+        pool.query('SELECT category_id, category_name FROM categories WHERE user_id = $1 ORDER BY category_name', [req.user_id], (err, result) => {
             if (err) {
                 console.log('Error executing query.', err);
                 res.status(400).send('failed');
