@@ -10,6 +10,17 @@ export const getHabitsForCategory = (category_id) => {
         })
 }
 
+// get all archived habits
+export const getArchivedHabits = () => {
+    return fetch(`http://127.0.0.1:5000/api/custom_habits/archived`, { credentials: 'include' })
+        .then((res) => res.json())
+        .then((data) => {
+            return data;
+        })
+        .catch((e) => {
+            console.log(e.message)
+        })
+}
 // archive a habit
 export const archiveHabit = (habit_id, data) => {
     return fetch(` http://127.0.0.1:5000/api/custom_habits/edit/active/${habit_id}`, {
