@@ -8,6 +8,7 @@ import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { Checkbox } from '@headlessui/react'
+import { updateHabitArchive } from '../services/HabitServices'
 
 const ArchivedHabits = () => {
     const navigate = useNavigate()
@@ -48,21 +49,34 @@ const ArchivedHabits = () => {
         }
     }
 
+    // set is_active to true for all selected habits in archivedHabits
+    const unarchiveSelected = async () => {
+        const data = JSON.stringify({
+            is_active: true
+        })
+        archivedHabits.forEach(habit => {
+            if (habit.selected === true) {
+                updateHabitArchive(habit.habit_id, data)
+            }
+        })
+    }
+
     // unarchive all selected habits
     const handleUnarchive = () => {
-        // todo: set is_active to true to all habits in archivedHabits
-
-        // update habits and selected states
-        setArchivedHabits(archivedHabits.filter(habit => !habit.selected === true))
-        console.log(archivedHabits)
-        setDeselectAll(true)
-        setSelectAll(false)
-        setConfirmArchive(false)
+        unarchiveSelected()
+            .then(() => {
+                // update habits and selected states
+                setArchivedHabits(archivedHabits.filter(habit => !habit.selected === true))
+                console.log(archivedHabits)
+                setDeselectAll(true)
+                setSelectAll(false)
+                setConfirmArchive(false)
+            })
     }
 
     // deleted all selected habits
     const handleDelete = () => {
-        // todo: delete all habits in archivedHabits
+        // todo: delete all selected habits in archivedHabits
 
         // update habits and selected states
         setArchivedHabits(archivedHabits.filter(habit => !habit.selected === true))
