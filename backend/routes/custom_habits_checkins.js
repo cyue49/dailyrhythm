@@ -46,6 +46,26 @@ router.get('/habit/:id/count', auth, async (req, res) => {
     }
 });
 
+// get total count of distinct days checked-in for a habit
+router.get('/habit/:id/count/days', auth, async (req, res) => {
+    try {
+        // query to database
+        pool.query('SELECT COUNT(DISTINCT for_date) FROM custom_habits_checkins WHERE habit_id = $1', [req.params.id], (err, result) => {
+            if (err) {
+                console.log('Error executing query.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                console.log(result.rows[0]);
+                res.status(200).send(result.rows[0]);
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send('failed');
+    }
+});
+
 // get all checkins between two dates for a habit
 router.get('/habit/:id/from/:startDate/to/:endDate', auth, async (req, res) => {
     try {
@@ -171,11 +191,11 @@ router.delete('/delete/habit/:id/date/:date', auth, async (req, res) => {
             } else {
                 // if no checkin on that date return
                 if (result.rowCount === 0) return res.status(200).send('success');
-                
+
                 // delete the one with the latest timestamp
-                const latest = result.rowCount-1 
+                const latest = result.rowCount - 1
                 const latestID = result.rows[latest].checkin_id
-                
+
                 pool.query('DELETE FROM custom_habits_checkins WHERE checkin_id = $1', [latestID], (err1, result1) => {
                     if (err1) {
                         console.log('Error deleting item.', err1);

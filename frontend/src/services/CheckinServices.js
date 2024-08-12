@@ -74,3 +74,15 @@ export const removeCheckin = (habit_id, date) => {
             console.log(e.message)
         })
 }
+
+// get count of distince checkin days for a habit
+export const getTotalCheckinDays = (habit_id) => {
+    return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/habit/${habit_id}/count/days`, { credentials: 'include' })
+        .then((res) => res.json())
+        .then((data) => {
+            return parseInt(data.count)
+        })
+        .catch((e) => {
+            console.log(e.message);
+        })
+}

@@ -44,7 +44,7 @@ const CurrentMonthStatistics = ({ habit }) => {
             <div className='font-bold'>Current Month Check-ins: </div>
             <div className='grid grid-cols-7 grid-flow-row gap-2 w-full p-3 bg-appWhite rounded-3xl'>
                 {weekDaysShort.map((day, index) => (
-                    <div key={index} className='w-full flex flex-row py-2 items-center justify-center font-bold text-sm text-appGreen border-b border-appGray-2'>{day}</div>
+                    <div key={index} className={`w-full flex flex-row py-2 items-center justify-center font-bold text-sm text-appGreen ${habit.weekdays.includes(index.toString()) ? 'border-b-2 border-appGreen' : 'border-b border-appGray-2'}`}>{day}</div>
                 ))}
                 {monthDays.map((day, index) => (
                     <MonthdayCard habit={habit} day={day} today={today} key={index} />
