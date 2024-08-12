@@ -15,13 +15,41 @@ export const formatDate = (date) => {
 
 // returns a string of the date a week ago in the format yyyy-mm-dd
 export const formatDateWeekAgo = () => {
-    const weekAgoDate = new Date() 
+    const weekAgoDate = new Date()
     weekAgoDate.setDate(weekAgoDate.getDate() - 6)
     return formatDate(weekAgoDate)
 }
 
+// returns a string of the date at the start of this month in the format yyyy-mm-dd
 export const formatDateMonthStart = () => {
     const monthStart = new Date()
     monthStart.setDate(1)
     return formatDate(monthStart)
+}
+
+// returns an array of Date objects for the current month, including the last few days of last month if the first of this month is not a monday
+export const getThisMonthArray = (dayStartTime) => {
+    const thisMonth = [] // dates to be displayed
+
+    // date for the first of this month
+    const monthStart = new Date(Date.now() - parseInt(dayStartTime) * 60 * 60 * 1000)
+    monthStart.setDate(1)
+
+    // if first of month is not a monday, add the dates from the previous monday from last month
+    for (let i = monthStart.getDay() - 1; i > 0; i--) {
+        const prevDate = new Date(monthStart)
+        prevDate.setDate(prevDate.getDate() - i)
+        thisMonth.push(prevDate)
+    }
+
+    // this month and year
+    const month = monthStart.getMonth()
+        
+    // push all days of this month
+    while(monthStart.getMonth() === month) {
+        thisMonth.push(new Date(monthStart))
+        monthStart.setDate(monthStart.getDate() + 1)
+    }
+
+    return thisMonth
 }
