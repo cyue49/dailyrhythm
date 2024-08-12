@@ -4,6 +4,10 @@ import BottomBar from '../components/common/BottomBar'
 import { useNavigate } from 'react-router-dom'
 import { getArchivedHabits } from '../services/HabitServices'
 import ArchivedHabitCard from '../components/archivedhabits/ArchivedHabitCard'
+import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { Checkbox } from '@headlessui/react'
 
 const ArchivedHabits = () => {
     const navigate = useNavigate()
@@ -11,6 +15,22 @@ const ArchivedHabits = () => {
     // states
     const [habits, setHabits] = useState([])
     const [selectedHabits, setSelectedHabits] = useState([])
+
+    // states for confirm dialogs and select/deselect
+    const [confirmDelete, setConfirmDelete] = useState(false)
+    const [confirmArchive, setConfirmArchive] = useState(false)
+    const [deselectAll, setDeselectAll] = useState(false)
+    const [selectAll, setSelectAll] = useState(false)
+
+    const handleSelectAll = () => {
+        if (selectAll === true) {
+            setDeselectAll(true)
+            setSelectAll(false)
+        } else {
+            setDeselectAll(false)
+            setSelectAll(true)
+        }
+    }
 
     // fetch all archived habits for the user
     useEffect(() => {
@@ -20,20 +40,83 @@ const ArchivedHabits = () => {
             })
     }, []);
 
-    const goBack = () => { navigate('/profile') }
+    // unarchive all selected habits
+    const handleUnarchive = () => {
+        console.log('unarchive')
+        // todo: set is_active to true to all habits in selectedHabits
+        setHabits(habits.filter(habit => !selectedHabits.includes(habit.habit_id)))
+        setSelectedHabits([])
+        setDeselectAll(true)
+        setSelectAll(false)
+        setConfirmArchive(false)
+    }
+
+    // deleted all selected habits
+    const handleDelete = () => {
+        console.log('delete')
+        // todo: delete all habits in selectedHabits
+        setHabits(habits.filter(habit => !selectedHabits.includes(habit.habit_id)))
+        setSelectedHabits([])
+        setDeselectAll(true)
+        setSelectAll(false)
+        setConfirmDelete(false)
+    }
+
+    const navigateBack = () => { navigate('/profile') }
 
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
-            <TopBar icons={['back']} title={'Archived Habits'} backOnclick={goBack} />
+            <TopBar icons={['back']} title={'Archived Habits'} backOnclick={navigateBack} />
             <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5'>
+                {/* Delete/Unarchive button */}
                 <div className='center-of-div flex-row gap-3'>
-                    <div className='secondary-red-button hover:primary-red-button button-animation flex-1 center-of-div'>Delete</div>
-                    <div className='secondary-green-button hover:primary-green-button button-animation flex-1 center-of-div'>Unarchive</div>
+                    <div className='secondary-red-button hover:primary-red-button button-animation flex-1 center-of-div' onClick={() => setConfirmDelete(true)}>Delete</div>
+                    <div className='secondary-green-button hover:primary-green-button button-animation flex-1 center-of-div' onClick={() => setConfirmArchive(true)}>Unarchive</div>
                 </div>
+
+                {/* select/deselect buttons */}
+                <div className='pb-3 cursor-pointer border-b border-appGray-2 flex flex-row justify-start items-center gap-3' onClick={handleSelectAll}>
+                    <Checkbox checked={selectAll} onChange={setSelectAll} className="rounded-md border border-appGreen size-5 overflow-hidden">
+                        {selectAll ?
+                            <div className='size-5 bg-appGreen text-appWhite center-of-div flex-col text-sm'><FontAwesomeIcon icon={faCheck} /></div>
+                            : <div></div>}
+                    </Checkbox>
+                    <div>Select / Deselect all</div>
+                </div>
+
+                {/* list of archived habits */}
                 {habits.map((habit, index) => (
-                    <ArchivedHabitCard key={index} habit={habit} selectedHabits={selectedHabits} setSelectedHabits={setSelectedHabits} />
+                    <ArchivedHabitCard key={index} habit={habit} selectedHabits={selectedHabits} setSelectedHabits={setSelectedHabits} deselectAll={deselectAll} selectAll={selectAll} />
                 ))}
             </div>
+
+            {/* Confirm delete/unarchive dialogs */}
+            <Dialog open={confirmArchive} onClose={() => setConfirmArchive(false)} className="relative z-50">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
+                        <DialogTitle className='font-bold'>Are you sure you want to unarchive the selected habits?</DialogTitle>
+                        <div className='center-of-div flex-row gap-2 mt-4 w-full'>
+                            <div className='primary-gray-button hover:secondary-gray-button button-animation flex-1 center-of-div'
+                                onClick={() => setConfirmArchive(false)}>Cancel</div>
+                            <div className='primary-green-button hover:secondary-green-button button-animation flex-1 center-of-div' onClick={handleUnarchive}>Unarchive</div>
+                        </div>
+                    </DialogPanel>
+                </div>
+            </Dialog>
+
+            <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
+                        <DialogTitle className='font-bold'>Are you sure you want to delete the selected habits?</DialogTitle>
+                        <div className='center-of-div flex-row gap-2 mt-4 w-full'>
+                            <div className='primary-gray-button hover:secondary-gray-button button-animation flex-1 center-of-div'
+                                onClick={() => setConfirmDelete(false)}>Cancel</div>
+                            <div className='primary-red-button hover:secondary-red-button button-animation flex-1 center-of-div' onClick={handleDelete}>Delete</div>
+                        </div>
+                    </DialogPanel>
+                </div>
+            </Dialog>
+
             <BottomBar current={3} />
         </div>
     )
