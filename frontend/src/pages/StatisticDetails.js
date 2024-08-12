@@ -18,7 +18,7 @@ const StatisticDetails = () => {
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
             <TopBar icons={['back']} title={habit.habit_name} backOnclick={navigateBack} />
-            <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5'>
+            <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-3 py-3 my-[56px] px-3 lg:px-5'>
                 {/* basic statistics */}
                 <BasicStatistics habit={habit} totalCheckins={totalCheckins} />
 
