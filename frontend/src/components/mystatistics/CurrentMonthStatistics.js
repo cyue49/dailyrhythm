@@ -40,9 +40,9 @@ const CurrentMonthStatistics = ({ habit }) => {
     }, [getMonthDays])
 
     return (
-        <div className='flex flex-col items-start justify-center bg-appGray-1 rounded-3xl px-5 py-3 gap-2'>
+        <div className='flex flex-col items-start justify-center bg-appWhite rounded-3xl px-5 py-3 gap-2'>
             <div className='font-bold'>Current Month Check-ins: </div>
-            <div className='grid grid-cols-7 grid-flow-row gap-2 w-full p-3 bg-appWhite rounded-3xl'>
+            <div className='grid grid-cols-7 grid-flow-row gap-2 w-full p-3 border border-appGreen rounded-3xl'>
                 {weekDaysShort.map((day, index) => (
                     <div key={index} className={`w-full flex flex-row py-2 items-center justify-center font-bold text-sm text-appGreen ${habit.weekdays.includes(index.toString()) ? 'border-b-2 border-appGreen' : 'border-b border-appGray-2'}`}>{day}</div>
                 ))}

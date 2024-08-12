@@ -82,7 +82,7 @@ const HabitForm = () => {
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
             <TopBar icons={['back']} title={mode} backOnclick={navigateBack} />
-            <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5 justify-between'>
+            <div className='w-full max-w-4xl h-screen bg-appGray-1 no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5 justify-between'>
                 <div className='flex flex-col gap-4'>
                     <div className={`text-appRed text-sm border-[1px] border-appRed rounded-full p-2 ${(generalErrorMessage !== '') ? '' : 'hidden'}`}>{generalErrorMessage}</div>
 

@@ -14,7 +14,7 @@ const HabitDetailsCard = ({ habit }) => {
     }
 
     return (
-        <div className='flex flex-col items-start justify-center bg-appGray-1 rounded-3xl px-5 py-3 gap-2'>
+        <div className='flex flex-col items-start justify-center bg-appWhite rounded-3xl px-5 py-3 gap-2'>
             <div className='text-lg font-bold'>Habit Details</div>
             <div className='flex flex-row justify-start items-start gap-2 w-full'>
                 <FontAwesomeIcon className='text-appGreen text-lg' icon={faClipboardList} />
