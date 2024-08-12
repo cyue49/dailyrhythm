@@ -48,7 +48,7 @@ const PastWeekStatistics = ({ habit }) => {
                 ))}
             </div>
             <div className='flex flex-row py-2 items-center justify-start'>
-                <div className='font-bold text-sm'>Total weekly check-ins: </div>
+                <div className='font-bold text-sm'>Total check-ins in the past week: </div>
                 <div className='font-bold text-appGreen text-lg center-of-div px-3 py-1'>{weeklyCount}</div>
             </div>
         </div>
