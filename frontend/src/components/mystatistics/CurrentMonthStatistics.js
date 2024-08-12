@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { formatDate, formatDateMonthStart, getThisMonthArray } from '../../utils/DateUtils'
+import { formatDate, formatDateMonthStart, getThisMonthArray, weekDaysShort } from '../../utils/DateUtils'
 import { getCountBetween } from '../../services/CheckinServices'
 import { getSettings } from '../../services/UserServices'
+import MonthdayCard from './MonthdayCard'
 
 const CurrentMonthStatistics = ({ habit }) => {
     const [dayStartTime, setDayStartTime] = useState('0') // time a day starts from user setting
@@ -41,11 +42,17 @@ const CurrentMonthStatistics = ({ habit }) => {
     return (
         <div className='flex flex-col items-start justify-center bg-appGray-1 rounded-3xl px-5 py-3 gap-2'>
             <div className='font-bold'>Current Month Check-ins: </div>
-            {monthDays.map((day, index) => (
-                <div key={index}>{formatDate(day)}</div>
-            ))}
+            <div className='grid grid-cols-7 grid-flow-row gap-2 w-full p-3 bg-appWhite rounded-3xl'>
+                {weekDaysShort.map((day, index) => (
+                    <div key={index} className='w-full flex flex-row py-2 items-center justify-center font-bold text-sm text-appGreen'>{day}</div>
+                ))}
+                {monthDays.map((day, index) => (
+                    <MonthdayCard habit={habit} day={day} today={today} key={index} />
+                ))}
+            </div>
+
             <div className='flex flex-row py-2 items-center justify-start'>
-                <div className='font-bold text-sm'>Total check-ins this month: </div>
+                <div className='font-bold text-sm'>Total check-ins for this month: </div>
                 <div className='font-bold text-appGreen text-lg center-of-div px-3 py-1'>{monthlyCount}</div>
             </div>
         </div>

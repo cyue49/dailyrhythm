@@ -35,8 +35,8 @@ export const getThisMonthArray = (dayStartTime) => {
     const monthStart = new Date(Date.now() - parseInt(dayStartTime) * 60 * 60 * 1000)
     monthStart.setDate(1)
 
-    // if first of month is not a monday, add the dates from the previous monday from last month
-    for (let i = monthStart.getDay() - 1; i > 0; i--) {
+    // if first of month is not a saturday, add the dates from the previous monday from last month
+    for (let i = monthStart.getDay(); i > 0; i--) {
         const prevDate = new Date(monthStart)
         prevDate.setDate(prevDate.getDate() - i)
         thisMonth.push(prevDate)
