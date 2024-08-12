@@ -22,6 +22,11 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories }) =>
             })
     }, [category.category_id]);
 
+    // update category name when it changes (ex.: after deleting a category ordered previous to this one)
+    useEffect(() => {
+        setCategoryName(category.category_name)
+    },[category.category_name])
+
     // handle delete
     const handleDelete = () => {
         deleteCategory(category.category_id)
@@ -34,6 +39,7 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories }) =>
                         }
                     })
                     setCategories(newCategories)
+                    setConfirmDelete(false)
                 }
             })
     }
