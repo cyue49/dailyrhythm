@@ -18,7 +18,7 @@ const HabitCard = ({ habit }) => {
 
     return (
         <div className='w-full flex flex-row flex-nowrap items-center justify-between px-3 py-2 gap-4 rounded-full bg-appGray-1' onClick={navigateTo}>
-            <div className='rounded-full border border-appGreen bg-appWhite hover:bg-appGreen hover:text-appWhite cursor-pointer button-animation px-3 py-1'>{totalCount}</div>
+            <div className={`rounded-full border border-appGreen bg-appWhite hover:bg-appGreen hover:text-appWhite cursor-pointer button-animation py-1 ${(totalCount >= 10) ? 'px-2' : 'px-3'}`}>{totalCount}</div>
             <div className='flex-1 truncate cursor-pointer'>{habit.habit_name}</div>
             <div className='text-appGreen pr-2 font-bold'><FontAwesomeIcon icon={faCaretRight} /></div>
         </div>

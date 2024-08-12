@@ -16,7 +16,7 @@ export const formatDate = (date) => {
 // returns a string of the date a week ago in the format yyyy-mm-dd
 export const formatDateWeekAgo = () => {
     const weekAgoDate = new Date() 
-    weekAgoDate.setDate(weekAgoDate.getDate() - 7)
+    weekAgoDate.setDate(weekAgoDate.getDate() - 6)
     return formatDate(weekAgoDate)
 }
 
