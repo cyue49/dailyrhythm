@@ -43,10 +43,11 @@ const MyStatistics = () => {
 
 
                 {categories.map((category, index) => (
-                    (selectedCategory.value === 'all' || category.category_id === selectedCategory.value) ?
+                    (
+                        selectedCategory.value === 'all' || category.category_id === selectedCategory.value) ?
                         <CategoryDivider category={category} key={index} />
                         :
-                        <div></div>
+                        <div key={index}></div>
                 ))}
             </div>
             <BottomBar current={1} />

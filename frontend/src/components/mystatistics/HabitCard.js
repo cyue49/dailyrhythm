@@ -14,7 +14,7 @@ const HabitCard = ({ habit }) => {
     }, [habit.habit_id]);
 
     const navigate = useNavigate()
-    const navigateTo = () => { navigate('/mystatistics/details', { state: { habit: habit } }) }
+    const navigateTo = () => { navigate('/mystatistics/details', { state: { habit: habit, totalCheckins: totalCount } }) }
 
     return (
         <div className='w-full flex flex-row flex-nowrap items-center justify-between px-3 py-2 gap-4 rounded-full bg-appGray-1' onClick={navigateTo}>
