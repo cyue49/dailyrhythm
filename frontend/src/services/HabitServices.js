@@ -21,8 +21,8 @@ export const getArchivedHabits = () => {
             console.log(e.message)
         })
 }
-// archive a habit
-export const archiveHabit = (habit_id, data) => {
+// archive / unarchive a habit
+export const updateHabitArchive = (habit_id, data) => {
     return fetch(` http://127.0.0.1:5000/api/custom_habits/edit/active/${habit_id}`, {
         method: 'PUT',
         headers: {

@@ -4,7 +4,7 @@ import { Checkbox } from '@headlessui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
-const ArchivedHabitCard = ({ habit, selectedHabits, setSelectedHabits, deselectAll, selectAll }) => {
+const ArchivedHabitCard = ({ habit, archivedHabits, setArchivedHabits, deselectAll, selectAll }) => {
     const [totalCount, setTotalCount] = useState(0)
     const [checked, setChecked] = useState(false)
 
@@ -27,11 +27,7 @@ const ArchivedHabitCard = ({ habit, selectedHabits, setSelectedHabits, deselectA
     // handle check
     const handleCheck = () => {
         setChecked(!checked)
-        if (!selectedHabits.includes(habit.habit_id)) {
-            setSelectedHabits([...selectedHabits, habit.habit_id])
-        } else {
-            setSelectedHabits(selectedHabits.filter(item => item !== habit.habit_id))
-        }
+        setArchivedHabits(archivedHabits.map(item => (item.habit_id === habit.habit_id) ? { habit_id: item.habit_id, habit_name: item.habit_name, selected: !item.selected } : item))
     }
 
     return (

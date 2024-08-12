@@ -12,40 +12,49 @@ import { Checkbox } from '@headlessui/react'
 const ArchivedHabits = () => {
     const navigate = useNavigate()
 
-    // states
-    const [habits, setHabits] = useState([])
-    const [selectedHabits, setSelectedHabits] = useState([])
+    // archived habits and selected status states
+    const [archivedHabits, setArchivedHabits] = useState([])
 
-    // states for confirm dialogs and select/deselect
+    // states for confirm dialogs and select/deselect all
     const [confirmDelete, setConfirmDelete] = useState(false)
     const [confirmArchive, setConfirmArchive] = useState(false)
     const [deselectAll, setDeselectAll] = useState(false)
     const [selectAll, setSelectAll] = useState(false)
 
-    const handleSelectAll = () => {
-        if (selectAll === true) {
-            setDeselectAll(true)
-            setSelectAll(false)
-        } else {
-            setDeselectAll(false)
-            setSelectAll(true)
-        }
-    }
-
     // fetch all archived habits for the user
     useEffect(() => {
         getArchivedHabits()
             .then(response => {
-                setHabits(response)
+                const myHabits = []
+                response.forEach(habit => {
+                    myHabits.push({ habit_id: habit.habit_id, habit_name: habit.habit_name, selected: false })
+                })
+                setArchivedHabits(myHabits)
             })
     }, []);
 
+    // handle select / deselect all checkbox
+    const handleSelectAll = () => {
+        if (selectAll === true) {
+            setDeselectAll(true)
+            setSelectAll(false)
+            setArchivedHabits(archivedHabits.map((item) => (item.selected === true) ? { habit_id: item.id, habit_name: item.habit_name, selected: false } : item))
+
+        } else {
+            setDeselectAll(false)
+            setSelectAll(true)
+            setArchivedHabits(archivedHabits.map((item) => (item.selected === false) ? { habit_id: item.id, habit_name: item.habit_name, selected: true } : item))
+
+        }
+    }
+
     // unarchive all selected habits
     const handleUnarchive = () => {
-        console.log('unarchive')
-        // todo: set is_active to true to all habits in selectedHabits
-        setHabits(habits.filter(habit => !selectedHabits.includes(habit.habit_id)))
-        setSelectedHabits([])
+        // todo: set is_active to true to all habits in archivedHabits
+
+        // update habits and selected states
+        setArchivedHabits(archivedHabits.filter(habit => !habit.selected === true))
+        console.log(archivedHabits)
         setDeselectAll(true)
         setSelectAll(false)
         setConfirmArchive(false)
@@ -53,10 +62,11 @@ const ArchivedHabits = () => {
 
     // deleted all selected habits
     const handleDelete = () => {
-        console.log('delete')
-        // todo: delete all habits in selectedHabits
-        setHabits(habits.filter(habit => !selectedHabits.includes(habit.habit_id)))
-        setSelectedHabits([])
+        // todo: delete all habits in archivedHabits
+
+        // update habits and selected states
+        setArchivedHabits(archivedHabits.filter(habit => !habit.selected === true))
+        console.log(archivedHabits)
         setDeselectAll(true)
         setSelectAll(false)
         setConfirmDelete(false)
@@ -85,8 +95,8 @@ const ArchivedHabits = () => {
                 </div>
 
                 {/* list of archived habits */}
-                {habits.map((habit, index) => (
-                    <ArchivedHabitCard key={index} habit={habit} selectedHabits={selectedHabits} setSelectedHabits={setSelectedHabits} deselectAll={deselectAll} selectAll={selectAll} />
+                {archivedHabits.map((habit, index) => (
+                    <ArchivedHabitCard key={index} habit={habit} archivedHabits={archivedHabits} setArchivedHabits={setArchivedHabits} deselectAll={deselectAll} selectAll={selectAll} />
                 ))}
             </div>
 
