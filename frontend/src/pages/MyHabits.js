@@ -9,12 +9,17 @@ import { weekDaysLong, monthsLong } from '../utils/DateUtils'
 import CategoryDivider from '../components/myhabits/CategoryDivider'
 import { getCategories } from '../services/CategoryServices'
 import { getSettings } from '../services/UserServices'
+import { DialogTitle, Dialog, DialogPanel } from '@headlessui/react'
+import FilterDialog from '../components/myhabits/FilterDialog'
 
 const MyHabits = () => {
     // states for current day, day start time, list of categories
     const [currentDay, setCurrentDay] = useState(new Date())
     const [categories, setCategories] = useState([])
+    const [options, setOptions] = useState([]) // options for select category filter
+    const [selectedCategory, setSelectedCategory] = useState({ value: 'all', label: 'All' }) // currently selected category in filter
     const [dayStartTime, setDayStartTime] = useState('0')
+    const [dialogOpen, setDialogOpen] = useState(false)
 
     const formatDate = (date) => {
         return `${weekDaysLong[date.getDay()]} ${monthsLong[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
@@ -23,7 +28,16 @@ const MyHabits = () => {
     // fetch all user categories
     useEffect(() => {
         getCategories()
-            .then(response => setCategories(response))
+            .then(response => {
+                const categoryOptions = []
+                categoryOptions.push({ value: 'all', label: 'All' })
+                response.forEach(element => {
+                    const option = { value: element.category_id, label: element.category_name }
+                    categoryOptions.push(option)
+                });
+                setOptions(categoryOptions)
+                setCategories(response)
+            })
     }, []);
 
     // fetch day start time from user setting
@@ -55,14 +69,27 @@ const MyHabits = () => {
                 <div className='flex flex-col items-start justify-start gap-2 px-4 pb-4 no-scrollbar overflow-y-auto'>
                     <div className='w-full text-xl font-bold flex flex-row justify-between'>
                         <div>{formatDate(currentDay)}</div>
-                        <FontAwesomeIcon className='text-appGray-3 cursor-pointer' icon={faFilter} />
+                        <FontAwesomeIcon className='text-appGray-3 cursor-pointer' icon={faFilter} onClick={() => setDialogOpen(true)} />
                     </div>
                     {categories.map((category, index) => (
-                        <CategoryDivider category={category} currentDay={currentDay} key={index} categories={categories} setCategories={setCategories} />
+                        (
+                            selectedCategory.value === 'all' || category.category_id === selectedCategory.value) ?
+                            <CategoryDivider category={category} currentDay={currentDay} key={index} categories={categories} setCategories={setCategories} />
+                            :
+                            <div key={index}></div>
                     ))}
                 </div>
             </div>
             <BottomBar current={2} />
+
+            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                    <DialogPanel className="w-10/12 max-w-md flex flex-col bg-appWhite rounded-3xl border border-appGreen py-4 px-6">
+                        <DialogTitle className='font-bold'>Filter</DialogTitle>
+                        <FilterDialog options={options} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+                    </DialogPanel>
+                </div>
+            </Dialog>
         </div>
     )
 }
