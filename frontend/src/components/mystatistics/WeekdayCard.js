@@ -17,7 +17,7 @@ const WeekdayCard = ({ habit, day }) => {
 
     return (
         <div className='center-of-div flex-col flex-1 items-center justify-center gap-2'>
-            <div className='text-sm font-bold text-appGreen'>{getDayLetter(day.getDay())}</div>
+            <div className='text-sm font-bold text-appGreen border-b border-appGray-2 w-full flex flex-row justify-center'>{getDayLetter(day.getDay())}</div>
             <div className='text-md font-bold'>{day.getDate()}</div>
             <div className={`${(dailyCount >= 10) ? 'px-2' : 'px-3'} ${(dailyCount > 0) ? 'bg-appGreen text-appWhite' : 'bg-appWhite'} py-1 rounded-full border border-appGreen`}>{dailyCount}</div>
         </div>
