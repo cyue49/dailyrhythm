@@ -8,7 +8,7 @@ import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { Checkbox } from '@headlessui/react'
-import { updateHabitArchive } from '../services/HabitServices'
+import { updateHabitArchive, deleteHabit } from '../services/HabitServices'
 
 const ArchivedHabits = () => {
     const navigate = useNavigate()
@@ -39,12 +39,12 @@ const ArchivedHabits = () => {
         if (selectAll === true) {
             setDeselectAll(true)
             setSelectAll(false)
-            setArchivedHabits(archivedHabits.map((item) => (item.selected === true) ? { habit_id: item.id, habit_name: item.habit_name, selected: false } : item))
+            setArchivedHabits(archivedHabits.map((item) => (item.selected === true) ? { habit_id: item.habit_id, habit_name: item.habit_name, selected: false } : item))
 
         } else {
             setDeselectAll(false)
             setSelectAll(true)
-            setArchivedHabits(archivedHabits.map((item) => (item.selected === false) ? { habit_id: item.id, habit_name: item.habit_name, selected: true } : item))
+            setArchivedHabits(archivedHabits.map((item) => (item.selected === false) ? { habit_id: item.habit_id, habit_name: item.habit_name, selected: true } : item))
 
         }
     }
@@ -67,23 +67,32 @@ const ArchivedHabits = () => {
             .then(() => {
                 // update habits and selected states
                 setArchivedHabits(archivedHabits.filter(habit => !habit.selected === true))
-                console.log(archivedHabits)
                 setDeselectAll(true)
                 setSelectAll(false)
                 setConfirmArchive(false)
             })
     }
 
+    // delete all selected habits in archivedHabits
+    const deleteSelected = async () => {
+        archivedHabits.forEach(habit => {
+            if (habit.selected === true) {
+                deleteHabit(habit.habit_id)
+            }
+        })
+    }
+
     // deleted all selected habits
     const handleDelete = () => {
-        // todo: delete all selected habits in archivedHabits
+        deleteSelected()
+            .then(() => {
+                // update habits and selected states
+                setArchivedHabits(archivedHabits.filter(habit => !habit.selected === true))
+                setDeselectAll(true)
+                setSelectAll(false)
+                setConfirmDelete(false)
+            })
 
-        // update habits and selected states
-        setArchivedHabits(archivedHabits.filter(habit => !habit.selected === true))
-        console.log(archivedHabits)
-        setDeselectAll(true)
-        setSelectAll(false)
-        setConfirmDelete(false)
     }
 
     const navigateBack = () => { navigate('/profile') }
