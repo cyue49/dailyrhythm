@@ -88,8 +88,8 @@ const SignUp = () => {
 
     return (
         <div>
-            <div className='h-screen w-screen min-w-screen min-h-screen center-of-div bg-appPrimaryColor'>
-                <div className='w-11/12 h-fit max-w-[450px] max-h-fit min-w-80 min-h-96 p-8 rounded-3xl bg-appVariant-1 flex flex-col appear-bottom-animation'>
+            <div className='h-screen w-screen min-w-screen min-h-screen center-of-div bg-primaryColor text-primaryTextColor'>
+                <div className='w-11/12 h-fit max-w-[450px] max-h-fit min-w-80 min-h-96 p-8 rounded-3xl bg-mainCardColor flex flex-col appear-bottom-animation'>
                     <Link to={'/'} className='self-center'>
                         <img
                             className='size-10 hover:scale-110 button-amination'
@@ -99,29 +99,29 @@ const SignUp = () => {
                     </Link>
 
                     <p className='text-2xl font-bold font-sans my-6'>Sign Up</p>
-                    <div className={`text-appImportant text-sm border-[1px] border-appImportant rounded-full p-2 mb-6 ${(generalErrorMessage !== '') ? '' : 'hidden'}`}>{generalErrorMessage}</div>
+                    <div className={`text-importantColor text-sm border-[1px] border-importantColor rounded-full p-2 mb-6 ${(generalErrorMessage !== '') ? '' : 'hidden'}`}>{generalErrorMessage}</div>
 
                     <form className='flex flex-col gap-1' onSubmit={handleSubmit}>
-                        <label htmlFor='email'>Email <span className='text-appImportant'>*</span> : </label>
+                        <label htmlFor='email'>Email <span className='text-importantColor'>*</span> : </label>
                         <input className='form-text-input' type='text' name='email' id='email' autoComplete='on' autoCapitalize='off' onChange={handleChange} />
-                        <div className={`text-appImportant text-sm ${(form.email !== '' && !validEmail) ? '' : 'hidden'}`}>Invalid email.</div>
+                        <div className={`text-importantColor text-sm ${(form.email !== '' && !validEmail) ? '' : 'hidden'}`}>Invalid email.</div>
 
-                        <label htmlFor='username' className='mt-3'>Username <span className='text-appImportant'>*</span> : </label>
+                        <label htmlFor='username' className='mt-3'>Username <span className='text-importantColor'>*</span> : </label>
                         <input className='form-text-input' type='text' name='username' id='username' autoComplete='on' autoCapitalize='off' onChange={handleChange} />
-                        <div className={`text-appImportant text-sm ${(form.username !== '' && !validUsername) ? '' : 'hidden'}`}>Invalid character in username.</div>
+                        <div className={`text-importantColor text-sm ${(form.username !== '' && !validUsername) ? '' : 'hidden'}`}>Invalid character in username.</div>
 
-                        <label htmlFor='user_password' className='mt-3'>Password <span className='text-appImportant'>*</span> : </label>
+                        <label htmlFor='user_password' className='mt-3'>Password <span className='text-importantColor'>*</span> : </label>
                         <input className='form-text-input' type='password' name='user_password' id='user_password' onChange={handleChange} />
-                        <div className={`text-appImportant text-sm ${(form.user_password !== '' && !validPassword) ? '' : 'hidden'}`}>Passwords needs to be at least 8 characters long and contain an uppercase, a lowercase, a special character, and a number.</div>
+                        <div className={`text-importantColor text-sm ${(form.user_password !== '' && !validPassword) ? '' : 'hidden'}`}>Passwords needs to be at least 8 characters long and contain an uppercase, a lowercase, a special character, and a number.</div>
 
-                        <label htmlFor='confirm_password' className='mt-3'>Confirm Password <span className='text-appImportant'>*</span> : </label>
+                        <label htmlFor='confirm_password' className='mt-3'>Confirm Password <span className='text-importantColor'>*</span> : </label>
                         <input className='form-text-input' type='password' name='confirm_password' id='confirm_password' onChange={handleChange} />
-                        <div className={`text-appImportant text-sm ${(form.confirm_password !== '' && !validPasswordConfirm) ? '' : 'hidden'}`}>Passwords don't match.</div>
+                        <div className={`text-importantColor text-sm ${(form.confirm_password !== '' && !validPasswordConfirm) ? '' : 'hidden'}`}>Passwords don't match.</div>
 
                         <input className='primary-color-button hover:secondary-color-button button-animation disabled:hover:primary-color-button mt-12 disabled:cursor-not-allowed' type="submit" value="Sign Up" disabled={!(validEmail && validUsername && validPassword && validPasswordConfirm)} />
                     </form>
 
-                    <div className='text-sm text-center mt-4 mb-8 hover:underline hover:text-appPrimaryColor'>
+                    <div className='text-sm text-center mt-4 mb-8 hover:underline hover:text-primaryColor'>
                         <Link to={'/signin'} className='underline underline-offset-2'>Already have an account? Sign in instead!</Link>
                     </div>
 

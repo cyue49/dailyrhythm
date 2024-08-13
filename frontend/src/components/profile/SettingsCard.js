@@ -59,10 +59,10 @@ const SettingsCard = ({ updateAppTheme }) => {
 
     return (
         <div>
-            <div className='flex flex-col gap-3 p-5 bg-appVariant-1 rounded-3xl'>
+            <div className='flex flex-col gap-3 p-5 bg-mainCardColor rounded-3xl text-primaryTextColor'>
                 <div className='w-full flex flex-row justify-between items-start'>
                     <span className='font-bold text-lg'>Settings</span>
-                    <FontAwesomeIcon icon={isEdit ? faCircleCheck : faPenToSquare} className='text-2xl text-appPrimaryColor cursor-pointer' onClick={handleEdit} />
+                    <FontAwesomeIcon icon={isEdit ? faCircleCheck : faPenToSquare} className='text-2xl text-primaryColor cursor-pointer' onClick={handleEdit} />
                 </div>
                 <div className='font-bold'>App theme:</div>
                 <Select

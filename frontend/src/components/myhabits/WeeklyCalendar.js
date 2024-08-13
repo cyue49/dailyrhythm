@@ -23,11 +23,11 @@ const WeeklyCalendar = ({ currentDay, setCurrentDay, dayStartTime }) => {
     }, [getWeekdays]);
 
     return (
-        <div className='flex flex-row flex-nowrap gap-2 border-b-2 border-appPrimaryColor w-full py-2'>
+        <div className='flex flex-row flex-nowrap gap-2 border-b-2 border-primaryColor w-full py-2'>
             {weekdays.map((day, index) => (
                 <div className='center-of-div flex-col flex-1 items-center justify-center' key={index}>
-                    <div className='text-sm text-appPrimaryColor'>{getDayLetter(day.getDay())}</div>
-                    <div className={`cursor-pointer ${(day.getDate() >= 10) ? 'px-2' : 'px-3'} py-1 rounded-full hover:border-2 hover:border-appPrimaryColor button-animation ${(currentDay.getDate() === day.getDate()) ? 'primary-color-button' : ''}`} onClick={() => setCurrentDay(day)}>{day.getDate()}</div>
+                    <div className='text-sm text-primaryColor'>{getDayLetter(day.getDay())}</div>
+                    <div className={`cursor-pointer ${(day.getDate() >= 10) ? 'px-2' : 'px-3'} py-1 rounded-full hover:border-2 hover:border-primaryColor button-animation ${(currentDay.getDate() === day.getDate()) ? 'primary-color-button' : ''}`} onClick={() => setCurrentDay(day)}>{day.getDate()}</div>
                 </div>
             ))}
         </div>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Home = () => {
     return (
-        <div className='h-screen w-screen p-8 center-of-div flex-col gap-8 bg-appPrimaryLight'>
+        <div className='h-screen w-screen p-8 center-of-div flex-col gap-8 bg-mainBgColor'>
             <div className='p-8 center-of-div flex-col gap-8 size-full page-appear-animation'>
                 <img
                     className='size-20'
@@ -11,7 +11,7 @@ const Home = () => {
                     alt="app logo"
                 />
 
-                <h3 className='text-2xl font-bold font-sans text-appPrimaryColor'>Daily Rhythm</h3>
+                <h3 className='text-2xl font-bold font-sans text-primaryTextColor'>Daily Rhythm</h3>
 
                 <p className='text-center w-5/6 md:w-2/4 max-w-md'>Daily Rhythm helps you track, maintain, and manage daily habits and routines towards a healthy life rhythm. </p>
 

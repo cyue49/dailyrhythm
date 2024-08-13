@@ -19,8 +19,8 @@ const MonthdayCard = ({ habit, day, today }) => {
 
     return (
         <div className='center-of-div flex-col flex-1 items-center justify-center'>
-            <div className={`text-xs font-bold ${afterToday ? 'text-appVariant-2' : ''}`}>{day.getDate()}</div>
-            <div className={`py-1 rounded-full border ${(dailyCount >= 10) ? 'px-2' : 'px-3'} ${(dailyCount > 0) ? 'bg-appPrimaryColor text-appPrimaryLight' : 'bg-appPrimaryLight'} ${afterToday ? 'border-appVariant-2 text-appVariant-2' : 'border-appPrimaryColor'}`}>{dailyCount}</div>
+            <div className={`text-xs font-bold ${afterToday ? 'text-variantColor' : ''}`}>{day.getDate()}</div>
+            <div className={`py-1 rounded-full border ${(dailyCount >= 10) ? 'px-2' : 'px-3'} ${(dailyCount > 0) ? 'bg-primaryColor text-secondaryTextColor' : 'bg-mainBgColor'} ${afterToday ? 'border-variantColor text-variantColor' : 'border-primaryColor'}`}>{dailyCount}</div>
         </div>
     )
 }

@@ -4,15 +4,19 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                appPrimaryColor: 'rgba(var(--appPrimaryColor))',
-                appPrimaryDark: 'rgba(var(--appPrimaryDark))',
-                appPrimaryLight: 'rgba(var(--appPrimaryLight))',
-                appImportant: 'rgba(var(--appImportant))',
-                appVariant: {
-                    1: 'rgba(var(--appVariant-1))',
-                    2: 'rgba(var(--appVariant-2))',
-                    3: 'rgba(var(--appVariant-3))'
-                }
+                primaryColor: 'rgba(var(--primaryColor))',
+                primaryTextColor: 'rgba(var(--primaryTextColor))',
+                secondaryTextColor: 'rgba(var(--secondaryTextColor))',
+                webBgColor: 'rgba(var(--webBgColor))',
+                mainBgColor: 'rgba(var(--mainBgColor))',
+                subBgColor: 'rgba(var(--subBgColor))',
+                mainCardColor: 'rgba(var(--mainCardColor))',
+                subCardColor: 'rgba(var(--subCardColor))',
+                confirmColor: 'rgba(var(--confirmColor))',
+                neutralColor: 'rgba(var(--neutralColor))',
+                importantColor: 'rgba(var(--importantColor))',
+                whiteColor: 'rgba(var(--whiteColor))',
+                variantColor: 'rgba(var(--variantColor))'
             }
         },
         fontFamily: {

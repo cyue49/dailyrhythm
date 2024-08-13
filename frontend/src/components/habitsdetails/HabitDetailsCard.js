@@ -14,27 +14,27 @@ const HabitDetailsCard = ({ habit }) => {
     }
 
     return (
-        <div className='flex flex-col items-start justify-center bg-appPrimaryLight rounded-3xl px-5 py-3 gap-2'>
+        <div className='flex flex-col items-start justify-center bg-subCardColor rounded-3xl px-5 py-3 gap-2'>
             <div className='text-lg font-bold'>Habit Details</div>
             <div className='flex flex-row justify-start items-start gap-2 w-full'>
-                <FontAwesomeIcon className='text-appPrimaryColor text-lg' icon={faClipboardList} />
+                <FontAwesomeIcon className='text-primaryColor text-lg' icon={faClipboardList} />
                 <div>Description: </div>
-                <div className={`flex-1 max-h-20 px-2 overflow-auto no-scrollbar font-bold text-appPrimaryColor ${(habit.habit_description === '') ? '' : 'min-h-12 border rounded-xl border-appPrimaryColor'}`}>{habit.habit_description}</div>
+                <div className={`flex-1 max-h-20 px-2 overflow-auto no-scrollbar font-bold text-primaryColor ${(habit.habit_description === '') ? '' : 'min-h-12 border rounded-xl border-primaryColor'}`}>{habit.habit_description}</div>
             </div>
             <div className='flex flex-row justify-start items-center gap-2 w-full'>
-                <FontAwesomeIcon className='text-appPrimaryColor text-lg' icon={faClock} />
+                <FontAwesomeIcon className='text-primaryColor text-lg' icon={faClock} />
                 <div>Frequency: </div>
                 <div className={`flex flex-row justify-start items-center ${habit.frequency_count === 0 ? 'hidden' : ''}`}>
-                    <div className='font-bold text-appPrimaryColor text-lg center-of-div px-3 py-1'>{habit.frequency_count}</div>
+                    <div className='font-bold text-primaryColor text-lg center-of-div px-3 py-1'>{habit.frequency_count}</div>
                     <div>{(habit.frequency_count === 1) ? 'time' : 'times'} per</div>
-                    <div className='font-bold text-appPrimaryColor text-lg center-of-div px-3 py-1'>{habit.frequency_type}</div>
+                    <div className='font-bold text-primaryColor text-lg center-of-div px-3 py-1'>{habit.frequency_type}</div>
                 </div>
 
             </div>
             <div className='flex flex-row justify-start items-center gap-2 w-full'>
-                <FontAwesomeIcon className='text-appPrimaryColor text-lg' icon={faCalendarWeek} />
+                <FontAwesomeIcon className='text-primaryColor text-lg' icon={faCalendarWeek} />
                 <div>Weekdays: </div>
-                <div className={`font-bold text-appPrimaryColor text-lg center-of-div px-3 py-1 ${getWeekdays() === '' ? 'hidden' : ''}`}>{getWeekdays()}</div>
+                <div className={`font-bold text-primaryColor text-lg center-of-div px-3 py-1 ${getWeekdays() === '' ? 'hidden' : ''}`}>{getWeekdays()}</div>
             </div>
         </div>
     )

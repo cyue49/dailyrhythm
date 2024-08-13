@@ -10,7 +10,7 @@ const TopBar = ({ icons, title, backOnclick, plusOnclick, ellipsisOnClick }) => 
     }, [icons]);
 
     return (
-        <div className={`bg-appPrimaryColor text-appPrimaryLight fixed top-0 z-10 w-full max-w-4xl h-[56px] grid grid-cols-[10%_auto_10%]  gap-3 ${(barIcons.length !== 0) ? '' : ''}`}>
+        <div className={`bg-primaryColor text-secondaryTextColor fixed top-0 z-10 w-full max-w-4xl h-[56px] grid grid-cols-[10%_auto_10%]  gap-3 ${(barIcons.length !== 0) ? '' : ''}`}>
             <div className='text-3xl flex items-center justify-start pl-6'>
                 <FontAwesomeIcon icon={faCaretLeft} className={`cursor-pointer px-2 ${barIcons.includes('back') ? '' : 'hidden'}`} onClick={backOnclick} />
             </div>

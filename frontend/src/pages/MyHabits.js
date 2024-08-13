@@ -71,14 +71,14 @@ const MyHabits = () => {
     }
 
     return (
-        <div className='h-screen w-screen flex flex-col items-center bg-appPrimaryDark text-appPrimaryDark'>
+        <div className='h-screen w-screen flex flex-col items-center bg-webBgColor text-primaryTextColor'>
             <TopBar icons={['plus']} title={'My Habits'} plusOnclick={handleNavigate} />
-            <div className='w-full max-w-4xl h-screen bg-appPrimaryLight overflow-y-hidden flex flex-col gap-4 my-[56px]'>
+            <div className='w-full max-w-4xl h-screen bg-mainBgColor overflow-y-hidden flex flex-col gap-4 my-[56px]'>
                 <WeeklyCalendar currentDay={currentDay} setCurrentDay={setCurrentDay} dayStartTime={dayStartTime} />
                 <div className='flex flex-col items-start justify-start gap-2 px-4 pb-4 no-scrollbar overflow-y-auto'>
                     <div className='w-full text-xl font-bold flex flex-row justify-between'>
                         <div>{formatDate(currentDay)}</div>
-                        <FontAwesomeIcon className='text-appVariant-3 cursor-pointer' icon={faFilter} onClick={() => setDialogOpen(true)} />
+                        <FontAwesomeIcon className='text-neutralColor cursor-pointer' icon={faFilter} onClick={() => setDialogOpen(true)} />
                     </div>
                     {categories.map((category, index) => (
                         (
@@ -91,12 +91,12 @@ const MyHabits = () => {
             </div>
             <BottomBar current={2} />
 
-            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50 text-appPrimaryDark">
-                <div className="fixed inset-0 w-screen center-of-div bg-appPrimaryDark/80 p-4">
-                    <DialogPanel className="w-10/12 max-w-md flex flex-col bg-appPrimaryLight rounded-3xl border border-appPrimaryColor py-4 px-6">
+            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50 text-primaryTextColor">
+                <div className="fixed inset-0 w-screen center-of-div bg-webBgColor/80 p-4">
+                    <DialogPanel className="w-10/12 max-w-md flex flex-col bg-mainBgColor rounded-3xl border border-primaryColor py-4 px-6">
                         <div className='flex flex-row items-center justify-between py-1'>
                             <DialogTitle className='font-bold'>Filter</DialogTitle>
-                            <div className='cursor-pointer text-appPrimaryColor hover:text-appPrimaryLight hover:bg-appPrimaryColor button-animation font-bold text-sm border rounded-full px-2 border-appPrimaryColor' onClick={handleReset}>Reset</div>
+                            <div className='cursor-pointer text-primaryColor hover:text-secondaryTextColor hover:bg-primaryColor button-animation font-bold text-sm border rounded-full px-2 border-primaryColor' onClick={handleReset}>Reset</div>
                         </div>
 
                         <FilterDialog setDialogOpen={setDialogOpen} categoryOptions={categoryOptions} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} showTodayOnly={showTodayOnly} setShowTodayOnly={setShowTodayOnly} selectedCheckOption={selectedCheckOption} setSelectedCheckOption={setSelectedCheckOption} />

@@ -17,10 +17,10 @@ const HabitCard = ({ habit }) => {
     const navigateTo = () => { navigate('/mystatistics/details', { state: { habit: habit, totalCheckins: totalCount } }) }
 
     return (
-        <div className='w-full flex flex-row flex-nowrap items-center justify-between px-3 py-2 gap-4 rounded-full bg-appVariant-1' onClick={navigateTo}>
-            <div className={`rounded-full border border-appPrimaryColor bg-appPrimaryLight hover:bg-appPrimaryColor hover:text-appPrimaryLight cursor-pointer button-animation py-1 ${(totalCount >= 10) ? 'px-2' : 'px-3'}`}>{totalCount}</div>
+        <div className='w-full flex flex-row flex-nowrap items-center justify-between px-3 py-2 gap-4 rounded-full bg-mainCardColor' onClick={navigateTo}>
+            <div className={`rounded-full border border-primaryColor bg-mainBgColor py-1 ${(totalCount >= 10) ? 'px-2' : 'px-3'}`}>{totalCount}</div>
             <div className='flex-1 truncate cursor-pointer'>{habit.habit_name}</div>
-            <div className='text-appPrimaryColor pr-2 font-bold'><FontAwesomeIcon icon={faCaretRight} /></div>
+            <div className='text-primaryColor pr-2 font-bold'><FontAwesomeIcon icon={faCaretRight} /></div>
         </div>
     )
 }

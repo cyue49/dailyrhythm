@@ -12,22 +12,22 @@ const BasicStatistics = ({ habit, totalCheckins }) => {
     }, [habit.habit_id]);
 
     return (
-        <div className='flex flex-col items-start justify-center bg-appPrimaryLight rounded-3xl p-3 pb-4 gap-2 text-appPrimaryDark'>
+        <div className='flex flex-col items-start justify-center bg-subCardColor rounded-3xl p-3 pb-4 gap-2 text-primaryTextColor'>
             {/* date created */}
             <div className='flex flex-row items-center justify-start'>
                 <div className='font-bold'>Habit created on: </div>
-                <div className='font-bold text-appPrimaryColor text-lg center-of-div px-3'>{formatDate(new Date(habit.created_on))}</div>
+                <div className='font-bold text-primaryColor text-lg center-of-div px-3'>{formatDate(new Date(habit.created_on))}</div>
             </div>
 
             {/* total checkin & days checked-in */}
             <div className='flex flex-row justify-around w-full'>
-                <div className='center-of-div flex-col gap-2 border-2 border-appPrimaryColor bg-appPrimaryLight rounded-3xl p-3 w-5/12 h-36'>
-                    <div className='text-5xl font-bold text-appPrimaryColor text-center'>{totalCheckins}</div>
-                    <div className='font-bold text-appPrimaryColor text-center'>Total check-in counts</div>
+                <div className='center-of-div flex-col gap-2 border-2 border-primaryColor bg-mainBgColor rounded-3xl p-3 w-5/12 h-36'>
+                    <div className='text-5xl font-bold text-primaryColor text-center'>{totalCheckins}</div>
+                    <div className='font-bold text-primaryColor text-center'>Total check-in counts</div>
                 </div>
-                <div className='center-of-div flex-col gap-2 border-2 border-appPrimaryColor bg-appPrimaryLight rounded-3xl p-3 w-5/12 h-36'>
-                    <div className='text-5xl font-bold text-appPrimaryColor text-center'>{daysCount}</div>
-                    <div className='font-bold text-appPrimaryColor text-center'>Total days checked-in</div>
+                <div className='center-of-div flex-col gap-2 border-2 border-primaryColor bg-mainBgColor rounded-3xl p-3 w-5/12 h-36'>
+                    <div className='text-5xl font-bold text-primaryColor text-center'>{daysCount}</div>
+                    <div className='font-bold text-primaryColor text-center'>Total days checked-in</div>
                 </div>
             </div>
         </div>

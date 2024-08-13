@@ -16,9 +16,9 @@ const CategoryDivider = ({ category }) => {
     return (
         <div className='center-of-div flex-col flex-nowrap w-full gap-1'>
             <div className='flex flex-row flex-nowrap w-full justify-center items-center gap-3'>
-                <div className='text-appPrimaryColor font-bold'>{category.category_name}</div>
-                <div className='center-of-div h-[1px] bg-appPrimaryColor flex-1'> </div>
-                <div className='text-appPrimaryColor font-bold'>{habits.length}</div>
+                <div className='text-primaryColor font-bold'>{category.category_name}</div>
+                <div className='center-of-div h-[1px] bg-primaryColor flex-1'> </div>
+                <div className='text-primaryColor font-bold'>{habits.length}</div>
             </div>
             {habits.map((habit, index) => (
                 <HabitCard habit={habit} key={index} />

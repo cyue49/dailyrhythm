@@ -17,9 +17,9 @@ const WeekdayCard = ({ habit, day }) => {
 
     return (
         <div className='center-of-div flex-col flex-1 items-center justify-center gap-2'>
-                <div className={`text-sm font-bold text-appPrimaryColor w-full flex flex-row justify-center ${habit.weekdays.includes(day.getDay().toString()) ? 'border-b-2 border-appPrimaryColor' : 'border-b border-appVariant-2'}`}>{getDayLetter(day.getDay())}</div>
+                <div className={`text-sm font-bold text-primaryColor w-full flex flex-row justify-center ${habit.weekdays.includes(day.getDay().toString()) ? 'border-b-2 border-primaryColor' : 'border-b border-variantColor'}`}>{getDayLetter(day.getDay())}</div>
             <div className='text-md font-bold'>{day.getDate()}</div>
-            <div className={`${(dailyCount >= 10) ? 'px-2' : 'px-3'} ${(dailyCount > 0) ? 'bg-appPrimaryColor text-appPrimaryLight' : 'bg-appPrimaryLight'} py-1 rounded-full border border-appPrimaryColor`}>{dailyCount}</div>
+            <div className={`${(dailyCount >= 10) ? 'px-2' : 'px-3'} ${(dailyCount > 0) ? 'bg-primaryColor text-secondaryTextColor' : 'bg-mainBgColor'} py-1 rounded-full border border-primaryColor`}>{dailyCount}</div>
         </div>
     )
 }

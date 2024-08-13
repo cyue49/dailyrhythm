@@ -40,11 +40,11 @@ const CurrentMonthStatistics = ({ habit }) => {
     }, [getMonthDays])
 
     return (
-        <div className='flex flex-col items-start justify-center bg-appPrimaryLight rounded-3xl px-5 py-3 gap-2'>
+        <div className='flex flex-col items-start justify-center bg-subCardColor rounded-3xl px-5 py-3 gap-2'>
             <div className='font-bold'>Current Month Check-ins: </div>
-            <div className='grid grid-cols-7 grid-flow-row gap-2 w-full p-3 border border-appPrimaryColor rounded-3xl'>
+            <div className='grid grid-cols-7 grid-flow-row gap-2 w-full p-3 border border-primaryColor rounded-3xl'>
                 {weekDaysShort.map((day, index) => (
-                    <div key={index} className={`w-full flex flex-row py-2 items-center justify-center font-bold text-sm text-appPrimaryColor ${habit.weekdays.includes(index.toString()) ? 'border-b-2 border-appPrimaryColor' : 'border-b border-appVariant-2'}`}>{day}</div>
+                    <div key={index} className={`w-full flex flex-row py-2 items-center justify-center font-bold text-sm text-primaryColor ${habit.weekdays.includes(index.toString()) ? 'border-b-2 border-primaryColor' : 'border-b border-variantColor'}`}>{day}</div>
                 ))}
                 {monthDays.map((day, index) => (
                     <MonthdayCard habit={habit} day={day} today={today} key={index} />
@@ -53,7 +53,7 @@ const CurrentMonthStatistics = ({ habit }) => {
 
             <div className='flex flex-row py-2 items-center justify-start'>
                 <div className='font-bold text-sm'>Total check-ins for this month: </div>
-                <div className='font-bold text-appPrimaryColor text-lg center-of-div px-3 py-1'>{monthlyCount}</div>
+                <div className='font-bold text-primaryColor text-lg center-of-div px-3 py-1'>{monthlyCount}</div>
             </div>
         </div>
     )

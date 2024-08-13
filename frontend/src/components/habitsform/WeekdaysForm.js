@@ -9,7 +9,7 @@ const WeekdaysForm = ({ checkedDays, setCheckedDays }) => {
     }
 
     return (
-        <div className='flex flex-col gap-1 rounded-3xl p-3 bg-appPrimaryLight'>
+        <div className='flex flex-col gap-1 rounded-3xl p-3 bg-subCardColor'>
             <div className='font-bold'>Weekdays: </div>
             <div className='flex flex-row items-center justify-evenly'>
                 {weekDaysShort.map((day, index) => (
@@ -20,7 +20,7 @@ const WeekdaysForm = ({ checkedDays, setCheckedDays }) => {
                         name='weekdays'
                         id={day}
                         value={day}
-                        className="rounded-full border border-appPrimaryColor bg-appPrimaryLight data-[checked]:bg-appPrimaryColor data-[checked]:text-appPrimaryLight data-[checked]:font-bold p-2 h-[45px] w-[45px] center-of-div cursor-pointer"
+                        className="rounded-full border border-primaryColor bg-mainBgColor data-[checked]:bg-primaryColor data-[checked]:text-secondaryTextColor data-[checked]:font-bold p-2 h-[45px] w-[45px] center-of-div cursor-pointer"
                     >{day}</Checkbox>
                 ))}
             </div>
