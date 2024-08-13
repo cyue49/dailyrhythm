@@ -125,7 +125,7 @@ const ArchivedHabits = () => {
 
             {/* Confirm delete/unarchive dialogs */}
             <Dialog open={confirmArchive} onClose={() => setConfirmArchive(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to unarchive the selected habits?</DialogTitle>
                         <div className='center-of-div flex-row gap-2 mt-4 w-full'>
@@ -138,7 +138,7 @@ const ArchivedHabits = () => {
             </Dialog>
 
             <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to delete the selected habits?</DialogTitle>
                         <div className='center-of-div flex-row gap-2 mt-4 w-full'>

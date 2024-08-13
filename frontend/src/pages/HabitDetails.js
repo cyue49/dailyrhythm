@@ -111,7 +111,7 @@ const HabitDetails = () => {
             <BottomBar current={2} />
 
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
                     <DialogPanel className="w-7/12 max-w-xs center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen overflow-hidden">
                         <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation' onClick={navigateTo}>Edit</div>
                         <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation border-t border-t-appGray-2 border-b border-b-appGray-2' onClick={() => {
@@ -127,7 +127,7 @@ const HabitDetails = () => {
             </Dialog>
 
             <Dialog open={confirmArchive} onClose={() => setConfirmArchive(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to archive this habit?</DialogTitle>
                         <div className='center-of-div flex-row gap-2 mt-4 w-full'>
@@ -140,7 +140,7 @@ const HabitDetails = () => {
             </Dialog>
 
             <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to delete this habit?</DialogTitle>
                         <div className='center-of-div flex-row gap-2 mt-4 w-full'>

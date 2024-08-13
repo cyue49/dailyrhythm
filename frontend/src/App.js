@@ -4,7 +4,7 @@ import {
     Route
 } from "react-router-dom";
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import MyHabits from './pages/MyHabits'
@@ -21,9 +21,15 @@ import './App.css';
 
 function App() {
     const [appTheme, setAppTheme] = useState('default')
+    const themes = ['default', 'dark', 'light']
+
+    useEffect(() => {
+        themes.forEach(theme => document.body.classList.remove(theme))
+        document.body.classList.add(appTheme)
+    }, [appTheme])
 
     return (
-        <div className={appTheme}>
+        <div>
             <Router>
                 <Routes>
                     <Route path="/" element={<Home />} />

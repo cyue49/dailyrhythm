@@ -3,23 +3,23 @@
 @tailwind utilities;
 
 .default {
-    --appGreen: #528E6C;
-    --appBlack: #353535;
-    --appWhite: #F3F3F3;
-    --appRed: #AE5A5A;
-    --appGray-1: #e6e6e6;
-    --appGray-2: #B9B9B9;
-    --appGray-3: #858585;
+    --appGreen: 82, 142, 108;
+    --appBlack: 53, 53, 53;
+    --appWhite: 243, 243, 243;
+    --appRed: 174, 90, 90;
+    --appGray-1: 230, 230, 230;
+    --appGray-2: 185, 185, 185;
+    --appGray-3: 133, 133, 133;
 }
 
 .dark {
-    --appGreen: #52608e;
-    --appBlack: #353535;
-    --appWhite: #F3F3F3;
-    --appRed: #AE5A5A;
-    --appGray-1: #e6e6e6;
-    --appGray-2: #B9B9B9;
-    --appGray-3: #858585;
+    --appGreen: 53, 53, 53;
+    --appBlack: 53, 53, 53;
+    --appWhite: 243, 243, 243;
+    --appRed: 174, 90, 90;
+    --appGray-1: 133, 133, 133;
+    --appGray-2: 185, 185, 185;
+    --appGray-3: 230, 230, 230;
 }
 
 @layer base {

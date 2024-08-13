@@ -68,7 +68,7 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories, show
             ))}
 
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
                         <RenameCategoryDialog categoryID={category.category_id} categoryName={categoryRename} setCategoryName={setCategoryRename} setDialogOpen={setDialogOpen} setCategoryState={setCategoryName} />
                     </DialogPanel>
@@ -76,7 +76,7 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories, show
             </Dialog>
 
             <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to delete this category?</DialogTitle>
                         <div className='center-of-div flex-row gap-2 mt-4 w-full'>

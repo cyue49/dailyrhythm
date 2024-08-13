@@ -92,7 +92,7 @@ const MyHabits = () => {
             <BottomBar current={2} />
 
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
+                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
                     <DialogPanel className="w-10/12 max-w-md flex flex-col bg-appWhite rounded-3xl border border-appGreen py-4 px-6">
                         <div className='flex flex-row items-center justify-between py-1'>
                             <DialogTitle className='font-bold'>Filter</DialogTitle>
