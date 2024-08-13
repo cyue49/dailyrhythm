@@ -63,6 +63,13 @@ const MyHabits = () => {
         )
     }
 
+    // handle resetting filter states
+    const handleReset = () => {
+        setSelectedCategory({ value: 'all', label: 'All' })
+        setSelectedCheckOption({ value: 'all', label: 'All' })
+        setShowTodayOnly(false)
+    }
+
     return (
         <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
             <TopBar icons={['plus']} title={'My Habits'} plusOnclick={handleNavigate} />
@@ -87,7 +94,11 @@ const MyHabits = () => {
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
                 <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
                     <DialogPanel className="w-10/12 max-w-md flex flex-col bg-appWhite rounded-3xl border border-appGreen py-4 px-6">
-                        <DialogTitle className='font-bold'>Filter</DialogTitle>
+                        <div className='flex flex-row items-center justify-between py-1'>
+                            <DialogTitle className='font-bold'>Filter</DialogTitle>
+                            <div className='cursor-pointer text-appGreen hover:text-appWhite hover:bg-appGreen button-animation font-bold text-sm border rounded-full px-2 border-appGreen' onClick={handleReset}>Reset</div>
+                        </div>
+
                         <FilterDialog setDialogOpen={setDialogOpen} categoryOptions={categoryOptions} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} showTodayOnly={showTodayOnly} setShowTodayOnly={setShowTodayOnly} selectedCheckOption={selectedCheckOption} setSelectedCheckOption={setSelectedCheckOption} />
                     </DialogPanel>
                 </div>
