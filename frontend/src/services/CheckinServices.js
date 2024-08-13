@@ -75,9 +75,45 @@ export const removeCheckin = (habit_id, date) => {
         })
 }
 
-// get count of distince checkin days for a habit
+// get total distinct checkin days for a habit
 export const getTotalCheckinDays = (habit_id) => {
     return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/habit/${habit_id}/count/days`, { credentials: 'include' })
+        .then((res) => res.json())
+        .then((data) => {
+            return parseInt(data.count)
+        })
+        .catch((e) => {
+            console.log(e.message);
+        })
+}
+
+// get total checkins for a category
+export const getTotalCategoryCheckinCount = (category_id) => {
+    return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/category/${category_id}/count`, { credentials: 'include' })
+        .then((res) => res.json())
+        .then((data) => {
+            return parseInt(data.count)
+        })
+        .catch((e) => {
+            console.log(e.message);
+        })
+}
+
+// get total distinct checked-in days  for a category
+export const getTotalCategoryCheckinDays = (category_id) => {
+    return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/category/${category_id}/count/days`, { credentials: 'include' })
+        .then((res) => res.json())
+        .then((data) => {
+            return parseInt(data.count)
+        })
+        .catch((e) => {
+            console.log(e.message);
+        })
+}
+
+// get checkin counts for a category for a specific day
+export const getTotalCategoryCheckinCountForDay = (category_id, date) => {
+    return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/category/${category_id}/count/day/${date}`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return parseInt(data.count)
