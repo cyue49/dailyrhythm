@@ -121,7 +121,7 @@ const Profile = ({ setAppTheme }) => {
                                 <div className={`text-importantColor text-sm ${(form.new_password !== '' && !validNewPassword) ? '' : 'hidden'}`}>Passwords needs to be at least 8 characters long and contain an uppercase, a lowercase, a special character, and a number.</div>
                                 <div className='center-of-div flex-col gap-4 w-full my-6'>
                                     <button className='primary-color-button hover:secondary-color-button disabled:hover:primary-color-button disabled:cursor-not-allowed button-animation w-full' onClick={handlePasswordChange} disabled={!(validNewPassword && validOldPassword)}>Update password</button>
-                                    <button className='primary-variant-button hover:secondary-variant-button button-animation w-full' onClick={() => setModalOpen(false)}>Cancel</button>
+                                    <button className='primary-neutral-button hover:secondary-neutral-button button-animation w-full' onClick={() => setModalOpen(false)}>Cancel</button>
                                 </div>
                             </div>
                         </DialogPanel>

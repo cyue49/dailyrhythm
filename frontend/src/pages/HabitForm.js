@@ -92,7 +92,7 @@ const HabitForm = () => {
                 </div>
 
                 <div className='center-of-div flex-row gap-4 py-4'>
-                    <div className='primary-variant-button hover:secondary-variant-button button-animation flex-1 center-of-div' onClick={navigateBack}>Cancel</div>
+                    <div className='primary-neutral-button hover:secondary-neutral-button button-animation flex-1 center-of-div' onClick={navigateBack}>Cancel</div>
                     <div className='primary-color-button hover:secondary-color-button button-animation flex-1 center-of-div' onClick={handleSubmit}>Submit</div>
                 </div>
             </div>

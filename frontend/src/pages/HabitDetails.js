@@ -131,7 +131,7 @@ const HabitDetails = () => {
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-mainBgColor rounded-3xl border border-primaryColor p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to archive this habit?</DialogTitle>
                         <div className='center-of-div flex-row gap-2 mt-4 w-full'>
-                            <div className='primary-variant-button hover:secondary-variant-button button-animation flex-1 center-of-div'
+                            <div className='primary-neutral-button hover:secondary-neutral-button button-animation flex-1 center-of-div'
                                 onClick={() => setConfirmArchive(false)}>Cancel</div>
                             <div className='primary-important-button hover:secondary-important-button button-animation flex-1 center-of-div' onClick={handleArchive}>Archive</div>
                         </div>
@@ -144,7 +144,7 @@ const HabitDetails = () => {
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-mainBgColor rounded-3xl border border-primaryColor p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to delete this habit?</DialogTitle>
                         <div className='center-of-div flex-row gap-2 mt-4 w-full'>
-                            <div className='primary-variant-button hover:secondary-variant-button button-animation flex-1 center-of-div'
+                            <div className='primary-neutral-button hover:secondary-neutral-button button-animation flex-1 center-of-div'
                                 onClick={() => setConfirmDelete(false)}>Cancel</div>
                             <div className='primary-important-button hover:secondary-important-button button-animation flex-1 center-of-div' onClick={handleDelete}>Delete</div>
                         </div>

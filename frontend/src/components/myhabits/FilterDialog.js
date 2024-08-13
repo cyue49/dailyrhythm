@@ -44,7 +44,7 @@ const FilterDialog = ({ setDialogOpen, categoryOptions, selectedCategory, setSel
             </div>
 
             {/* close button */}
-            <div className='secondary-variant-button hover:primary-variant-button button-animation w-full center-of-div mt-4' onClick={() => setDialogOpen(false)}>Done</div>
+            <div className='secondary-neutral-button hover:primary-neutral-button button-animation w-full center-of-div mt-4' onClick={() => setDialogOpen(false)}>Done</div>
         </div >
     )
 }

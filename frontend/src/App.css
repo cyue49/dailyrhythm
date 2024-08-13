@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Color themes */
 .default {
     --primaryColor: 82, 142, 108;
     --primaryTextColor: 53, 53, 53;
@@ -42,6 +43,38 @@
     --appVariant-3: 181, 181, 181; */
 }
 
+.blue {
+    --primaryColor: 82, 118, 142;
+    --primaryTextColor: 53, 53, 53;
+    --secondaryTextColor: 243, 243, 243;
+    --webBgColor: 53, 53, 53;
+    --mainBgColor: 243, 243, 243;
+    --subBgColor: 230, 230, 230;
+    --mainCardColor: 230, 234, 237;
+    --subCardColor: 243, 243, 243;
+    --confirmColor: 82, 142, 108;
+    --neutralColor: 133, 133, 133;
+    --variantColor: 185, 185, 185;
+    --importantColor: 174, 90, 90;
+    --whiteColor: 243, 243, 243;
+}
+
+.pink {
+    --primaryColor: 176, 120, 144;
+    --primaryTextColor: 53, 53, 53;
+    --secondaryTextColor: 243, 243, 243;
+    --webBgColor: 53, 53, 53;
+    --mainBgColor: 243, 243, 243;
+    --subBgColor: 230, 230, 230;
+    --mainCardColor: 240, 221, 229;
+    --subCardColor: 243, 243, 243;
+    --confirmColor: 82, 142, 108;
+    --neutralColor: 133, 133, 133;
+    --variantColor: 185, 185, 185;
+    --importantColor: 122, 71, 71;
+    --whiteColor: 243, 243, 243;
+}
+
 @layer base {
     html {
         @apply text-primaryTextColor bg-mainBgColor;
@@ -77,11 +110,11 @@
         @apply bg-whiteColor text-importantColor border-importantColor border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
-    .primary-variant-button {
+    .primary-neutral-button {
         @apply bg-neutralColor text-whiteColor border-neutralColor border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
-    .secondary-variant-button {
+    .secondary-neutral-button {
         @apply bg-whiteColor text-neutralColor border-neutralColor border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 

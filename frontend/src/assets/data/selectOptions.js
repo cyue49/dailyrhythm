@@ -20,8 +20,9 @@ export const selectStyles = {
 // app theme options
 export const themeOptions = [
     { value: 'default', label: 'Default' },
-    { value: 'light', label: 'Light' },
-    { value: 'dark', label: 'Dark' }
+    { value: 'dark', label: 'Dark' },
+    { value: 'blue', label: 'Blue' },
+    { value: 'pink', label: 'Pink' }
 ]
 
 // time day start options
