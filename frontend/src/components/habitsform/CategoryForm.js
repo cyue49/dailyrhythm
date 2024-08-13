@@ -28,8 +28,8 @@ const CategoryForm = ({ category, setCategory, categoryID }) => {
     }, [categoryID, setCategory])
 
     return (
-        <div className='flex flex-col gap-1 rounded-3xl p-3 bg-appWhite'>
-            <div className='font-bold'>Category <span className='text-appRed'>*</span> : </div>
+        <div className='flex flex-col gap-1 rounded-3xl p-3 bg-appPrimaryLight'>
+            <div className='font-bold'>Category <span className='text-appImportant'>*</span> : </div>
             {options.length !== 0 ?
                 <Select
                     styles={selectStyles}
@@ -41,11 +41,11 @@ const CategoryForm = ({ category, setCategory, categoryID }) => {
                 :
                 <div></div>
             }
-            <div className='secondary-green-button hover:primary-green-button button-animation w-full center-of-div mt-1' onClick={() => setDialogOpen(true)}>Add a category</div>
+            <div className='secondary-color-button hover:primary-color-button button-animation w-full center-of-div mt-1' onClick={() => setDialogOpen(true)}>Add a category</div>
 
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
-                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
+                <div className="fixed inset-0 w-screen center-of-div bg-appPrimaryDark/80 p-4">
+                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appPrimaryLight rounded-3xl border border-appPrimaryColor p-4">
                         <NewCategoryDialog categoryName={newCategory} setCategoryName={setNewCategory} setDialogOpen={setDialogOpen} categoryOptions={options} setCategoryOptions={setOptions} setCurrentOption={setCategory} />
                     </DialogPanel>
                 </div>

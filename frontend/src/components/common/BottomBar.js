@@ -5,10 +5,10 @@ import { faChartSimple, faUser, faCalendarCheck } from '@fortawesome/free-solid-
 
 const BottomBar = ({ current }) => {
     return (
-        <div className='fixed bottom-0 z-10 flex flex-row items-center justify-evenly w-full max-w-4xl py-4 bg-appWhite'>
-            <Link to={'/mystatistics'} className={`w-24 center-of-div hover:drop-shadow-xl hover:-translate-y-2 button-animation ${(current === 1) ? 'primary-green-button' : 'secondary-gray-button'}`}><FontAwesomeIcon icon={faChartSimple} /></Link>
-            <Link to={'/myhabits'} className={`w-24 center-of-div hover:drop-shadow-xl hover:-translate-y-2 button-animation ${(current === 2) ? 'primary-green-button' : 'secondary-gray-button'}`}> <FontAwesomeIcon icon={faCalendarCheck} /> </Link>
-            <Link to={'/profile'} className={`w-24 center-of-div hover:drop-shadow-xl hover:-translate-y-2 button-animation ${(current === 3) ? 'primary-green-button' : 'secondary-gray-button'}`}><FontAwesomeIcon icon={faUser} /></Link>
+        <div className='fixed bottom-0 z-10 flex flex-row items-center justify-evenly w-full max-w-4xl py-4 bg-appPrimaryLight'>
+            <Link to={'/mystatistics'} className={`w-24 center-of-div hover:drop-shadow-xl hover:-translate-y-2 button-animation ${(current === 1) ? 'primary-color-button' : 'secondary-variant-button'}`}><FontAwesomeIcon icon={faChartSimple} /></Link>
+            <Link to={'/myhabits'} className={`w-24 center-of-div hover:drop-shadow-xl hover:-translate-y-2 button-animation ${(current === 2) ? 'primary-color-button' : 'secondary-variant-button'}`}> <FontAwesomeIcon icon={faCalendarCheck} /> </Link>
+            <Link to={'/profile'} className={`w-24 center-of-div hover:drop-shadow-xl hover:-translate-y-2 button-animation ${(current === 3) ? 'primary-color-button' : 'secondary-variant-button'}`}><FontAwesomeIcon icon={faUser} /></Link>
         </div>
     )
 }

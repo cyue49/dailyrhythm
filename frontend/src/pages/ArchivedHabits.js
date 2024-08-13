@@ -98,20 +98,20 @@ const ArchivedHabits = () => {
     const navigateBack = () => { navigate('/profile') }
 
     return (
-        <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
+        <div className='h-screen w-screen flex flex-col items-center bg-appPrimaryDark'>
             <TopBar icons={['back']} title={'Archived Habits'} backOnclick={navigateBack} />
-            <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5'>
+            <div className='w-full max-w-4xl h-screen bg-appPrimaryLight no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5'>
                 {/* Delete/Unarchive button */}
                 <div className='center-of-div flex-row gap-3'>
-                    <div className='secondary-red-button hover:primary-red-button button-animation flex-1 center-of-div' onClick={() => setConfirmDelete(true)}>Delete</div>
-                    <div className='secondary-green-button hover:primary-green-button button-animation flex-1 center-of-div' onClick={() => setConfirmArchive(true)}>Unarchive</div>
+                    <div className='secondary-important-button hover:primary-important-button button-animation flex-1 center-of-div' onClick={() => setConfirmDelete(true)}>Delete</div>
+                    <div className='secondary-color-button hover:primary-color-button button-animation flex-1 center-of-div' onClick={() => setConfirmArchive(true)}>Unarchive</div>
                 </div>
 
                 {/* select/deselect buttons */}
-                <div className='pb-3 cursor-pointer border-b border-appGray-2 flex flex-row justify-start items-center gap-3' onClick={handleSelectAll}>
-                    <Checkbox checked={selectAll} onChange={setSelectAll} className="rounded-md border border-appGreen size-5 overflow-hidden">
+                <div className='pb-3 cursor-pointer border-b border-appVariant-2 flex flex-row justify-start items-center gap-3' onClick={handleSelectAll}>
+                    <Checkbox checked={selectAll} onChange={setSelectAll} className="rounded-md border border-appPrimaryColor size-5 overflow-hidden">
                         {selectAll ?
-                            <div className='size-5 bg-appGreen text-appWhite center-of-div flex-col text-sm'><FontAwesomeIcon icon={faCheck} /></div>
+                            <div className='size-5 bg-appPrimaryColor text-appPrimaryLight center-of-div flex-col text-sm'><FontAwesomeIcon icon={faCheck} /></div>
                             : <div></div>}
                     </Checkbox>
                     <div>Select / Deselect all</div>
@@ -125,26 +125,26 @@ const ArchivedHabits = () => {
 
             {/* Confirm delete/unarchive dialogs */}
             <Dialog open={confirmArchive} onClose={() => setConfirmArchive(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
-                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
+                <div className="fixed inset-0 w-screen center-of-div bg-appPrimaryDark/80 p-4">
+                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appPrimaryLight rounded-3xl border border-appPrimaryColor p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to unarchive the selected habits?</DialogTitle>
                         <div className='center-of-div flex-row gap-2 mt-4 w-full'>
-                            <div className='primary-gray-button hover:secondary-gray-button button-animation flex-1 center-of-div'
+                            <div className='primary-variant-button hover:secondary-variant-button button-animation flex-1 center-of-div'
                                 onClick={() => setConfirmArchive(false)}>Cancel</div>
-                            <div className='primary-green-button hover:secondary-green-button button-animation flex-1 center-of-div' onClick={handleUnarchive}>Unarchive</div>
+                            <div className='primary-color-button hover:secondary-color-button button-animation flex-1 center-of-div' onClick={handleUnarchive}>Unarchive</div>
                         </div>
                     </DialogPanel>
                 </div>
             </Dialog>
 
             <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
-                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
+                <div className="fixed inset-0 w-screen center-of-div bg-appPrimaryDark/80 p-4">
+                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appPrimaryLight rounded-3xl border border-appPrimaryColor p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to delete the selected habits?</DialogTitle>
                         <div className='center-of-div flex-row gap-2 mt-4 w-full'>
-                            <div className='primary-gray-button hover:secondary-gray-button button-animation flex-1 center-of-div'
+                            <div className='primary-variant-button hover:secondary-variant-button button-animation flex-1 center-of-div'
                                 onClick={() => setConfirmDelete(false)}>Cancel</div>
-                            <div className='primary-red-button hover:secondary-red-button button-animation flex-1 center-of-div' onClick={handleDelete}>Delete</div>
+                            <div className='primary-important-button hover:secondary-important-button button-animation flex-1 center-of-div' onClick={handleDelete}>Delete</div>
                         </div>
                     </DialogPanel>
                 </div>

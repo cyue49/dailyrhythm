@@ -80,11 +80,11 @@ const HabitForm = () => {
     const navigateBack = () => { (mode === 'Edit') ? navigate('/myhabits/details', { state: { currentDay: currentDay, habit: habit } }) : navigate('/myhabits') }
 
     return (
-        <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
+        <div className='h-screen w-screen flex flex-col items-center bg-appPrimaryDark'>
             <TopBar icons={['back']} title={mode} backOnclick={navigateBack} />
-            <div className='w-full max-w-4xl h-screen bg-appGray-1 no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5 justify-between'>
+            <div className='w-full max-w-4xl h-screen bg-appVariant-1 no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5 justify-between'>
                 <div className='flex flex-col gap-4'>
-                    <div className={`text-appRed text-sm border-[1px] border-appRed rounded-full p-2 ${(generalErrorMessage !== '') ? '' : 'hidden'}`}>{generalErrorMessage}</div>
+                    <div className={`text-appImportant text-sm border-[1px] border-appImportant rounded-full p-2 ${(generalErrorMessage !== '') ? '' : 'hidden'}`}>{generalErrorMessage}</div>
 
                     <CategoryForm category={category} setCategory={setCategory} categoryID={habit.category_id} />
                     <GeneralForm form={form} setForm={setForm} frequencyType={frequencyType} setFrequencyType={setFrequencyType} />
@@ -92,8 +92,8 @@ const HabitForm = () => {
                 </div>
 
                 <div className='center-of-div flex-row gap-4 py-4'>
-                    <div className='primary-gray-button hover:secondary-gray-button button-animation flex-1 center-of-div' onClick={navigateBack}>Cancel</div>
-                    <div className='primary-green-button hover:secondary-green-button button-animation flex-1 center-of-div' onClick={handleSubmit}>Submit</div>
+                    <div className='primary-variant-button hover:secondary-variant-button button-animation flex-1 center-of-div' onClick={navigateBack}>Cancel</div>
+                    <div className='primary-color-button hover:secondary-color-button button-animation flex-1 center-of-div' onClick={handleSubmit}>Submit</div>
                 </div>
             </div>
             <BottomBar current={2} />

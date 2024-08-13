@@ -94,9 +94,9 @@ const HabitDetails = () => {
     }
 
     return (
-        <div className='h-screen w-screen flex flex-col items-center bg-appBlack'>
+        <div className='h-screen w-screen flex flex-col items-center bg-appPrimaryDark'>
             <TopBar icons={['back', 'ellipsis']} title={habit.habit_name} backOnclick={navigateBack} ellipsisOnClick={(() => setDialogOpen(true))} />
-            <div className='w-full max-w-4xl h-screen bg-appGray-1 no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5'>
+            <div className='w-full max-w-4xl h-screen bg-appVariant-1 no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5'>
                 <HabitTitleCard currentDay={currentDay} habit={habit} dailyCount={dailyCount} setDailyCount={setDailyCount} totalCount={totalCount} setTotalCount={setTotalCount} />
 
                 <CheckinDetailsCard currentDay={currentDay} habit={habit} weeklyCount={weeklyCount} setWeeklyCount={setWeeklyCount} monthlyCount={monthlyCount} setMonthlyCount={setMonthlyCount} dailyCount={dailyCount} />
@@ -104,21 +104,21 @@ const HabitDetails = () => {
                 <HabitDetailsCard habit={habit} />
 
                 <div className='center-of-div flex-row gap-3'>
-                    <div className='secondary-red-button hover:primary-red-button button-animation flex-1 center-of-div' onClick={handleUncheckin}>Uncheck-in</div>
-                    <div className='secondary-green-button hover:primary-green-button button-animation flex-1 center-of-div' onClick={handleCheckin}>Check-in</div>
+                    <div className='secondary-important-button hover:primary-important-button button-animation flex-1 center-of-div' onClick={handleUncheckin}>Uncheck-in</div>
+                    <div className='secondary-color-button hover:primary-color-button button-animation flex-1 center-of-div' onClick={handleCheckin}>Check-in</div>
                 </div>
             </div>
             <BottomBar current={2} />
 
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
-                    <DialogPanel className="w-7/12 max-w-xs center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen overflow-hidden">
-                        <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation' onClick={navigateTo}>Edit</div>
-                        <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation border-t border-t-appGray-2 border-b border-b-appGray-2' onClick={() => {
+                <div className="fixed inset-0 w-screen center-of-div bg-appPrimaryDark/80 p-4">
+                    <DialogPanel className="w-7/12 max-w-xs center-of-div flex-col bg-appPrimaryLight rounded-3xl border border-appPrimaryColor overflow-hidden">
+                        <div className='w-full p-3 center-of-div hover:bg-appPrimaryColor hover:text-appPrimaryLight button-animation' onClick={navigateTo}>Edit</div>
+                        <div className='w-full p-3 center-of-div hover:bg-appPrimaryColor hover:text-appPrimaryLight button-animation border-t border-t-appVariant-2 border-b border-b-appVariant-2' onClick={() => {
                             setDialogOpen(false)
                             setConfirmArchive(true)
                         }}>Archive</div>
-                        <div className='w-full p-3 center-of-div hover:bg-appGreen hover:text-appWhite button-animation' onClick={() => {
+                        <div className='w-full p-3 center-of-div hover:bg-appPrimaryColor hover:text-appPrimaryLight button-animation' onClick={() => {
                             setDialogOpen(false)
                             setConfirmDelete(true)
                         }}>Delete</div>
@@ -127,26 +127,26 @@ const HabitDetails = () => {
             </Dialog>
 
             <Dialog open={confirmArchive} onClose={() => setConfirmArchive(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
-                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
+                <div className="fixed inset-0 w-screen center-of-div bg-appPrimaryDark/80 p-4">
+                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appPrimaryLight rounded-3xl border border-appPrimaryColor p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to archive this habit?</DialogTitle>
                         <div className='center-of-div flex-row gap-2 mt-4 w-full'>
-                            <div className='primary-gray-button hover:secondary-gray-button button-animation flex-1 center-of-div'
+                            <div className='primary-variant-button hover:secondary-variant-button button-animation flex-1 center-of-div'
                                 onClick={() => setConfirmArchive(false)}>Cancel</div>
-                            <div className='primary-red-button hover:secondary-red-button button-animation flex-1 center-of-div' onClick={handleArchive}>Archive</div>
+                            <div className='primary-important-button hover:secondary-important-button button-animation flex-1 center-of-div' onClick={handleArchive}>Archive</div>
                         </div>
                     </DialogPanel>
                 </div>
             </Dialog>
 
             <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50">
-                <div className="fixed inset-0 w-screen center-of-div bg-appBlack/80 p-4">
-                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appWhite rounded-3xl border border-appGreen p-4">
+                <div className="fixed inset-0 w-screen center-of-div bg-appPrimaryDark/80 p-4">
+                    <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appPrimaryLight rounded-3xl border border-appPrimaryColor p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to delete this habit?</DialogTitle>
                         <div className='center-of-div flex-row gap-2 mt-4 w-full'>
-                            <div className='primary-gray-button hover:secondary-gray-button button-animation flex-1 center-of-div'
+                            <div className='primary-variant-button hover:secondary-variant-button button-animation flex-1 center-of-div'
                                 onClick={() => setConfirmDelete(false)}>Cancel</div>
-                            <div className='primary-red-button hover:secondary-red-button button-animation flex-1 center-of-div' onClick={handleDelete}>Delete</div>
+                            <div className='primary-important-button hover:secondary-important-button button-animation flex-1 center-of-div' onClick={handleDelete}>Delete</div>
                         </div>
                     </DialogPanel>
                 </div>

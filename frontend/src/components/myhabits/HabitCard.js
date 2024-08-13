@@ -46,10 +46,10 @@ const HabitCard = ({ habit, currentDay, selectedCheckOption }) => {
     }
 
     return (
-        <div className={`w-full flex flex-row flex-nowrap items-center justify-between px-3 py-2 gap-4 rounded-full bg-appGray-1 ${(selectedCheckOption.value === 'check' && dailyCount === 0) ? 'hidden' : ''} ${(selectedCheckOption.value === 'nocheck' && dailyCount !== 0) ? 'hidden' : ''}`}>
-            <div className='rounded-full border border-appGreen bg-appWhite hover:bg-appGreen hover:text-appWhite cursor-pointer button-animation px-3 py-1' onClick={handleClick}>{dailyCount}</div>
+        <div className={`w-full flex flex-row flex-nowrap items-center justify-between px-3 py-2 gap-4 rounded-full bg-appVariant-1 ${(selectedCheckOption.value === 'check' && dailyCount === 0) ? 'hidden' : ''} ${(selectedCheckOption.value === 'nocheck' && dailyCount !== 0) ? 'hidden' : ''}`}>
+            <div className='rounded-full border border-appPrimaryColor bg-appPrimaryLight hover:bg-appPrimaryColor hover:text-appPrimaryLight cursor-pointer button-animation px-3 py-1' onClick={handleClick}>{dailyCount}</div>
             <div className='flex-1 truncate cursor-pointer' onClick={handleNavigate}>{habit.habit_name}</div>
-            <div className='text-xs text-appGray-3 pr-2 font-bold'>Total: {totalCount}</div>
+            <div className='text-xs text-appVariant-3 pr-2 font-bold'>Total: {totalCount}</div>
         </div>
     )
 }

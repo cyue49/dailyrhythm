@@ -3,28 +3,28 @@
 @tailwind utilities;
 
 .default {
-    --appGreen: 82, 142, 108;
-    --appBlack: 53, 53, 53;
-    --appWhite: 243, 243, 243;
-    --appRed: 174, 90, 90;
-    --appGray-1: 230, 230, 230;
-    --appGray-2: 185, 185, 185;
-    --appGray-3: 133, 133, 133;
+    --appPrimaryColor: 82, 142, 108;
+    --appPrimaryDark: 53, 53, 53;
+    --appPrimaryLight: 243, 243, 243;
+    --appImportant: 174, 90, 90;
+    --appVariant-1: 230, 230, 230;
+    --appVariant-2: 185, 185, 185;
+    --appVariant-3: 133, 133, 133;
 }
 
 .dark {
-    --appGreen: 53, 53, 53;
-    --appBlack: 53, 53, 53;
-    --appWhite: 243, 243, 243;
-    --appRed: 174, 90, 90;
-    --appGray-1: 133, 133, 133;
-    --appGray-2: 185, 185, 185;
-    --appGray-3: 230, 230, 230;
+    --appPrimaryColor: 53, 53, 53;
+    --appPrimaryDark: 53, 53, 53;
+    --appPrimaryLight: 243, 243, 243;
+    --appImportant: 174, 90, 90;
+    --appVariant-1: 133, 133, 133;
+    --appVariant-2: 185, 185, 185;
+    --appVariant-3: 230, 230, 230;
 }
 
 @layer base {
     html {
-        @apply text-appBlack bg-appWhite;
+        @apply text-appPrimaryDark bg-appPrimaryLight;
         box-sizing: border-box;
     }
 
@@ -41,33 +41,33 @@
     }
 
     /* Main buttons */
-    .primary-green-button {
-        @apply bg-appGreen text-appWhite border-appGreen border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
+    .primary-color-button {
+        @apply bg-appPrimaryColor text-appPrimaryLight border-appPrimaryColor border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
-    .secondary-green-button {
-        @apply bg-appWhite text-appGreen border-appGreen border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
+    .secondary-color-button {
+        @apply bg-appPrimaryLight text-appPrimaryColor border-appPrimaryColor border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
-    .primary-red-button {
-        @apply bg-appRed text-appWhite border-appRed border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
+    .primary-important-button {
+        @apply bg-appImportant text-appPrimaryLight border-appImportant border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
-    .secondary-red-button {
-        @apply bg-appWhite text-appRed border-appRed border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
+    .secondary-important-button {
+        @apply bg-appPrimaryLight text-appImportant border-appImportant border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
-    .primary-gray-button {
-        @apply bg-appGray-3 text-appWhite border-appGray-3 border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
+    .primary-variant-button {
+        @apply bg-appVariant-3 text-appPrimaryLight border-appVariant-3 border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
-    .secondary-gray-button {
-        @apply bg-appWhite text-appGray-3 border-appGray-3 border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
+    .secondary-variant-button {
+        @apply bg-appPrimaryLight text-appVariant-3 border-appVariant-3 border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
     /* Form Input box */
     .form-text-input {
-        @apply px-4 py-2 mt-1 rounded-full bg-appWhite border-appGreen border;
+        @apply px-4 py-2 mt-1 rounded-full bg-appPrimaryLight border-appPrimaryColor border;
     }
 
     /* button animation */

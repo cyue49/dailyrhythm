@@ -40,16 +40,16 @@ const PastWeekStatistics = ({ habit }) => {
     }, [getWeekdays]);
 
     return (
-        <div className='flex flex-col items-start justify-center bg-appWhite rounded-3xl px-5 py-3 gap-2'>
+        <div className='flex flex-col items-start justify-center bg-appPrimaryLight rounded-3xl px-5 py-3 gap-2'>
             <div className='font-bold'>Past Week Check-ins: </div>
-            <div className='flex flex-row flex-nowrap gap-2 w-full p-3 border border-appGreen rounded-3xl'>
+            <div className='flex flex-row flex-nowrap gap-2 w-full p-3 border border-appPrimaryColor rounded-3xl'>
                 {weekdays.map((day, index) => (
                     <WeekdayCard habit={habit} day={day} key={index} />
                 ))}
             </div>
             <div className='flex flex-row py-2 items-center justify-start'>
                 <div className='font-bold text-sm'>Total check-ins in the past week: </div>
-                <div className='font-bold text-appGreen text-lg center-of-div px-3 py-1'>{weeklyCount}</div>
+                <div className='font-bold text-appPrimaryColor text-lg center-of-div px-3 py-1'>{weeklyCount}</div>
             </div>
         </div>
     )

@@ -90,7 +90,7 @@ const UserCard = () => {
     }
 
     return (
-        <div className='flex flex-row gap-5 p-5 items-center bg-appGray-1 rounded-3xl'>
+        <div className='flex flex-row gap-5 p-5 items-center bg-appVariant-1 rounded-3xl'>
             <img
                 className='size-[70px]'
                 src={require(`../../assets/profiles/profile1.png`)}
@@ -103,23 +103,23 @@ const UserCard = () => {
                         <div className='flex flex-col w-10/12'>
                             <div className='font-bold'>Username:</div>
                             <input className='form-text-input w-full truncate' type='text' name='username' id='username' autoComplete='on' autoCapitalize='off' placeholder='Username' value={form.username} onChange={handleChange} />
-                            <div className={`text-appRed text-sm ${(form.username !== '' && !validUsername) ? '' : 'hidden'}`}>Invalid character in username.</div>
+                            <div className={`text-appImportant text-sm ${(form.username !== '' && !validUsername) ? '' : 'hidden'}`}>Invalid character in username.</div>
                         </div>
 
                     }
-                    <FontAwesomeIcon icon={isEdit ? faCircleCheck : faPenToSquare} className={`text-2xl text-appGreen cursor-pointer ${(isEdit && (!validEmail || !validUsername)) ? 'cursor-not-allowed opacity-70' : ''}`} onClick={handleEdit} />
+                    <FontAwesomeIcon icon={isEdit ? faCircleCheck : faPenToSquare} className={`text-2xl text-appPrimaryColor cursor-pointer ${(isEdit && (!validEmail || !validUsername)) ? 'cursor-not-allowed opacity-70' : ''}`} onClick={handleEdit} />
                 </div>
 
                 <div>
                     {!isEdit ?
-                        <div className='flex flex-row gap-2 items-center text-appGray-3'>
+                        <div className='flex flex-row gap-2 items-center text-appVariant-3'>
                             <FontAwesomeIcon icon={faEnvelope} />
                             <span className='truncate'>{form.email}</span>
                         </div> :
                         <div className='flex flex-col w-10/12'>
                             <div className='font-bold'>Email:</div>
                             <input className='form-text-input w-full truncate' type='text' name='email' id='email' autoComplete='on' autoCapitalize='off' placeholder='Email' value={form.email} onChange={handleChange} />
-                            <div className={`text-appRed text-sm ${(form.email !== '' && !validEmail) ? '' : 'hidden'}`}>Invalid email.</div>
+                            <div className={`text-appImportant text-sm ${(form.email !== '' && !validEmail) ? '' : 'hidden'}`}>Invalid email.</div>
                         </div>
                     }
                 </div>

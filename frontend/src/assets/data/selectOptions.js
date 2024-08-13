@@ -1,20 +1,19 @@
-const appGreen = '#528E6C'
-const appGray3 = '#858585'
-const appWhite = '#F3F3F3'
-const appBlack = '#353535'
+const appVariant3 = '#858585'
+const appPrimaryLight = '#F3F3F3'
+const appPrimaryDark = '#353535'
 
 // styles for select
 export const selectStyles = {
     control: (baseStyles, state) => ({
         ...baseStyles,
-        borderColor: state.isDisabled ? appGray3 : appGreen,
+        borderColor: state.isDisabled ? appVariant3 : appPrimaryDark,
         borderRadius: '25px',
-        backgroundColor: appWhite
+        backgroundColor: appPrimaryLight
     }),
     option: (baseStyles, { data, isDisabled, isFocused, isSelected }) => ({
         ...baseStyles,
-        backgroundColor: isFocused ? appGreen : 'white',
-        color: isFocused ? appWhite : appBlack
+        backgroundColor: isFocused ? appVariant3 : 'white',
+        color: isFocused ? appPrimaryLight : appPrimaryDark
     })
 }
 

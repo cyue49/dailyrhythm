@@ -24,12 +24,12 @@ const NewCategoryDialog = ({ categoryName, setCategoryName, setDialogOpen, categ
             <div className='font-bold'>Category name: </div>
             <input className='form-text-input w-full' type='text' name='category_name' id='category_name' maxLength='50' value={categoryName} onChange={e => setCategoryName(e.target.value)} />
             <div className='center-of-div flex-row gap-2 mt-2'>
-                <div className='primary-gray-button flex-1 center-of-div'
+                <div className='primary-variant-button flex-1 center-of-div'
                     onClick={() => {
                         setCategoryName('')
                         setDialogOpen(false)
                     }}>Cancel</div>
-                <div className='primary-green-button flex-1 center-of-div' onClick={handleDone}>Add</div>
+                <div className='primary-color-button flex-1 center-of-div' onClick={handleDone}>Add</div>
             </div>
         </div>
     )

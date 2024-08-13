@@ -4,14 +4,14 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                appGreen: 'rgba(var(--appGreen))',
-                appBlack: 'rgba(var(--appBlack))',
-                appWhite: 'rgba(var(--appWhite))',
-                appRed: 'rgba(var(--appRed))',
-                appGray: {
-                    1: 'rgba(var(--appGray-1))',
-                    2: 'rgba(var(--appGray-2))',
-                    3: 'rgba(var(--appGray-3))'
+                appPrimaryColor: 'rgba(var(--appPrimaryColor))',
+                appPrimaryDark: 'rgba(var(--appPrimaryDark))',
+                appPrimaryLight: 'rgba(var(--appPrimaryLight))',
+                appImportant: 'rgba(var(--appImportant))',
+                appVariant: {
+                    1: 'rgba(var(--appVariant-1))',
+                    2: 'rgba(var(--appVariant-2))',
+                    3: 'rgba(var(--appVariant-3))'
                 }
             }
         },

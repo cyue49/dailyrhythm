@@ -9,7 +9,7 @@ const FilterDialog = ({ setDialogOpen, categoryOptions, selectedCategory, setSel
     const checkOptions = [{ value: 'all', label: 'All' }, { value: 'check', label: 'Checked-in' }, { value: 'nocheck', label: 'Not checked-in' }]
 
     return (
-        <div className='flex flex-col items-start justify-center gap-2 w-full border-t border-appGreen py-4'>
+        <div className='flex flex-col items-start justify-center gap-2 w-full border-t border-appPrimaryColor py-4'>
             {/* category selection */}
             <div className='font-bold text-sm'>Category: </div>
             <Select
@@ -35,16 +35,16 @@ const FilterDialog = ({ setDialogOpen, categoryOptions, selectedCategory, setSel
             {/* today only option */}
             <div className='font-bold text-sm'>Options: </div>
             <div className='flex flex-row gap-3'>
-                <Checkbox checked={showTodayOnly} onChange={setShowTodayOnly} className="rounded-md border border-appGreen size-5 overflow-hidden">
+                <Checkbox checked={showTodayOnly} onChange={setShowTodayOnly} className="rounded-md border border-appPrimaryColor size-5 overflow-hidden">
                     {showTodayOnly ?
-                        <div className='size-5 bg-appGreen text-appWhite center-of-div flex-col text-sm'><FontAwesomeIcon icon={faCheck} /></div>
+                        <div className='size-5 bg-appPrimaryColor text-appPrimaryLight center-of-div flex-col text-sm'><FontAwesomeIcon icon={faCheck} /></div>
                         : <div className='hidden'></div>}
                 </Checkbox>
                 <div>Show for today only</div>
             </div>
 
             {/* close button */}
-            <div className='secondary-gray-button hover:primary-gray-button button-animation w-full center-of-div mt-4' onClick={() => setDialogOpen(false)}>Done</div>
+            <div className='secondary-variant-button hover:primary-variant-button button-animation w-full center-of-div mt-4' onClick={() => setDialogOpen(false)}>Done</div>
         </div >
     )
 }
