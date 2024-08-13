@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
 const express = require('express');
 const router = express.Router();
 const pool = require('../dbconfig');
@@ -47,7 +46,7 @@ router.post('/signin', async (req, res) => {
                         if (value) {
                             // generate jwt token
                             const payload = { user_id: result.rows[0].user_id }
-                            const jwtSecretKey = config.get('App.jwtPrivateKey');
+                            const jwtSecretKey = process.env.JWT_KEY;
                             const token = jwt.sign(payload, jwtSecretKey, { expiresIn: '24h' });
 
                             // save token in cookies and send response

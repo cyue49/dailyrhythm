@@ -1,4 +1,4 @@
-const config = require('config');
+const dotenv = require('dotenv')
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -8,6 +8,8 @@ const auth = require('./routes/auth')
 const categories = require('./routes/categories')
 const custom_habits = require('./routes/custom_habits')
 const custom_habits_checkins = require('./routes/custom_habits_checkins')
+
+dotenv.config();
 
 const app = express();
 
@@ -33,8 +35,8 @@ app.use('/api/custom_habits', custom_habits);
 app.use('/api/custom_habits_checkins', custom_habits_checkins);
 
 // host and port
-const hostname = config.get('App.host');
-const port = config.get('App.port');
+const hostname = process.env.APP_HOST;
+const port = process.env.APP_PORT;
 
 // listen on port and hostname
 app.listen(port, hostname, () => {

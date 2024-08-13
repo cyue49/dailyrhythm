@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
 
 function auth(req, res, next) {
     // get token from request cookies
@@ -10,7 +9,7 @@ function auth(req, res, next) {
 
     try {
         // verify token and get user id
-        const user = jwt.verify(token, config.get('App.jwtPrivateKey'));
+        const user = jwt.verify(token, process.env.JWT_KEY);
 
         // set user id in request then go next
         req.user_id = user.user_id;

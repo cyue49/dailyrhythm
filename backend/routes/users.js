@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
 const express = require('express');
 const router = express.Router();
 const crypto = require('crypto');
@@ -90,7 +89,7 @@ router.post('/signup', async (req, res) => {
                             } else {
                                 // generate jwt token
                                 const payload = { user_id: user_id }
-                                const jwtSecretKey = config.get('App.jwtPrivateKey');
+                                const jwtSecretKey = process.env.JWT_KEY;
                                 const token = jwt.sign(payload, jwtSecretKey, { expiresIn: '24h' });
 
                                 // send response
