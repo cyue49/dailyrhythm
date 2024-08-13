@@ -4,7 +4,7 @@
 
 /* Color themes */
 .default {
-    --primaryColor: 82, 142, 108;
+    --primaryColor: 81, 130, 109;
     --primaryTextColor: 53, 53, 53;
     --secondaryTextColor: 243, 243, 243;
     --webBgColor: 53, 53, 53;
@@ -12,7 +12,7 @@
     --subBgColor: 230, 230, 230;
     --mainCardColor: 230, 230, 230;
     --subCardColor: 243, 243, 243;
-    --confirmColor: 82, 142, 108;
+    --confirmColor: 81, 130, 109;
     --neutralColor: 133, 133, 133;
     --variantColor: 185, 185, 185;
     --importantColor: 174, 90, 90;
@@ -20,27 +20,19 @@
 }
 
 .dark {
-    --primaryColor: 82, 142, 108;
-    --primaryTextColor: 53, 53, 53;
-    --secondaryTextColor: 243, 243, 243;
+    --primaryColor: 83, 122, 99;
+    --primaryTextColor: 232, 232, 232;
+    --secondaryTextColor: 61, 61, 61;
     --webBgColor: 53, 53, 53;
-    --mainBgColor: 243, 243, 243;
-    --subBgColor: 230, 230, 230;
-    --mainCardColor: 230, 230, 230;
-    --subCardColor: 243, 243, 243;
-    --confirmColor: 82, 142, 108;
-    --neutralColor: 133, 133, 133;
-    --variantColor: 185, 185, 185;
-    --importantColor: 174, 90, 90;
+    --mainBgColor: 48, 48, 48;
+    --subBgColor: 48, 48, 48;
+    --mainCardColor: 71, 71, 71;
+    --subCardColor: 56, 56, 56;
+    --confirmColor: 83, 122, 99;
+    --neutralColor: 161, 161, 161;
+    --variantColor: 94, 94, 94;
+    --importantColor: 156, 81, 81;
     --whiteColor: 243, 243, 243;
-
-    /* --appPrimaryColor: 138, 138, 138;
-    --appPrimaryDark: 209, 209, 209;
-    --appPrimaryLight: 53, 53, 53;
-    --appImportant: 174, 90, 90;
-    --appVariant-1: 77, 77, 77;
-    --appVariant-2: 128, 128, 128;
-    --appVariant-3: 181, 181, 181; */
 }
 
 .blue {
@@ -50,9 +42,9 @@
     --webBgColor: 53, 53, 53;
     --mainBgColor: 243, 243, 243;
     --subBgColor: 230, 230, 230;
-    --mainCardColor: 230, 234, 237;
+    --mainCardColor: 223, 231, 237;
     --subCardColor: 243, 243, 243;
-    --confirmColor: 82, 142, 108;
+    --confirmColor: 82, 118, 142;
     --neutralColor: 133, 133, 133;
     --variantColor: 185, 185, 185;
     --importantColor: 174, 90, 90;
@@ -68,7 +60,7 @@
     --subBgColor: 230, 230, 230;
     --mainCardColor: 240, 221, 229;
     --subCardColor: 243, 243, 243;
-    --confirmColor: 82, 142, 108;
+    --confirmColor: 176, 120, 144;
     --neutralColor: 133, 133, 133;
     --variantColor: 185, 185, 185;
     --importantColor: 122, 71, 71;
@@ -95,11 +87,11 @@
 
     /* Main buttons */
     .primary-color-button {
-        @apply bg-primaryColor text-whiteColor border-primaryColor border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
+        @apply bg-confirmColor text-whiteColor border-confirmColor border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
     .secondary-color-button {
-        @apply bg-whiteColor text-primaryColor border-primaryColor border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
+        @apply bg-mainBgColor text-confirmColor border-confirmColor border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
     .primary-important-button {
@@ -107,7 +99,7 @@
     }
 
     .secondary-important-button {
-        @apply bg-whiteColor text-importantColor border-importantColor border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
+        @apply bg-mainBgColor text-importantColor border-importantColor border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
     .primary-neutral-button {
@@ -115,7 +107,7 @@
     }
 
     .secondary-neutral-button {
-        @apply bg-whiteColor text-neutralColor border-neutralColor border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
+        @apply bg-mainBgColor text-neutralColor border-neutralColor border-solid border rounded-full px-3 py-2 font-semibold cursor-pointer disabled:opacity-75;
     }
 
     /* Form Input box */
