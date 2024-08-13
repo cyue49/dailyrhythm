@@ -4,7 +4,7 @@ import { faEnvelope, faPenToSquare, faCircleCheck } from '@fortawesome/free-soli
 import Toast from '../common/Toast'
 import { getInfo, updateInfo } from '../../services/UserServices'
 
-const UserCard = () => {
+const UserCard = ({ appTheme }) => {
     // states for editing username and email 
     const [isEdit, setIsEdit] = useState(false)
     const [form, setForm] = useState({ username: '', email: '' })
@@ -93,7 +93,7 @@ const UserCard = () => {
         <div className='flex flex-row gap-5 p-5 items-center bg-mainCardColor rounded-3xl'>
             <img
                 className='size-[70px]'
-                src={require(`../../assets/profiles/profile1.png`)}
+                src={require(`../../assets/profiles/${appTheme}.png`)}
                 alt="default profile"
             />
             <div className='flex flex-col gap-3 truncate w-full'>

@@ -37,7 +37,7 @@ function App() {
                     <Route path="/signup" element={<SignUp />} />
                     <Route element={<PrivateRoute setAppTheme={setAppTheme} />}>
                         <Route path="/myhabits" element={<MyHabits />} />
-                        <Route path="/profile" element={<Profile setAppTheme={setAppTheme} />} />
+                        <Route path="/profile" element={<Profile appTheme={appTheme} setAppTheme={setAppTheme} />} />
                         <Route path="/mystatistics" element={<MyStatistics />} />
                         <Route path="/archivedhabits" element={<ArchivedHabits />} />
                         <Route path="/myhabits/details" element={<HabitDetails />} />
