@@ -21,9 +21,9 @@ import './App.css';
 
 function App() {
     const [appTheme, setAppTheme] = useState('default')
-    const themes = ['default', 'dark', 'light']
 
     useEffect(() => {
+        const themes = ['default', 'dark', 'light', 'pink', 'blue']
         themes.forEach(theme => document.body.classList.remove(theme))
         document.body.classList.add(appTheme)
     }, [appTheme])

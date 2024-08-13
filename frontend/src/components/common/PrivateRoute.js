@@ -19,7 +19,7 @@ const PrivateRoute = ({ setAppTheme }) => {
                     navigate('/signin')
                 }
             })
-    }, [navigate])
+    }, [navigate, setAppTheme])
     return isAuthenticated ? <Outlet /> : <Loading />
 }
 
