@@ -93,7 +93,7 @@ const MyHabits = () => {
 
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50 text-primaryTextColor">
                 <div className="fixed inset-0 w-screen center-of-div bg-webBgColor/80 p-4">
-                    <DialogPanel className="w-10/12 max-w-md flex flex-col bg-mainBgColor rounded-3xl border border-primaryColor py-4 px-6">
+                    <DialogPanel className="w-11/12 max-w-md flex flex-col bg-mainBgColor rounded-3xl border border-primaryColor py-4 px-6">
                         <div className='flex flex-row items-center justify-between py-1'>
                             <DialogTitle className='font-bold'>Filter</DialogTitle>
                             <div className='cursor-pointer text-primaryColor hover:text-secondaryTextColor hover:bg-primaryColor button-animation font-bold text-sm border rounded-full px-2 border-primaryColor' onClick={handleReset}>Reset</div>

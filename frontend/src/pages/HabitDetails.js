@@ -112,7 +112,7 @@ const HabitDetails = () => {
 
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50 text-primaryTextColor">
                 <div className="fixed inset-0 w-screen center-of-div bg-webBgColor/80 p-4">
-                    <DialogPanel className="w-7/12 max-w-xs center-of-div flex-col bg-mainBgColor rounded-3xl border border-primaryColor overflow-hidden">
+                    <DialogPanel className="w-9/12 max-w-xs center-of-div flex-col bg-mainBgColor rounded-3xl border border-primaryColor overflow-hidden">
                         <div className='w-full p-3 center-of-div hover:bg-primaryColor hover:text-secondaryTextColor button-animation cursor-pointer' onClick={navigateTo}>Edit</div>
                         <div className='w-full p-3 center-of-div hover:bg-primaryColor hover:text-secondaryTextColor button-animation border-t border-t-variantColor border-b border-b-variantColor cursor-pointer' onClick={() => {
                             setDialogOpen(false)

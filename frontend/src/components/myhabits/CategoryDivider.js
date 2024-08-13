@@ -52,7 +52,7 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories, show
                     <PopoverPanel
                         transition
                         anchor="right"
-                        className='bg-mainBgColor border border-primaryColor rounded-2xl m-2 w-[150px] flex flex-col overflow-hidden transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] data-[closed]:-translate-y-1 data-[closed]:opacity-0'>
+                        className='bg-mainBgColor border border-primaryColor rounded-2xl m-2 w-44 flex flex-col overflow-hidden transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] data-[closed]:-translate-y-1 data-[closed]:opacity-0'>
                         <div className='px-4 pt-2 pb-1 center-of-div text-primaryTextColor hover:bg-primaryColor hover:text-secondaryTextColor button-animation cursor-pointer border-b border-variantColor' onClick={() => setDialogOpen(true)}>Rename</div>
                         <div className='px-4 pt-1 pb-2 center-of-div text-primaryTextColor hover:bg-primaryColor hover:text-secondaryTextColor button-animation cursor-pointer' onClick={() => setConfirmDelete(true)}>Delete</div>
                     </PopoverPanel>
