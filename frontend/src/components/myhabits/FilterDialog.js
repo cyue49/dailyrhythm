@@ -9,7 +9,7 @@ const FilterDialog = ({ setDialogOpen, categoryOptions, selectedCategory, setSel
     const checkOptions = [{ value: 'all', label: 'All' }, { value: 'check', label: 'Checked-in' }, { value: 'nocheck', label: 'Not checked-in' }]
 
     return (
-        <div className='flex flex-col items-start justify-center gap-2 w-full border-t border-appPrimaryColor py-4'>
+        <div className='flex flex-col items-start justify-center gap-2 w-full border-t border-appPrimaryColor py-4 text-appPrimaryDark'>
             {/* category selection */}
             <div className='font-bold text-sm'>Category: </div>
             <Select

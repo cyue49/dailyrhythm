@@ -71,7 +71,7 @@ const MyHabits = () => {
     }
 
     return (
-        <div className='h-screen w-screen flex flex-col items-center bg-appPrimaryDark'>
+        <div className='h-screen w-screen flex flex-col items-center bg-appPrimaryDark text-appPrimaryDark'>
             <TopBar icons={['plus']} title={'My Habits'} plusOnclick={handleNavigate} />
             <div className='w-full max-w-4xl h-screen bg-appPrimaryLight overflow-y-hidden flex flex-col gap-4 my-[56px]'>
                 <WeeklyCalendar currentDay={currentDay} setCurrentDay={setCurrentDay} dayStartTime={dayStartTime} />
@@ -91,7 +91,7 @@ const MyHabits = () => {
             </div>
             <BottomBar current={2} />
 
-            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
+            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50 text-appPrimaryDark">
                 <div className="fixed inset-0 w-screen center-of-div bg-appPrimaryDark/80 p-4">
                     <DialogPanel className="w-10/12 max-w-md flex flex-col bg-appPrimaryLight rounded-3xl border border-appPrimaryColor py-4 px-6">
                         <div className='flex flex-row items-center justify-between py-1'>

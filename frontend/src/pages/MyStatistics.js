@@ -27,7 +27,7 @@ const MyStatistics = () => {
     }, []);
 
     return (
-        <div className='h-screen w-screen flex flex-col items-center bg-appPrimaryDark'>
+        <div className='h-screen w-screen flex flex-col items-center bg-appPrimaryDark text-appPrimaryDark'>
             <TopBar icons={[]} title={'My Statistics'} />
             <div className='w-full max-w-4xl h-screen bg-appPrimaryLight no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5'>
                 <div className='flex flex-col gap-2'>

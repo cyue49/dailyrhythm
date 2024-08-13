@@ -43,7 +43,7 @@ const CategoryForm = ({ category, setCategory, categoryID }) => {
             }
             <div className='secondary-color-button hover:primary-color-button button-animation w-full center-of-div mt-1' onClick={() => setDialogOpen(true)}>Add a category</div>
 
-            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
+            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50 text-appPrimaryDark">
                 <div className="fixed inset-0 w-screen center-of-div bg-appPrimaryDark/80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appPrimaryLight rounded-3xl border border-appPrimaryColor p-4">
                         <NewCategoryDialog categoryName={newCategory} setCategoryName={setNewCategory} setDialogOpen={setDialogOpen} categoryOptions={options} setCategoryOptions={setOptions} setCurrentOption={setCategory} />

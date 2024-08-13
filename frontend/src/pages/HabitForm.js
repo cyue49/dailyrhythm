@@ -80,7 +80,7 @@ const HabitForm = () => {
     const navigateBack = () => { (mode === 'Edit') ? navigate('/myhabits/details', { state: { currentDay: currentDay, habit: habit } }) : navigate('/myhabits') }
 
     return (
-        <div className='h-screen w-screen flex flex-col items-center bg-appPrimaryDark'>
+        <div className='h-screen w-screen flex flex-col items-center bg-appPrimaryDark text-appPrimaryDark'>
             <TopBar icons={['back']} title={mode} backOnclick={navigateBack} />
             <div className='w-full max-w-4xl h-screen bg-appVariant-1 no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5 justify-between'>
                 <div className='flex flex-col gap-4'>

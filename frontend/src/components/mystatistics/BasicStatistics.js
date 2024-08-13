@@ -12,7 +12,7 @@ const BasicStatistics = ({ habit, totalCheckins }) => {
     }, [habit.habit_id]);
 
     return (
-        <div className='flex flex-col items-start justify-center bg-appPrimaryLight rounded-3xl p-3 pb-4 gap-2'>
+        <div className='flex flex-col items-start justify-center bg-appPrimaryLight rounded-3xl p-3 pb-4 gap-2 text-appPrimaryDark'>
             {/* date created */}
             <div className='flex flex-row items-center justify-start'>
                 <div className='font-bold'>Habit created on: </div>

@@ -53,8 +53,8 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories, show
                         transition
                         anchor="right"
                         className='bg-appPrimaryLight border border-appPrimaryColor rounded-2xl m-2 w-[150px] flex flex-col overflow-hidden transition duration-200 ease-in-out [--anchor-gap:var(--spacing-5)] data-[closed]:-translate-y-1 data-[closed]:opacity-0'>
-                        <div className='px-4 pt-2 pb-1 center-of-div hover:bg-appPrimaryColor hover:text-appPrimaryLight button-animation cursor-pointer border-b border-appVariant-2' onClick={() => setDialogOpen(true)}>Rename</div>
-                        <div className='px-4 pt-1 pb-2 center-of-div hover:bg-appPrimaryColor hover:text-appPrimaryLight button-animation cursor-pointer' onClick={() => setConfirmDelete(true)}>Delete</div>
+                        <div className='px-4 pt-2 pb-1 center-of-div text-appPrimaryDark hover:bg-appPrimaryColor hover:text-appPrimaryLight button-animation cursor-pointer border-b border-appVariant-2' onClick={() => setDialogOpen(true)}>Rename</div>
+                        <div className='px-4 pt-1 pb-2 center-of-div text-appPrimaryDark hover:bg-appPrimaryColor hover:text-appPrimaryLight button-animation cursor-pointer' onClick={() => setConfirmDelete(true)}>Delete</div>
                     </PopoverPanel>
                 </Popover>
                 <div className='text-appPrimaryColor font-bold'>{categoryName}</div>
@@ -67,7 +67,7 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories, show
                     : <HabitCard habit={habit} currentDay={currentDay} key={index} selectedCheckOption={selectedCheckOption} />
             ))}
 
-            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
+            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50 text-appPrimaryDark">
                 <div className="fixed inset-0 w-screen center-of-div bg-appPrimaryDark/80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appPrimaryLight rounded-3xl border border-appPrimaryColor p-4">
                         <RenameCategoryDialog categoryID={category.category_id} categoryName={categoryRename} setCategoryName={setCategoryRename} setDialogOpen={setDialogOpen} setCategoryState={setCategoryName} />
@@ -75,7 +75,7 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories, show
                 </div>
             </Dialog>
 
-            <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50">
+            <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50 text-appPrimaryDark">
                 <div className="fixed inset-0 w-screen center-of-div bg-appPrimaryDark/80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appPrimaryLight rounded-3xl border border-appPrimaryColor p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to delete this category?</DialogTitle>

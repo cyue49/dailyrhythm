@@ -98,7 +98,7 @@ const ArchivedHabits = () => {
     const navigateBack = () => { navigate('/profile') }
 
     return (
-        <div className='h-screen w-screen flex flex-col items-center bg-appPrimaryDark'>
+        <div className='h-screen w-screen flex flex-col items-center bg-appPrimaryDark text-appPrimaryDark'>
             <TopBar icons={['back']} title={'Archived Habits'} backOnclick={navigateBack} />
             <div className='w-full max-w-4xl h-screen bg-appPrimaryLight no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5'>
                 {/* Delete/Unarchive button */}
@@ -124,7 +124,7 @@ const ArchivedHabits = () => {
             </div>
 
             {/* Confirm delete/unarchive dialogs */}
-            <Dialog open={confirmArchive} onClose={() => setConfirmArchive(false)} className="relative z-50">
+            <Dialog open={confirmArchive} onClose={() => setConfirmArchive(false)} className="relative z-50 text-appPrimaryDark">
                 <div className="fixed inset-0 w-screen center-of-div bg-appPrimaryDark/80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appPrimaryLight rounded-3xl border border-appPrimaryColor p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to unarchive the selected habits?</DialogTitle>
@@ -137,7 +137,7 @@ const ArchivedHabits = () => {
                 </div>
             </Dialog>
 
-            <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50">
+            <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50 text-appPrimaryDark">
                 <div className="fixed inset-0 w-screen center-of-div bg-appPrimaryDark/80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-appPrimaryLight rounded-3xl border border-appPrimaryColor p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to delete the selected habits?</DialogTitle>

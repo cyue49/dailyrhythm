@@ -14,10 +14,10 @@
 
 .dark {
     --appPrimaryColor: 53, 53, 53;
-    --appPrimaryDark: 53, 53, 53;
-    --appPrimaryLight: 243, 243, 243;
+    --appPrimaryDark: 166, 166, 166;
+    --appPrimaryLight: 122, 122, 122;
     --appImportant: 174, 90, 90;
-    --appVariant-1: 133, 133, 133;
+    --appVariant-1: 97, 97, 97;
     --appVariant-2: 185, 185, 185;
     --appVariant-3: 230, 230, 230;
 }
