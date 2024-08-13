@@ -126,6 +126,66 @@ router.get('/habit/:id/count/from/:startDate/to/:endDate', auth, async (req, res
     }
 });
 
+// get total count of checkins for all active habits in a category
+router.get('/category/:id/count', auth, async (req, res) => {
+    try {
+        // query to database
+        pool.query('SELECT COUNT(CI.checkin_id) FROM custom_habits_checkins CI JOIN custom_habits CH ON CI.habit_id = CH.habit_id JOIN categories CAT ON CH.category_id = CAT.category_id WHERE CAT.category_id = $1 AND CH.is_active = true', [req.params.id], (err, result) => {
+            if (err) {
+                console.log('Error executing query.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                console.log(result.rows[0]);
+                res.status(200).send(result.rows[0]);
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send('failed');
+    }
+});
+
+// get total count of distinct days checked-in for all active habits in a category
+router.get('/category/:id/count/days', auth, async (req, res) => {
+    try {
+        // query to database
+        pool.query('SELECT COUNT(DISTINCT CI.for_date) FROM custom_habits_checkins CI JOIN custom_habits CH ON CI.habit_id = CH.habit_id JOIN categories CAT ON CH.category_id = CAT.category_id WHERE CAT.category_id = $1 AND CH.is_active = true', [req.params.id], (err, result) => {
+            if (err) {
+                console.log('Error executing query.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                console.log(result.rows[0]);
+                res.status(200).send(result.rows[0]);
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send('failed');
+    }
+});
+
+// get total checkin count for a category for a specific day
+router.get('/category/:id/count/day/:day', auth, async (req, res) => {
+    try {
+        // query to database
+        pool.query('SELECT COUNT(CI.checkin_id) FROM custom_habits_checkins CI JOIN custom_habits CH ON CI.habit_id = CH.habit_id JOIN categories CAT ON CH.category_id = CAT.category_id WHERE CAT.category_id = $1 AND CI.for_date = $2 AND CH.is_active = true', [req.params.id, req.params.day], (err, result) => {
+            if (err) {
+                console.log('Error executing query.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                console.log(result.rows[0]);
+                res.status(200).send(result.rows[0]);
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send('failed');
+    }
+});
+
 // ============================================= POST =============================================
 // create a checkin
 router.post('/', auth, async (req, res) => {
