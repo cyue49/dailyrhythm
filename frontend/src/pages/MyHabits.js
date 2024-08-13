@@ -78,7 +78,7 @@ const MyHabits = () => {
                             selectedCategory.value === 'all' || category.category_id === selectedCategory.value) ?
                             <CategoryDivider category={category} currentDay={currentDay} key={index} categories={categories} setCategories={setCategories} showTodayOnly={showTodayOnly} />
                             :
-                            <div key={index}></div>
+                            <div key={index} className='hidden'></div>
                     ))}
                 </div>
             </div>
@@ -88,7 +88,7 @@ const MyHabits = () => {
                 <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
                     <DialogPanel className="w-10/12 max-w-md flex flex-col bg-appWhite rounded-3xl border border-appGreen py-4 px-6">
                         <DialogTitle className='font-bold'>Filter</DialogTitle>
-                        <FilterDialog categoryOptions={categoryOptions} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} showTodayOnly={showTodayOnly} setShowTodayOnly={setShowTodayOnly} selectedCheckOption={selectedCheckOption} setSelectedCheckOption={setSelectedCheckOption} />
+                        <FilterDialog setDialogOpen={setDialogOpen} categoryOptions={categoryOptions} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} showTodayOnly={showTodayOnly} setShowTodayOnly={setShowTodayOnly} selectedCheckOption={selectedCheckOption} setSelectedCheckOption={setSelectedCheckOption} />
                     </DialogPanel>
                 </div>
             </Dialog>

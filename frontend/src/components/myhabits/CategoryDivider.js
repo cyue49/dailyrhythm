@@ -63,7 +63,7 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories, show
             </div>
             {habits.map((habit, index) => (
                 showTodayOnly && !habit.weekdays.includes(currentDay.getDay().toString()) ?
-                    <div className='hidden'></div>
+                    <div className='hidden' key={index}></div>
                     : <HabitCard habit={habit} currentDay={currentDay} key={index} />
             ))}
 

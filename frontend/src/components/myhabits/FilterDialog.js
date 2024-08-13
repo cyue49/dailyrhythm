@@ -5,7 +5,7 @@ import { Checkbox } from '@headlessui/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
-const FilterDialog = ({ categoryOptions, selectedCategory, setSelectedCategory, showTodayOnly, setShowTodayOnly, selectedCheckOption, setSelectedCheckOption }) => {
+const FilterDialog = ({ setDialogOpen, categoryOptions, selectedCategory, setSelectedCategory, showTodayOnly, setShowTodayOnly, selectedCheckOption, setSelectedCheckOption }) => {
     const checkOptions = [{ value: 'all', label: 'All' }, { value: 'check', label: 'Checked-in' }, { value: 'nocheck', label: 'Not checked-in' }]
 
     return (
@@ -43,6 +43,8 @@ const FilterDialog = ({ categoryOptions, selectedCategory, setSelectedCategory, 
                 <div>Show for today only</div>
             </div>
 
+            {/* close button */}
+            <div className='secondary-gray-button hover:primary-gray-button button-animation w-full center-of-div mt-4' onClick={() => setDialogOpen(false)}>Done</div>
         </div >
     )
 }
