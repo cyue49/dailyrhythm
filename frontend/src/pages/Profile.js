@@ -11,7 +11,7 @@ import Toast from '../components/common/Toast'
 import { updatePassword } from '../services/UserServices'
 import { signOut } from '../services/AuthServices'
 
-const Profile = () => {
+const Profile = ({ setAppTheme }) => {
     // states for popup modal for change password
     const [modalOpen, setModalOpen] = useState(false)
     const [form, setForm] = useState({
@@ -94,7 +94,7 @@ const Profile = () => {
             <TopBar icons={[]} title={'User Profile'} />
             <div className='w-full max-w-4xl h-screen bg-appWhite no-scrollbar overflow-y-auto flex flex-col gap-4 py-3 my-[56px] px-3 lg:px-5'>
                 <UserCard />
-                <SettingsCard />
+                <SettingsCard updateAppTheme={setAppTheme} />
                 <Link to={'/archivedhabits'} className='flex flex-row p-5 items-center bg-appGray-1 rounded-3xl justify-between hover:bg-appGray-2 active:bg-appGray-2 button-animation'>
                     <div className='font-bold'>Manage archived habits</div>
                     <FontAwesomeIcon icon={faCaretRight} className='text-appGreen text-2xl' />

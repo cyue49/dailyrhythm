@@ -4,14 +4,14 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                appGreen: '#528E6C',
-                appBlack: '#353535',
-                appWhite: '#F3F3F3',
-                appRed: '#AE5A5A',
+                appGreen: 'var(--appGreen)',
+                appBlack: 'var(--appBlack)',
+                appWhite: 'var(--appWhite)',
+                appRed: 'var(--appRed)',
                 appGray: {
-                    1: '#e6e6e6',
-                    2: '#B9B9B9',
-                    3: '#858585'
+                    1: 'var(--appGray-1)',
+                    2: 'var(--appGray-2)',
+                    3: 'var(--appGray-3)'
                 }
             }
         },

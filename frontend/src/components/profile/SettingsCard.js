@@ -6,7 +6,7 @@ import { themeOptions, timeOptions, selectStyles } from '../../assets/data/selec
 import Toast from '../common/Toast'
 import { getSettings, updateSettings } from '../../services/UserServices'
 
-const SettingsCard = () => {
+const SettingsCard = ({ updateAppTheme }) => {
     // states for editing user settings
     const [isEdit, setIsEdit] = useState(false)
     const [appTheme, setAppTheme] = useState({ value: 'default', label: 'Default' })
@@ -45,6 +45,7 @@ const SettingsCard = () => {
             updateSettings(data)
                 .then(response => {
                     if (response === 1) {
+                        updateAppTheme(appTheme.value)
                         setIsEdit(false)
                         toast('User settings updated successfully!')
                     } else {

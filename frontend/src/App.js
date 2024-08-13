@@ -4,6 +4,7 @@ import {
     Route
 } from "react-router-dom";
 
+import React, { useState } from 'react'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import MyHabits from './pages/MyHabits'
@@ -19,24 +20,29 @@ import PrivateRoute from './components/common/PrivateRoute'
 import './App.css';
 
 function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route element={<PrivateRoute />}>
-                    <Route path="/myhabits" element={<MyHabits />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/mystatistics" element={<MyStatistics />} />
-                    <Route path="/archivedhabits" element={<ArchivedHabits />} />
-                    <Route path="/myhabits/details" element={<HabitDetails />} />
-                    <Route path="/mystatistics/details" element={<StatisticDetails />} />
-                    <Route path="/myhabits/form" element={<HabitForm />} />
-                </Route>
+    const [appTheme, setAppTheme] = useState('default')
 
-            </Routes>
-        </Router>
+    return (
+        <div className={appTheme}>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/signin" element={<SignIn />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route element={<PrivateRoute setAppTheme={setAppTheme} />}>
+                        <Route path="/myhabits" element={<MyHabits />} />
+                        <Route path="/profile" element={<Profile setAppTheme={setAppTheme} />} />
+                        <Route path="/mystatistics" element={<MyStatistics />} />
+                        <Route path="/archivedhabits" element={<ArchivedHabits />} />
+                        <Route path="/myhabits/details" element={<HabitDetails />} />
+                        <Route path="/mystatistics/details" element={<StatisticDetails />} />
+                        <Route path="/myhabits/form" element={<HabitForm />} />
+                    </Route>
+
+                </Routes>
+            </Router>
+        </div>
+
     );
 }
 

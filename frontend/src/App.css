@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+.default {
+    --appGreen: #528E6C;
+    --appBlack: #353535;
+    --appWhite: #F3F3F3;
+    --appRed: #AE5A5A;
+    --appGray-1: #e6e6e6;
+    --appGray-2: #B9B9B9;
+    --appGray-3: #858585;
+}
+
+.dark {
+    --appGreen: #52608e;
+    --appBlack: #353535;
+    --appWhite: #F3F3F3;
+    --appRed: #AE5A5A;
+    --appGray-1: #e6e6e6;
+    --appGray-2: #B9B9B9;
+    --appGray-3: #858585;
+}
+
 @layer base {
     html {
         @apply text-appBlack bg-appWhite;
