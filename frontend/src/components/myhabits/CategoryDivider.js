@@ -7,7 +7,7 @@ import { DialogTitle, Dialog, DialogPanel, Popover, PopoverButton, PopoverPanel 
 import RenameCategoryDialog from './RenameCategoryDialog'
 import { deleteCategory } from '../../services/CategoryServices'
 
-const CategoryDivider = ({ category, currentDay, categories, setCategories, showTodayOnly }) => {
+const CategoryDivider = ({ category, currentDay, categories, setCategories, showTodayOnly, selectedCheckOption }) => {
     const [habits, setHabits] = useState([])
     const [categoryName, setCategoryName] = useState(category.category_name)
     const [categoryRename, setCategoryRename] = useState('')
@@ -64,7 +64,7 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories, show
             {habits.map((habit, index) => (
                 showTodayOnly && !habit.weekdays.includes(currentDay.getDay().toString()) ?
                     <div className='hidden' key={index}></div>
-                    : <HabitCard habit={habit} currentDay={currentDay} key={index} />
+                    : <HabitCard habit={habit} currentDay={currentDay} key={index} selectedCheckOption={selectedCheckOption} />
             ))}
 
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">

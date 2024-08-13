@@ -76,7 +76,7 @@ const MyHabits = () => {
                     {categories.map((category, index) => (
                         (
                             selectedCategory.value === 'all' || category.category_id === selectedCategory.value) ?
-                            <CategoryDivider category={category} currentDay={currentDay} key={index} categories={categories} setCategories={setCategories} showTodayOnly={showTodayOnly} />
+                            <CategoryDivider category={category} currentDay={currentDay} key={index} categories={categories} setCategories={setCategories} showTodayOnly={showTodayOnly} selectedCheckOption={selectedCheckOption} />
                             :
                             <div key={index} className='hidden'></div>
                     ))}
