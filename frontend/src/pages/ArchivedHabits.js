@@ -137,7 +137,7 @@ const ArchivedHabits = () => {
                 </div>
             </Dialog>
 
-            <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50 text-appPrimaryDark">
+            <Dialog open={confirmDelete} onClose={() => setConfirmDelete(false)} className="relative z-50 text-primaryTextColor">
                 <div className="fixed inset-0 w-screen center-of-div bg-webBgColor/80 p-4">
                     <DialogPanel className="w-10/12 max-w-sm center-of-div flex-col bg-mainBgColor rounded-3xl border border-primaryColor p-4">
                         <DialogTitle className='font-bold'>Are you sure you want to delete the selected habits?</DialogTitle>
