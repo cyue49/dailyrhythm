@@ -16,10 +16,12 @@ const MyHabits = () => {
     // states for current day, day start time, list of categories
     const [currentDay, setCurrentDay] = useState(new Date())
     const [categories, setCategories] = useState([])
-    const [options, setOptions] = useState([]) // options for select category filter
-    const [selectedCategory, setSelectedCategory] = useState({ value: 'all', label: 'All' }) // currently selected category in filter
     const [dayStartTime, setDayStartTime] = useState('0')
-    const [dialogOpen, setDialogOpen] = useState(false)
+    const [dialogOpen, setDialogOpen] = useState(false) // show/don't show filter dialog
+    const [categoryOptions, setCategoryOptions] = useState([]) // options for select category filter
+    const [selectedCategory, setSelectedCategory] = useState({ value: 'all', label: 'All' }) // currently selected category in filter
+    const [selectedCheckOption, setSelectedCheckOption] = useState({ value: 'all', label: 'All' })
+    const [showTodayOnly, setShowTodayOnly] = useState(false)
 
     const formatDate = (date) => {
         return `${weekDaysLong[date.getDay()]} ${monthsLong[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
@@ -35,7 +37,7 @@ const MyHabits = () => {
                     const option = { value: element.category_id, label: element.category_name }
                     categoryOptions.push(option)
                 });
-                setOptions(categoryOptions)
+                setCategoryOptions(categoryOptions)
                 setCategories(response)
             })
     }, []);
@@ -74,7 +76,7 @@ const MyHabits = () => {
                     {categories.map((category, index) => (
                         (
                             selectedCategory.value === 'all' || category.category_id === selectedCategory.value) ?
-                            <CategoryDivider category={category} currentDay={currentDay} key={index} categories={categories} setCategories={setCategories} />
+                            <CategoryDivider category={category} currentDay={currentDay} key={index} categories={categories} setCategories={setCategories} showTodayOnly={showTodayOnly} />
                             :
                             <div key={index}></div>
                     ))}
@@ -86,7 +88,7 @@ const MyHabits = () => {
                 <div className="fixed inset-0 w-screen center-of-div bg-appBlack bg-opacity-80 p-4">
                     <DialogPanel className="w-10/12 max-w-md flex flex-col bg-appWhite rounded-3xl border border-appGreen py-4 px-6">
                         <DialogTitle className='font-bold'>Filter</DialogTitle>
-                        <FilterDialog options={options} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+                        <FilterDialog categoryOptions={categoryOptions} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} showTodayOnly={showTodayOnly} setShowTodayOnly={setShowTodayOnly} selectedCheckOption={selectedCheckOption} setSelectedCheckOption={setSelectedCheckOption} />
                     </DialogPanel>
                 </div>
             </Dialog>

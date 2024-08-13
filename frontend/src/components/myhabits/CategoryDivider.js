@@ -7,7 +7,7 @@ import { DialogTitle, Dialog, DialogPanel, Popover, PopoverButton, PopoverPanel 
 import RenameCategoryDialog from './RenameCategoryDialog'
 import { deleteCategory } from '../../services/CategoryServices'
 
-const CategoryDivider = ({ category, currentDay, categories, setCategories }) => {
+const CategoryDivider = ({ category, currentDay, categories, setCategories, showTodayOnly }) => {
     const [habits, setHabits] = useState([])
     const [categoryName, setCategoryName] = useState(category.category_name)
     const [categoryRename, setCategoryRename] = useState('')
@@ -25,7 +25,7 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories }) =>
     // update category name when it changes (ex.: after deleting a category ordered previous to this one)
     useEffect(() => {
         setCategoryName(category.category_name)
-    },[category.category_name])
+    }, [category.category_name])
 
     // handle delete
     const handleDelete = () => {
@@ -62,7 +62,9 @@ const CategoryDivider = ({ category, currentDay, categories, setCategories }) =>
                 <div className='text-appGreen font-bold'>{habits.length}</div>
             </div>
             {habits.map((habit, index) => (
-                <HabitCard habit={habit} currentDay={currentDay} key={index} />
+                showTodayOnly && !habit.weekdays.includes(currentDay.getDay().toString()) ?
+                    <div className='hidden'></div>
+                    : <HabitCard habit={habit} currentDay={currentDay} key={index} />
             ))}
 
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} className="relative z-50">
