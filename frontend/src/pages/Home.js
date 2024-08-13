@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 const Home = () => {
     return (
         <div className='h-screen w-screen p-8 center-of-div flex-col gap-8 bg-appWhite'>
-            <div className='p-8 center-of-div flex-col gap-8 size-full'>
+            <div className='p-8 center-of-div flex-col gap-8 size-full page-appear-animation'>
                 <img
-                    className='size-20 animate-bounce'
+                    className='size-20'
                     src={require(`../assets/applogo.png`)}
                     alt="app logo"
                 />
