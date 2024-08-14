@@ -20,18 +20,18 @@
 }
 
 .dark {
-    --primaryColor: 61, 117, 93;
+    --primaryColor: 73, 110, 94;
     --primaryTextColor: 232, 232, 232;
     --secondaryTextColor: 48, 48, 48;
-    --webBgColor: 53, 53, 53;
-    --mainBgColor: 31, 31, 31;
-    --subBgColor: 31, 31, 31;
+    --webBgColor: 41, 41, 41;
+    --mainBgColor: 33, 33, 33;
+    --subBgColor: 33, 33, 33;
     --mainCardColor: 51, 51, 51;
     --subCardColor: 51, 51, 51;
-    --confirmColor: 61, 117, 93;
+    --confirmColor: 73, 110, 94;
     --neutralColor: 161, 161, 161;
     --variantColor: 94, 94, 94;
-    --importantColor: 156, 81, 81;
+    --importantColor: 135, 73, 73;
     --whiteColor: 243, 243, 243;
 }
 

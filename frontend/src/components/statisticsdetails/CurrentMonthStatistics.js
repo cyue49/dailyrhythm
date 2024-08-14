@@ -24,7 +24,7 @@ const CurrentMonthStatistics = ({ habit }) => {
     // fetch monthly checkin count
     useEffect(() => {
         const todayFormatted = formatDate(today)
-        const monthStart = formatDateMonthStart()
+        const monthStart = formatDateMonthStart(today)
         getCountBetween(habit.habit_id, monthStart, todayFormatted)
             .then(response => setMonthlyCount(response))
     }, [habit.habit_id, today]);

@@ -14,15 +14,15 @@ export const formatDate = (date) => {
 }
 
 // returns a string of the date a week ago in the format yyyy-mm-dd
-export const formatDateWeekAgo = () => {
-    const weekAgoDate = new Date()
-    weekAgoDate.setDate(weekAgoDate.getDate() - 7)
+export const formatDateWeekAgo = (date) => {
+    const weekAgoDate = new Date(date)
+    weekAgoDate.setDate(weekAgoDate.getDate() - 6)
     return formatDate(weekAgoDate)
 }
 
 // returns a string of the date at the start of this month in the format yyyy-mm-dd
-export const formatDateMonthStart = () => {
-    const monthStart = new Date()
+export const formatDateMonthStart = (date) => {
+    const monthStart = new Date(date)
     monthStart.setDate(1)
     return formatDate(monthStart)
 }

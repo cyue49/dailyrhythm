@@ -28,8 +28,9 @@ const PastWeekStatistics = ({ category }) => {
 
     // get weekly checkin count
     useEffect(() => {
-        const today = formatDate(new Date(Date.now() - parseInt(dayStartTime) * 60 * 60 * 1000))
-        const weekAgo = formatDateWeekAgo(today)
+        const curDate = new Date(Date.now() - parseInt(dayStartTime) * 60 * 60 * 1000)
+        const today = formatDate(curDate)
+        const weekAgo = formatDateWeekAgo(curDate)
         getCategoryCountBetween(category.category_id, weekAgo, today)
             .then(response => setWeeklyCount(response))
     }, [dayStartTime, category.category_id]);

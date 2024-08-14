@@ -24,7 +24,7 @@ const CurrentMonthStatistics = ({ category }) => {
     // fetch monthly checkin count
     useEffect(() => {
         const todayFormatted = formatDate(today)
-        const monthStart = formatDateMonthStart()
+        const monthStart = formatDateMonthStart(today)
         getCategoryCountBetween(category.category_id, monthStart, todayFormatted)
             .then(response => setMonthlyCount(response))
     }, [category.category_id, today]);
