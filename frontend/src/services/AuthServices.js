@@ -1,6 +1,8 @@
+import { baseURL } from './baseURL'
+
 // sign user out
 export const signOut = () => {
-    return fetch('http://127.0.0.1:5000/api/auth/signout', { credentials: 'include' })
+    return fetch(`${baseURL}/api/auth/signout`, { credentials: 'include' })
         .then((res) => {
             if (res.status === 200 && res.ok) {
                 return 1
@@ -14,7 +16,7 @@ export const signOut = () => {
 
 // sign user in
 export const signIn = (data) => {
-    return fetch('http://127.0.0.1:5000/api/auth/signin',
+    return fetch(`${baseURL}/api/auth/signin`,
         {
             method: 'POST',
             headers: {
@@ -36,7 +38,7 @@ export const signIn = (data) => {
 
 // sign user up
 export const signUp = (data) => {
-    return fetch('http://127.0.0.1:5000/api/users/signup',
+    return fetch(`${baseURL}/api/users/signup`,
         {
             method: 'POST',
             headers: {

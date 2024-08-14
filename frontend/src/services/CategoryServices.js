@@ -1,6 +1,8 @@
+import { baseURL } from './baseURL'
+
 // get all categories for a user
 export const getCategories = () => {
-    return fetch(' http://127.0.0.1:5000/api/categories/all', { credentials: 'include' })
+    return fetch(`${baseURL}/api/categories/all`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return data
@@ -12,7 +14,7 @@ export const getCategories = () => {
 
 // add a category for a user
 export const addCategory = (data) => {
-    return fetch(' http://127.0.0.1:5000/api/categories',
+    return fetch(`${baseURL}/api/categories`,
         {
             method: 'POST',
             headers: {
@@ -32,7 +34,7 @@ export const addCategory = (data) => {
 
 // update a category name
 export const renameCategory = (category_id, data) => {
-    return fetch(`http://127.0.0.1:5000/api/categories/edit/${category_id}`, {
+    return fetch(`${baseURL}/api/categories/edit/${category_id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -54,7 +56,7 @@ export const renameCategory = (category_id, data) => {
 
 // delete a category
 export const deleteCategory = (category_id) => {
-    return fetch(`http://127.0.0.1:5000/api/categories/delete/${category_id}`,
+    return fetch(`${baseURL}/api/categories/delete/${category_id}`,
         {
             method: 'DELETE',
             credentials: 'include'

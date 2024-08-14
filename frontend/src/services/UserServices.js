@@ -1,6 +1,8 @@
+import { baseURL } from './baseURL'
+
 // get user info
 export const getInfo = () => {
-    return fetch('http://127.0.0.1:5000/api/users/me', { credentials: 'include' })
+    return fetch(`${baseURL}/api/users/me`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return data
@@ -12,7 +14,7 @@ export const getInfo = () => {
 
 // update general user info
 export const updateInfo = (data) => {
-    return fetch(' http://127.0.0.1:5000/api/users/me/edit/general', {
+    return fetch(`${baseURL}/api/users/me/edit/general`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -34,7 +36,7 @@ export const updateInfo = (data) => {
 
 // update user password
 export const updatePassword = (data) => {
-    return fetch(' http://127.0.0.1:5000/api/users/me/edit/password', {
+    return fetch(`${baseURL}/api/users/me/edit/password`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -56,7 +58,7 @@ export const updatePassword = (data) => {
 
 // get user settings
 export const getSettings = () => {
-    return fetch('http://127.0.0.1:5000/api/users/me/settings', { credentials: 'include' })
+    return fetch(`${baseURL}/api/users/me/settings`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return data
@@ -68,7 +70,7 @@ export const getSettings = () => {
 
 // update user settings
 export const updateSettings = (data) => {
-    return fetch(' http://127.0.0.1:5000/api/users/me/edit/settings', {
+    return fetch(`${baseURL}/api/users/me/edit/settings`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

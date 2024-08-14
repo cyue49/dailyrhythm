@@ -1,6 +1,8 @@
+import { baseURL } from './baseURL'
+
 // get checkin count for a habit for a day
 export const getDayCount = (habit_id, date) => {
-    return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/habit/${habit_id}/count/day/${date}`, { credentials: 'include' })
+    return fetch(`${baseURL}/api/custom_habits_checkins/habit/${habit_id}/count/day/${date}`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return parseInt(data.count)
@@ -12,7 +14,7 @@ export const getDayCount = (habit_id, date) => {
 
 // get checkin count for a habit between two dates
 export const getCountBetween = (habit_id, startDate, endDate) => {
-    return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/habit/${habit_id}/count/from/${startDate}/to/${endDate}`, { credentials: 'include' })
+    return fetch(`${baseURL}/api/custom_habits_checkins/habit/${habit_id}/count/from/${startDate}/to/${endDate}`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return parseInt(data.count)
@@ -24,7 +26,7 @@ export const getCountBetween = (habit_id, startDate, endDate) => {
 
 // get total checkin counts for a habit
 export const getTotalCount = (habit_id) => {
-    return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/habit/${habit_id}/count`, { credentials: 'include' })
+    return fetch(`${baseURL}/api/custom_habits_checkins/habit/${habit_id}/count`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return parseInt(data.count)
@@ -36,7 +38,7 @@ export const getTotalCount = (habit_id) => {
 
 // make a post request to create a new checkin 
 export const incrementCheckin = (data) => {
-    return fetch('http://127.0.0.1:5000/api/custom_habits_checkins/',
+    return fetch(`${baseURL}/api/custom_habits_checkins/`,
         {
             method: 'POST',
             headers: {
@@ -58,7 +60,7 @@ export const incrementCheckin = (data) => {
 
 // make a post request to delete the latest checkin for a day
 export const removeCheckin = (habit_id, date) => {
-    return fetch(` http://127.0.0.1:5000/api/custom_habits_checkins/delete/habit/${habit_id}/date/${date}`, 
+    return fetch(` ${baseURL}/api/custom_habits_checkins/delete/habit/${habit_id}/date/${date}`, 
         { 
             method: 'DELETE',
             credentials: 'include' 
@@ -77,7 +79,7 @@ export const removeCheckin = (habit_id, date) => {
 
 // get total distinct checkin days for a habit
 export const getTotalCheckinDays = (habit_id) => {
-    return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/habit/${habit_id}/count/days`, { credentials: 'include' })
+    return fetch(`${baseURL}/api/custom_habits_checkins/habit/${habit_id}/count/days`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return parseInt(data.count)
@@ -89,7 +91,7 @@ export const getTotalCheckinDays = (habit_id) => {
 
 // get total checkins for a category
 export const getTotalCategoryCheckinCount = (category_id) => {
-    return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/category/${category_id}/count`, { credentials: 'include' })
+    return fetch(`${baseURL}/api/custom_habits_checkins/category/${category_id}/count`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return parseInt(data.count)
@@ -101,7 +103,7 @@ export const getTotalCategoryCheckinCount = (category_id) => {
 
 // get total distinct checked-in days  for a category
 export const getTotalCategoryCheckinDays = (category_id) => {
-    return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/category/${category_id}/count/days`, { credentials: 'include' })
+    return fetch(`${baseURL}/api/custom_habits_checkins/category/${category_id}/count/days`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return parseInt(data.count)
@@ -113,7 +115,7 @@ export const getTotalCategoryCheckinDays = (category_id) => {
 
 // get checkin counts for a category for a specific day
 export const getTotalCategoryCheckinCountForDay = (category_id, date) => {
-    return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/category/${category_id}/count/day/${date}`, { credentials: 'include' })
+    return fetch(`${baseURL}/api/custom_habits_checkins/category/${category_id}/count/day/${date}`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return parseInt(data.count)
@@ -125,7 +127,7 @@ export const getTotalCategoryCheckinCountForDay = (category_id, date) => {
 
 // get checkin count for a category between two dates
 export const getCategoryCountBetween = (category_id, startDate, endDate) => {
-    return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/category/${category_id}/count/from/${startDate}/to/${endDate}`, { credentials: 'include' })
+    return fetch(`${baseURL}/api/custom_habits_checkins/category/${category_id}/count/from/${startDate}/to/${endDate}`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return parseInt(data.count)

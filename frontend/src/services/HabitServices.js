@@ -1,6 +1,8 @@
+import { baseURL } from './baseURL'
+
 // get all habits of a category
 export const getHabitsForCategory = (category_id) => {
-    return fetch(`http://127.0.0.1:5000/api/custom_habits/active/${category_id}`, { credentials: 'include' })
+    return fetch(`${baseURL}/api/custom_habits/active/${category_id}`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return data;
@@ -12,7 +14,7 @@ export const getHabitsForCategory = (category_id) => {
 
 // get all archived habits
 export const getArchivedHabits = () => {
-    return fetch(`http://127.0.0.1:5000/api/custom_habits/archived`, { credentials: 'include' })
+    return fetch(`${baseURL}/api/custom_habits/archived`, { credentials: 'include' })
         .then((res) => res.json())
         .then((data) => {
             return data;
@@ -23,7 +25,7 @@ export const getArchivedHabits = () => {
 }
 // archive / unarchive a habit
 export const updateHabitArchive = (habit_id, data) => {
-    return fetch(` http://127.0.0.1:5000/api/custom_habits/edit/active/${habit_id}`, {
+    return fetch(`${baseURL}/api/custom_habits/edit/active/${habit_id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -45,7 +47,7 @@ export const updateHabitArchive = (habit_id, data) => {
 
 // delete a habit
 export const deleteHabit = (habit_id) => {
-    return fetch(` http://127.0.0.1:5000/api/custom_habits/delete/${habit_id}`,
+    return fetch(`${baseURL}/api/custom_habits/delete/${habit_id}`,
         {
             method: 'DELETE',
             credentials: 'include'
@@ -64,7 +66,7 @@ export const deleteHabit = (habit_id) => {
 
 // create a new habit
 export const addHabit = (data) => {
-    return fetch(' http://127.0.0.1:5000/api/custom_habits',
+    return fetch(`${baseURL}/api/custom_habits`,
         {
             method: 'POST',
             headers: {
@@ -84,7 +86,7 @@ export const addHabit = (data) => {
 
 // update a habit
 export const updateHabit = (habit_id, data) => {
-    return fetch(` http://127.0.0.1:5000/api/custom_habits/edit/${habit_id}`, {
+    return fetch(`${baseURL}/api/custom_habits/edit/${habit_id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
