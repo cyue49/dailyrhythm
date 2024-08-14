@@ -14,6 +14,7 @@ import Home from './pages/Home'
 import ArchivedHabits from './pages/ArchivedHabits'
 import HabitDetails from './pages/HabitDetails'
 import StatisticDetails from './pages/StatisticDetails'
+import CategoryStatisticDetails from './pages/CategoryStatisticDetails'
 import HabitForm from './pages/HabitForm'
 import PrivateRoute from './components/common/PrivateRoute'
 
@@ -42,6 +43,7 @@ function App() {
                         <Route path="/archivedhabits" element={<ArchivedHabits />} />
                         <Route path="/myhabits/details" element={<HabitDetails />} />
                         <Route path="/mystatistics/details" element={<StatisticDetails />} />
+                        <Route path="/mystatistics/categorydetails" element={<CategoryStatisticDetails />} />
                         <Route path="/myhabits/form" element={<HabitForm />} />
                     </Route>
 

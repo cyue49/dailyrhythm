@@ -3,9 +3,9 @@ import TopBar from '../components/common/TopBar'
 import BottomBar from '../components/common/BottomBar'
 import { useNavigate, useLocation } from 'react-router-dom'
 import HabitDetailsCard from '../components/habitsdetails/HabitDetailsCard'
-import BasicStatistics from '../components/mystatistics/BasicStatistics'
-import PastWeekStatistics from '../components/mystatistics/PastWeekStatistics'
-import CurrentMonthStatistics from '../components/mystatistics/CurrentMonthStatistics'
+import BasicStatistics from '../components/statisticsdetails/BasicStatistics'
+import PastWeekStatistics from '../components/statisticsdetails/PastWeekStatistics'
+import CurrentMonthStatistics from '../components/statisticsdetails/CurrentMonthStatistics'
 
 const StatisticDetails = () => {
     // habit passed from route state

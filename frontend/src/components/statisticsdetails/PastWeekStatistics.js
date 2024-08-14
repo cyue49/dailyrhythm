@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { getSettings } from '../../services/UserServices'
-import WeekdayCard from './WeekdayCard'
+import WeekdayCard from '../mystatistics/WeekdayCard'
 import { getCountBetween } from '../../services/CheckinServices'
 import { formatDate, formatDateWeekAgo } from '../../utils/DateUtils'
 
