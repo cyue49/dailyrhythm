@@ -2,6 +2,7 @@ import React from 'react'
 import TopBar from '../components/common/TopBar'
 import BottomBar from '../components/common/BottomBar'
 import { useNavigate, useLocation } from 'react-router-dom'
+import BasicStatistics from '../components/categorystatisticsdetails/BasicStatistics'
 
 const CategoryStatisticDetails = () => {
     // habit passed from route state
@@ -17,7 +18,7 @@ const CategoryStatisticDetails = () => {
                 <div className='font-bold text-2xl w-full px-3 pb-2 border-b border-primaryColor'>{category.category_name}</div>
 
                 {/* basic statistics */}
-                {/* <BasicStatistics habit={habit} totalCheckins={totalCheckins} /> */}
+                <BasicStatistics category={category} totalCheckins={totalCheckins} />
 
                 {/* habit detail */}
                 {/* <HabitDetailsCard habit={habit} /> */}
