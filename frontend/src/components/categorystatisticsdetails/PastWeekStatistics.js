@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { getSettings } from '../../services/UserServices'
 import WeekdayCard from './WeekdayCard'
-import { getCountBetween } from '../../services/CheckinServices'
+import { getCategoryCountBetween } from '../../services/CheckinServices'
 import { formatDate, formatDateWeekAgo } from '../../utils/DateUtils'
 
-
-const PastWeekStatistics = ({ habit }) => {
+const PastWeekStatistics = ({ category }) => {
     const [dayStartTime, setDayStartTime] = useState('0')
     const [weekdays, setWeekdays] = useState([]);
     const [weeklyCount, setWeeklyCount] = useState(0)
@@ -31,9 +30,9 @@ const PastWeekStatistics = ({ habit }) => {
     useEffect(() => {
         const today = formatDate(new Date(Date.now() - parseInt(dayStartTime) * 60 * 60 * 1000))
         const weekAgo = formatDateWeekAgo(today)
-        getCountBetween(habit.habit_id, weekAgo, today)
+        getCategoryCountBetween(category.category_id, weekAgo, today)
             .then(response => setWeeklyCount(response))
-    }, [dayStartTime, habit.habit_id]);
+    }, [dayStartTime, category.category_id]);
 
     useEffect(() => {
         getWeekdays()
@@ -44,7 +43,7 @@ const PastWeekStatistics = ({ habit }) => {
             <div className='font-bold'>Past Week Check-ins: </div>
             <div className='flex flex-row flex-nowrap gap-2 w-full p-3 border border-primaryColor rounded-3xl'>
                 {weekdays.map((day, index) => (
-                    <WeekdayCard habit={habit} day={day} key={index} />
+                    <WeekdayCard category={category} day={day} key={index} />
                 ))}
             </div>
             <div className='flex flex-row py-2 items-center justify-start'>

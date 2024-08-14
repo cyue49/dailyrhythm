@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { formatDate, formatDateMonthStart, getThisMonthArray, weekDaysShort } from '../../utils/DateUtils'
 import { getCountBetween } from '../../services/CheckinServices'
 import { getSettings } from '../../services/UserServices'
-import MonthdayCard from '../mystatistics/MonthdayCard'
+import MonthdayCard from './MonthdayCard'
 
 const CurrentMonthStatistics = ({ habit }) => {
     const [dayStartTime, setDayStartTime] = useState('0') // time a day starts from user setting

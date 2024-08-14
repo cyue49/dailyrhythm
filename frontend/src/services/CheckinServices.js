@@ -122,3 +122,15 @@ export const getTotalCategoryCheckinCountForDay = (category_id, date) => {
             console.log(e.message);
         })
 }
+
+// get checkin count for a category between two dates
+export const getCategoryCountBetween = (category_id, startDate, endDate) => {
+    return fetch(`http://127.0.0.1:5000/api/custom_habits_checkins/category/${category_id}/count/from/${startDate}/to/${endDate}`, { credentials: 'include' })
+        .then((res) => res.json())
+        .then((data) => {
+            return parseInt(data.count)
+        })
+        .catch((e) => {
+            console.log(e.message);
+        })
+}

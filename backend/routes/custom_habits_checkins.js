@@ -186,6 +186,26 @@ router.get('/category/:id/count/day/:day', auth, async (req, res) => {
     }
 });
 
+// get count of all checkins between two dates for a category
+router.get('/category/:id/count/from/:startDate/to/:endDate', auth, async (req, res) => {
+    try {
+        // query to database
+        pool.query('SELECT COUNT(CI.checkin_id) FROM custom_habits_checkins CI JOIN custom_habits CH ON CI.habit_id = CH.habit_id JOIN categories CAT ON CH.category_id = CAT.category_id WHERE CAT.category_id = $1 AND CH.is_active = true AND CI.for_date >= $2 AND CI.for_date <= $3', [req.params.id, req.params.startDate, req.params.endDate], (err, result) => {
+            if (err) {
+                console.log('Error executing query.', err);
+                res.status(400).send('failed');
+            } else {
+                // send response
+                console.log(result.rows[0]);
+                res.status(200).send(result.rows[0]);
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send('failed');
+    }
+});
+
 // ============================================= POST =============================================
 // create a checkin
 router.post('/', auth, async (req, res) => {

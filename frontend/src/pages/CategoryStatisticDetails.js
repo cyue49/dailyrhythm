@@ -3,6 +3,7 @@ import TopBar from '../components/common/TopBar'
 import BottomBar from '../components/common/BottomBar'
 import { useNavigate, useLocation } from 'react-router-dom'
 import BasicStatistics from '../components/categorystatisticsdetails/BasicStatistics'
+import PastWeekStatistics from '../components/categorystatisticsdetails/PastWeekStatistics'
 
 const CategoryStatisticDetails = () => {
     // habit passed from route state
@@ -20,11 +21,8 @@ const CategoryStatisticDetails = () => {
                 {/* basic statistics */}
                 <BasicStatistics category={category} totalCheckins={totalCheckins} />
 
-                {/* habit detail */}
-                {/* <HabitDetailsCard habit={habit} /> */}
-
                 {/* past week checkin statistics */}
-                {/* <PastWeekStatistics habit={habit} /> */}
+                <PastWeekStatistics category={category} />
 
                 {/* current month checkin statistics */}
                 {/* <CurrentMonthStatistics habit={habit} /> */}
