@@ -100,7 +100,7 @@ router.post('/signup', async (req, res) => {
                                         (err2, result2) => {
                                             if (!err2) {
                                                 // send verification email
-                                                const verificationLink = "http://127.0.0.1:3000/auth/email/verify?token=" + token
+                                                const verificationLink = process.env.FRONTEND_SITE + "/auth/email/verify?token=" + token
                                                 const subject = "Email Verification - Daily Rhythm"
                                                 const content = "Welcome to Daily Rhythm! Please click on the following link to verify your email: " + verificationLink
                                                 sendEmail(email, subject, content);

@@ -20,7 +20,7 @@ pool.connect()
 
 // middleware
 app.use(cors({
-    origin: 'http://127.0.0.1:3000',
+    origin: process.env.FRONTEND_SITE,
     credentials: true
 }));
 app.use(express.json());
