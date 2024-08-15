@@ -17,7 +17,6 @@ const EmailVerification = () => {
                 console.log(response)
                 if (response === 'success') {
                     setisVerified(true)
-                    setMessage('Your email account has been verified! Please refresh your app or click on the following button to go back to the app!')
                 } else if (response === 'expired') {
                     setMessage('Your email verification link has expired. Please send a new verification email from your profile page.')
                 } else {
@@ -30,9 +29,13 @@ const EmailVerification = () => {
     return (
         <div className='w-screen h-screen center-of-div bg-primaryColor text-primaryTextColor'>
             <div className='w-11/12 h-fit max-w-[450px] max-h-fit min-w-80 min-h-96 p-8 rounded-3xl bg-mainCardColor center-of-div flex-col gap-8'>
-                <div className='text-center'>{message}</div>
                 {
-                    isVerified ? <div className='primary-color-button center-of-div' onClick={navigateTo}>Go to Daily Rhythm</div> : null
+                    isVerified ?
+                        <div className='flex flex-col gap-8'>
+                            <div className='text-center'>Your email account has been verified! You can now use all the features of Daily Rhythm!</div>
+                            <div className='primary-color-button center-of-div' onClick={navigateTo}>Go to Daily Rhythm</div>
+                        </div>
+                        : <div className='text-center'>{message}</div>
                 }
             </div>
 

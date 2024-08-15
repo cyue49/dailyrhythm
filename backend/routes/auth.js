@@ -20,21 +20,33 @@ router.get('/email/verify/:token', async (req, res) => {
                 console.log('Error.', err);
                 res.status(400).send({status: 'failed'});
             } else {
+                // token doesn't exist
                 if (result.rowCount === 0) return res.status(400).send({status: 'failed'});
 
-                const userID = result.rows[0].user_id
-                const expireTime = new Date(result.rows[0].expires_on)
+                // if token expired
+                if (new Date() > new Date(result.rows[0].expires_on)) {
+                    // delete token and send response
+                    pool.query('DELETE FROM verification_tokens WHERE token_id = $1', [result.rows[0].token_id], (err1, result1) => {
+                        if (err1) {
+                            console.log('Error deleting token.', err1);
+                        } 
+                    });
+                    return res.status(400).send({status: 'expired'});
+                } 
 
-                if (new Date() > expireTime) return res.status(400).send({status: 'expired'}); // todo: delete token from db
-
-                // update is_verified to true
-                pool.query('UPDATE users SET is_verified = true WHERE user_id = $1', [userID], (err1, result1) => {
+                // email verification success, update is_verified to true
+                pool.query('UPDATE users SET is_verified = true WHERE user_id = $1', [result.rows[0].user_id], (err1, result1) => {
                     if (err1) {
                         console.log('Error.', err1);
                         res.status(400).send({status: 'failed'});
                     } else {
-                        // send response
-                        res.status(200).send({status: 'success'}); // todo: delete token from db
+                        // delete token and send response
+                        pool.query('DELETE FROM verification_tokens WHERE token_id = $1', [result.rows[0].token_id], (err2, result2) => {
+                            if (err2) {
+                                console.log('Error deleting token.', err2);
+                            } 
+                        });
+                        res.status(200).send({status: 'success'});
                     }
                 })
             }
