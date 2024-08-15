@@ -10,6 +10,7 @@ const UserCard = ({ appTheme }) => {
     const [form, setForm] = useState({ username: '', email: '' })
     const [validEmail, setValidEmail] = useState(true)
     const [validUsername, setValidUsername] = useState(true)
+    const [isVerified, setIsVerified] = useState(false)
 
     // states for toast message
     const [isVisible, setIsVisible] = useState(false)
@@ -29,6 +30,7 @@ const UserCard = ({ appTheme }) => {
     useEffect(() => {
         getInfo()
             .then(response => {
+                if (response.is_verified) setIsVerified(true)
                 setForm({
                     username: response.username,
                     email: response.email
@@ -90,42 +92,51 @@ const UserCard = ({ appTheme }) => {
     }
 
     return (
-        <div className='flex flex-row gap-5 p-5 items-center bg-mainCardColor rounded-3xl'>
-            <img
-                className='size-[70px]'
-                src={require(`../../assets/profiles/${appTheme}.png`)}
-                alt="default profile"
-            />
-            <div className='flex flex-col gap-3 truncate w-full'>
-                <div className='flex flex-row gap-2 justify-between items-start'>
-                    {!isEdit ?
-                        <span className='font-bold text-2xl truncate'>{form.username}</span> :
-                        <div className='flex flex-col w-10/12'>
-                            <div className='font-bold'>Username:</div>
-                            <input className='form-text-input w-full truncate' type='text' name='username' id='username' autoComplete='on' autoCapitalize='off' placeholder='Username' value={form.username} onChange={handleChange} />
-                            <div className={`text-importantColor text-sm ${(form.username !== '' && !validUsername) ? '' : 'hidden'}`}>Invalid character in username.</div>
-                        </div>
+        <div className='flex flex-col gap-4'>
+            {isVerified ?
+                null :
+                <div className='flex flex-col gap-2 text-sm p-3 rounded-3xl border border-importantColor'>
+                    <div>Your account is not verified. Please follow the link sent to your email to verify your account to access all the features.</div>
+                    <div className='underline text-importantColor cursor-pointer'>Re-send verification email.</div>
+                </div>}
+            <div className='flex flex-row gap-5 p-5 items-center bg-mainCardColor rounded-3xl'>
+                <img
+                    className='size-[70px]'
+                    src={require(`../../assets/profiles/${appTheme}.png`)}
+                    alt="default profile"
+                />
+                <div className='flex flex-col gap-3 truncate w-full'>
+                    <div className='flex flex-row gap-2 justify-between items-start'>
+                        {!isEdit ?
+                            <span className='font-bold text-2xl truncate'>{form.username}</span> :
+                            <div className='flex flex-col w-10/12'>
+                                <div className='font-bold'>Username:</div>
+                                <input className='form-text-input w-full truncate' type='text' name='username' id='username' autoComplete='on' autoCapitalize='off' placeholder='Username' value={form.username} onChange={handleChange} />
+                                <div className={`text-importantColor text-sm ${(form.username !== '' && !validUsername) ? '' : 'hidden'}`}>Invalid character in username.</div>
+                            </div>
 
-                    }
-                    <FontAwesomeIcon icon={isEdit ? faCircleCheck : faPenToSquare} className={`text-2xl text-primaryColor cursor-pointer ${(isEdit && (!validEmail || !validUsername)) ? 'cursor-not-allowed opacity-70' : ''}`} onClick={handleEdit} />
-                </div>
+                        }
+                        <FontAwesomeIcon icon={isEdit ? faCircleCheck : faPenToSquare} className={`text-2xl text-primaryColor cursor-pointer ${(isEdit && (!validEmail || !validUsername)) ? 'cursor-not-allowed opacity-70' : ''}`} onClick={handleEdit} />
+                    </div>
 
-                <div>
-                    {!isEdit ?
-                        <div className='flex flex-row gap-2 items-center text-neutralColor'>
-                            <FontAwesomeIcon icon={faEnvelope} />
-                            <span className='truncate'>{form.email}</span>
-                        </div> :
-                        <div className='flex flex-col w-10/12'>
-                            <div className='font-bold'>Email:</div>
-                            <input className='form-text-input w-full truncate' type='text' name='email' id='email' autoComplete='on' autoCapitalize='off' placeholder='Email' value={form.email} onChange={handleChange} />
-                            <div className={`text-importantColor text-sm ${(form.email !== '' && !validEmail) ? '' : 'hidden'}`}>Invalid email.</div>
-                        </div>
-                    }
+                    <div>
+                        {!isEdit ?
+                            <div className='flex flex-row gap-2 items-center text-neutralColor'>
+                                <FontAwesomeIcon icon={faEnvelope} />
+                                <span className='truncate'>{form.email}</span>
+                            </div> :
+                            <div className='flex flex-col w-10/12'>
+                                <div className='font-bold'>Email:</div>
+                                <input className='form-text-input w-full truncate' type='text' name='email' id='email' autoComplete='on' autoCapitalize='off' placeholder='Email' value={form.email} onChange={handleChange} />
+                                <div className={`text-importantColor text-sm ${(form.email !== '' && !validEmail) ? '' : 'hidden'}`}>Invalid email.</div>
+                            </div>
+                        }
+                    </div>
                 </div>
+                <Toast isSuccess={!isEdit} message={message} isVisible={isVisible} />
             </div>
-            <Toast isSuccess={!isEdit} message={message} isVisible={isVisible} />
         </div>
+
     )
 }
 

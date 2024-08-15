@@ -17,6 +17,7 @@ import StatisticDetails from './pages/StatisticDetails'
 import CategoryStatisticDetails from './pages/CategoryStatisticDetails'
 import HabitForm from './pages/HabitForm'
 import PrivateRoute from './components/common/PrivateRoute'
+import VerifiedRoute from './components/common/VerifiedRoute'
 
 import './App.css';
 
@@ -37,16 +38,17 @@ function App() {
                     <Route path="/signin" element={<SignIn />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route element={<PrivateRoute setAppTheme={setAppTheme} />}>
-                        <Route path="/myhabits" element={<MyHabits />} />
                         <Route path="/profile" element={<Profile appTheme={appTheme} setAppTheme={setAppTheme} />} />
-                        <Route path="/mystatistics" element={<MyStatistics />} />
-                        <Route path="/archivedhabits" element={<ArchivedHabits />} />
-                        <Route path="/myhabits/details" element={<HabitDetails />} />
-                        <Route path="/mystatistics/details" element={<StatisticDetails />} />
-                        <Route path="/mystatistics/categorydetails" element={<CategoryStatisticDetails />} />
-                        <Route path="/myhabits/form" element={<HabitForm />} />
+                        <Route element={<VerifiedRoute />}>
+                            <Route path="/myhabits" element={<MyHabits />} />
+                            <Route path="/mystatistics" element={<MyStatistics />} />
+                            <Route path="/archivedhabits" element={<ArchivedHabits />} />
+                            <Route path="/myhabits/details" element={<HabitDetails />} />
+                            <Route path="/mystatistics/details" element={<StatisticDetails />} />
+                            <Route path="/mystatistics/categorydetails" element={<CategoryStatisticDetails />} />
+                            <Route path="/myhabits/form" element={<HabitForm />} />
+                        </Route>
                     </Route>
-
                 </Routes>
             </Router>
         </div>

@@ -4,13 +4,13 @@ const router = express.Router();
 const pool = require('../dbconfig');
 const { validateAuth } = require('../validations/auth');
 const { compare } = require('../modules/password');
+const auth = require('../middlewares/auth')
 
 // ============================================= GET =============================================
 // clear cookies and logout
-router.get('/signout', async (req, res) => {
+router.get('/signout', auth, async (req, res) => {
     res.status(200).clearCookie('token').send('success');
 });
-
 // ============================================= POST =============================================
 // validate whether password is correct for user with email
 router.post('/signin', async (req, res) => {
