@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../dbconfig');
 const { validateAuth } = require('../validations/auth');
-const { compare } = require('../modules/password');
+const { compare } = require('../utils/password');
 const auth = require('../middlewares/auth')
 
 // ============================================= GET =============================================

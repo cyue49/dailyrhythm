@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 const express = require('express');
-const nodemailer = require('nodemailer');
 const router = express.Router();
 const crypto = require('crypto');
 const pool = require('../dbconfig');
 const { validateUser } = require('../validations/users');
-const { hash, compare } = require('../modules/password');
+const { hash, compare } = require('../utils/password');
+const { sendEmail } = require('../utils/email')
 const auth = require('../middlewares/auth')
 
 // ============================================= GET =============================================
@@ -125,33 +125,6 @@ router.post('/signup', async (req, res) => {
         res.status(400).send('failed');
     }
 });
-
-const sendEmail = (toUser, subject, content) => {
-    const config = {
-        service: 'gmail',
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASSWORD
-        }
-    }
-
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: toUser,
-        subject: subject,
-        text: content
-    }
-
-    const transporter = nodemailer.createTransport(config);
-
-    transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('Email snet: ' + info.response);
-        }
-    })
-}
 
 // ============================================= PUT =============================================
 // update a user's username
