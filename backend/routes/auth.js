@@ -11,6 +11,13 @@ const auth = require('../middlewares/auth')
 router.get('/signout', auth, async (req, res) => {
     res.status(200).clearCookie('token').send('success');
 });
+
+// email verification
+router.get('/email/verify', async (req, res) => {
+    const token = req.query.token
+    res.status(200).send('Token: ' + token);
+});
+
 // ============================================= POST =============================================
 // validate whether password is correct for user with email
 router.post('/signin', async (req, res) => {

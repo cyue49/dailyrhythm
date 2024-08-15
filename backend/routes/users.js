@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const express = require('express');
+const nodemailer = require('nodemailer');
 const router = express.Router();
 const crypto = require('crypto');
 const pool = require('../dbconfig');
@@ -87,13 +88,30 @@ router.post('/signup', async (req, res) => {
                                 console.log('Error creating new settings.', err);
                                 res.status(400).send('failed');
                             } else {
+                                // generate token for email validation
+                                crypto.randomBytes(64, (err, buffer) => {
+                                    const token = buffer.toString('hex')
+
+                                    // save token in db
+                                    pool.query('INSERT INTO verification_tokens (token_id, user_id, created_on) VALUES ($1, $2, $3)', [token, user_id, created_on],
+                                        (err2, result2) => {
+                                            if (!err2) {
+                                                // send verification email
+                                                const verificationLink = "http://127.0.0.1:5000/api/auth/email/verify?token=" + token
+                                                const subject = "Email Verification - Daily Rhythm"
+                                                const content = "Welcome to Daily Rhythm! Please click on the following link to verify your email: " + verificationLink
+                                                sendEmail(email, subject, content);
+                                            }
+                                        })
+                                })
+
                                 // generate jwt token
                                 const payload = { user_id: user_id }
                                 const jwtSecretKey = process.env.JWT_KEY;
-                                const token = jwt.sign(payload, jwtSecretKey, { expiresIn: '24h' });
+                                const jwtToken = jwt.sign(payload, jwtSecretKey, { expiresIn: '24h' });
 
                                 // send response
-                                res.status(200).cookie('token', token, { httpOnly: true, secure: false, maxAge: 86400000 }).send('success');
+                                res.status(200).cookie('token', jwtToken, { httpOnly: true, secure: false, maxAge: 86400000 }).send('success');
                             }
                         }
                     );
@@ -104,6 +122,33 @@ router.post('/signup', async (req, res) => {
         res.status(400).send('failed');
     }
 });
+
+const sendEmail = (toUser, subject, content) => {
+    const config = {
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD
+        }
+    }
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: toUser,
+        subject: subject,
+        text: content
+    }
+
+    const transporter = nodemailer.createTransport(config);
+
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Email snet: ' + info.response);
+        }
+    })
+}
 
 // ============================================= PUT =============================================
 // update a user's username
