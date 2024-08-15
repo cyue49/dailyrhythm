@@ -69,3 +69,17 @@ export const verifyEmail = (token) => {
             console.log(e.message)
         })
 }
+
+// resend email verification
+export const resendVerifyEmail = () => {
+    return fetch(`${baseURL}/api/auth/email/resend/verification`, { credentials: 'include' })
+        .then((res) => {
+            if (res.status === 200 && res.ok) {
+                return 1
+            } else if (res.status === 400) {
+                return 0
+            }
+        }).catch((e) => {
+            console.log(e.message)
+        })
+}

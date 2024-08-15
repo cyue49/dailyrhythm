@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faPenToSquare, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import Toast from '../common/Toast'
 import { getInfo, updateInfo } from '../../services/UserServices'
+import { resendVerifyEmail } from '../../services/AuthServices'
 
 const UserCard = ({ appTheme }) => {
     // states for editing username and email 
@@ -15,6 +16,7 @@ const UserCard = ({ appTheme }) => {
     // states for toast message
     const [isVisible, setIsVisible] = useState(false)
     const [message, setMessage] = useState('')
+    const [isSuccess, setisSuccess] = useState(true)
 
     // toast a notif message
     const toast = (mess) => {
@@ -81,8 +83,10 @@ const UserCard = ({ appTheme }) => {
                 .then(response => {
                     if (response === 1) {
                         setIsEdit(false)
+                        setisSuccess(true)
                         toast('User info updated successfully!')
                     } else {
+                        setisSuccess(false)
                         toast('Error updating user info.')
                     }
                 })
@@ -91,13 +95,27 @@ const UserCard = ({ appTheme }) => {
         }
     }
 
+    // resend email verification link
+    const handleResendVerify = () => {
+        resendVerifyEmail()
+            .then(response => {
+                if (response === 1) {
+                    setisSuccess(true)
+                    toast('Email verification link sent to your email!')
+                } else {
+                    setisSuccess(false)
+                    toast('Could not send email verification link. Please try again.')
+                }
+            })
+    }
+    
     return (
         <div className='flex flex-col gap-4'>
             {isVerified ?
                 null :
                 <div className='flex flex-col gap-2 text-sm p-3 rounded-3xl border border-importantColor'>
                     <div>Your account is not verified. Please follow the link sent to your email to verify your account to access all the features.</div>
-                    <div className='underline text-importantColor cursor-pointer'>Re-send verification email.</div>
+                    <div className='underline text-importantColor cursor-pointer' onClick={handleResendVerify}>Re-send verification email.</div>
                 </div>}
             <div className='flex flex-row gap-5 p-5 items-center bg-mainCardColor rounded-3xl'>
                 <img
@@ -133,7 +151,7 @@ const UserCard = ({ appTheme }) => {
                         }
                     </div>
                 </div>
-                <Toast isSuccess={!isEdit} message={message} isVisible={isVisible} />
+                <Toast isSuccess={isSuccess} message={message} isVisible={isVisible} />
             </div>
         </div>
 
