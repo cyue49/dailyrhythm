@@ -57,3 +57,15 @@ export const signUp = (data) => {
         console.log(e.message)
     })
 }
+
+// email verification 
+export const verifyEmail = (token) => {
+    return fetch(`${baseURL}/api/auth/email/verify/${token}`, { credentials: 'include' })
+        .then((res) => res.json())
+        .then((data) => {
+            return data.status
+        })
+        .catch((e) => {
+            console.log(e.message)
+        })
+}

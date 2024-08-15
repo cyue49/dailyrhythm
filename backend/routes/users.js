@@ -92,12 +92,15 @@ router.post('/signup', async (req, res) => {
                                 crypto.randomBytes(64, (err, buffer) => {
                                     const token = buffer.toString('hex')
 
+                                    const expire_date = new Date();
+                                    expire_date.setDate(expire_date.getDate() + 1)
+
                                     // save token in db
-                                    pool.query('INSERT INTO verification_tokens (token_id, user_id, created_on) VALUES ($1, $2, $3)', [token, user_id, created_on],
+                                    pool.query('INSERT INTO verification_tokens (token_id, user_id, expires_on) VALUES ($1, $2, $3)', [token, user_id, expire_date],
                                         (err2, result2) => {
                                             if (!err2) {
                                                 // send verification email
-                                                const verificationLink = "http://127.0.0.1:5000/api/auth/email/verify?token=" + token
+                                                const verificationLink = "http://127.0.0.1:3000/auth/email/verify?token=" + token
                                                 const subject = "Email Verification - Daily Rhythm"
                                                 const content = "Welcome to Daily Rhythm! Please click on the following link to verify your email: " + verificationLink
                                                 sendEmail(email, subject, content);

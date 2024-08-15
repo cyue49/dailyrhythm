@@ -16,6 +16,7 @@ import HabitDetails from './pages/HabitDetails'
 import StatisticDetails from './pages/StatisticDetails'
 import CategoryStatisticDetails from './pages/CategoryStatisticDetails'
 import HabitForm from './pages/HabitForm'
+import EmailVerification from './pages/EmailVerification'
 import PrivateRoute from './components/common/PrivateRoute'
 import VerifiedRoute from './components/common/VerifiedRoute'
 
@@ -37,6 +38,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/signin" element={<SignIn />} />
                     <Route path="/signup" element={<SignUp />} />
+                    <Route path="/auth/email/verify" element={<EmailVerification />} />
                     <Route element={<PrivateRoute setAppTheme={setAppTheme} />}>
                         <Route path="/profile" element={<Profile appTheme={appTheme} setAppTheme={setAppTheme} />} />
                         <Route element={<VerifiedRoute />}>

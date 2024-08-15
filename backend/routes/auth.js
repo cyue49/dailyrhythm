@@ -13,9 +13,36 @@ router.get('/signout', auth, async (req, res) => {
 });
 
 // email verification
-router.get('/email/verify', async (req, res) => {
-    const token = req.query.token
-    res.status(200).send('Token: ' + token);
+router.get('/email/verify/:token', async (req, res) => {
+    try {
+        pool.query('SELECT token_id, user_id, expires_on FROM verification_tokens WHERE token_id = $1', [req.params.token], (err, result) => {
+            if (err) {
+                console.log('Error.', err);
+                res.status(400).send({status: 'failed'});
+            } else {
+                if (result.rowCount === 0) return res.status(400).send({status: 'failed'});
+
+                const userID = result.rows[0].user_id
+                const expireTime = new Date(result.rows[0].expires_on)
+
+                if (new Date() > expireTime) return res.status(400).send({status: 'expired'}); // todo: delete token from db
+
+                // update is_verified to true
+                pool.query('UPDATE users SET is_verified = true WHERE user_id = $1', [userID], (err1, result1) => {
+                    if (err1) {
+                        console.log('Error.', err1);
+                        res.status(400).send({status: 'failed'});
+                    } else {
+                        // send response
+                        res.status(200).send({status: 'success'}); // todo: delete token from db
+                    }
+                })
+            }
+        })
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).send({status: 'failed'});
+    }
 });
 
 // ============================================= POST =============================================
