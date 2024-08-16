@@ -34,6 +34,28 @@ export const updateInfo = (data) => {
         })
 }
 
+// update is_verified status
+export const updateVerified = (data) => {
+    return fetch(`${baseURL}/api/users/me/edit/verified`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: data
+    })
+        .then((res) => {
+            if (res.status === 200 && res.ok) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+        .catch((e) => {
+            console.log(e.message)
+        })
+}
+
 // update user password
 export const updatePassword = (data) => {
     return fetch(`${baseURL}/api/users/me/edit/password`, {

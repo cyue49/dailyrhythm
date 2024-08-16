@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faPenToSquare, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import Toast from '../common/Toast'
-import { getInfo, updateInfo } from '../../services/UserServices'
+import { getInfo, updateInfo, updateVerified } from '../../services/UserServices'
 import { resendVerifyEmail } from '../../services/AuthServices'
 
 const UserCard = ({ appTheme }) => {
@@ -12,6 +12,7 @@ const UserCard = ({ appTheme }) => {
     const [validEmail, setValidEmail] = useState(true)
     const [validUsername, setValidUsername] = useState(true)
     const [isVerified, setIsVerified] = useState(false)
+    const [originalEmail, setOriginalEmail] = useState('')
 
     // states for toast message
     const [isVisible, setIsVisible] = useState(false)
@@ -37,6 +38,9 @@ const UserCard = ({ appTheme }) => {
                     username: response.username,
                     email: response.email
                 })
+
+                // set original email
+                setOriginalEmail(response.email)
             })
     }, [])
 
@@ -65,6 +69,7 @@ const UserCard = ({ appTheme }) => {
         validateInputs()
     }, [validateInputs]);
 
+    // handle form input change
     const handleChange = (e) => {
         setForm({
             ...form,
@@ -79,24 +84,41 @@ const UserCard = ({ appTheme }) => {
                 username: form.username,
                 email: form.email
             })
+
+            // update info in database
             updateInfo(data)
                 .then(response => {
                     if (response === 1) {
                         setIsEdit(false)
                         setisSuccess(true)
                         toast('User info updated successfully!')
+                        // if email has been changed, reset account status to not verified
+                        if (form.email !== originalEmail) {
+                            const data2 = JSON.stringify({
+                                is_verified: false
+                            })
+                            updateVerified(data2).then(response => {
+                                if (response === 1) {
+                                    handleSendVerifyEmail()
+                                } else {
+                                    toast('Error updating user info.')
+                                }
+                            })
+                        }
                     } else {
                         setisSuccess(false)
                         toast('Error updating user info.')
                     }
                 })
+
+
         } else {
             setIsEdit(true)
         }
     }
 
     // resend email verification link
-    const handleResendVerify = () => {
+    const handleSendVerifyEmail = () => {
         resendVerifyEmail()
             .then(response => {
                 if (response === 1) {
@@ -108,14 +130,14 @@ const UserCard = ({ appTheme }) => {
                 }
             })
     }
-    
+
     return (
         <div className='flex flex-col gap-4'>
             {isVerified ?
                 null :
                 <div className='flex flex-col gap-2 text-sm p-3 rounded-3xl border border-importantColor'>
                     <div>Your account is not verified. Please follow the link sent to your email to verify your account to access all the features.</div>
-                    <div className='underline text-importantColor cursor-pointer' onClick={handleResendVerify}>Re-send verification email.</div>
+                    <div className='underline text-importantColor cursor-pointer' onClick={handleSendVerifyEmail}>Re-send verification email.</div>
                 </div>}
             <div className='flex flex-row gap-5 p-5 items-center bg-mainCardColor rounded-3xl'>
                 <img
