@@ -2,6 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { getInfo } from '../services/UserServices'
 import { signIn } from '../services/AuthServices'
+import { Checkbox } from '@headlessui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const SignIn = () => {
     const navigate = useNavigate()
@@ -20,6 +23,7 @@ const SignIn = () => {
     const [validEmail, setValidEmail] = useState(false)
     const [validPassword, setValidPassword] = useState(false)
     const [generalErrorMessage, setGeneralErrorMessage] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
 
     const validateInputs = useCallback(() => {
         // email regex
@@ -85,7 +89,16 @@ const SignIn = () => {
                     <div className={`text-importantColor text-sm ${(form.email !== '' && !validEmail) ? '' : 'hidden'}`}>Invalid email.</div>
 
                     <label htmlFor='user_password' className='mt-3'>Password <span className='text-importantColor'>*</span> : </label>
-                    <input className='form-text-input' type='password' name='user_password' id='user_password' onChange={handleChange} />
+                    <input className='form-text-input' type={showPassword ? 'text' : 'password'} name='user_password' id='user_password' onChange={handleChange} />
+
+                    <div className='flex flex-row gap-2 justify-start itemx-center mt-2'>
+                        <Checkbox checked={showPassword} onChange={setShowPassword} className="rounded-md border border-primaryColor size-5 overflow-hidden">
+                            {showPassword ?
+                                <div className='size-5 bg-primaryColor text-secondaryTextColor center-of-div flex-col text-sm'><FontAwesomeIcon icon={faCheck} /></div>
+                                : <div className='hidden'></div>}
+                        </Checkbox>
+                        <div>Show password</div>
+                    </div>
 
                     <input className='mt-12 primary-color-button hover:secondary-color-button button-animation disabled:hover:primary-color-button disabled:cursor-not-allowed' type="submit" value="Sign In" disabled={!(validEmail && validPassword)} />
                 </form>

@@ -2,6 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { getInfo } from '../services/UserServices'
 import { signUp } from '../services/AuthServices'
+import { Checkbox } from '@headlessui/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const SignUp = () => {
     const navigate = useNavigate()
@@ -27,6 +30,7 @@ const SignUp = () => {
     const [validPassword, setValidPassword] = useState(false)
     const [validPasswordConfirm, setValidPasswordConfirm] = useState(false)
     const [generalErrorMessage, setGeneralErrorMessage] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
 
     const validateInputs = useCallback(() => {
         // validations & regex
@@ -111,12 +115,21 @@ const SignUp = () => {
                         <div className={`text-importantColor text-sm ${(form.username !== '' && !validUsername) ? '' : 'hidden'}`}>Invalid character in username.</div>
 
                         <label htmlFor='user_password' className='mt-3'>Password <span className='text-importantColor'>*</span> : </label>
-                        <input className='form-text-input' type='password' name='user_password' id='user_password' onChange={handleChange} />
+                        <input className='form-text-input' type={showPassword ? 'text' : 'password'} name='user_password' id='user_password' onChange={handleChange} />
                         <div className={`text-importantColor text-sm ${(form.user_password !== '' && !validPassword) ? '' : 'hidden'}`}>Passwords needs to be at least 8 characters long and contain an uppercase, a lowercase, a special character, and a number.</div>
 
                         <label htmlFor='confirm_password' className='mt-3'>Confirm Password <span className='text-importantColor'>*</span> : </label>
-                        <input className='form-text-input' type='password' name='confirm_password' id='confirm_password' onChange={handleChange} />
+                        <input className='form-text-input' type={showPassword ? 'text' : 'password'} name='confirm_password' id='confirm_password' onChange={handleChange} />
                         <div className={`text-importantColor text-sm ${(form.confirm_password !== '' && !validPasswordConfirm) ? '' : 'hidden'}`}>Passwords don't match.</div>
+
+                        <div className='flex flex-row gap-2 justify-start itemx-center mt-2'>
+                            <Checkbox checked={showPassword} onChange={setShowPassword} className="rounded-md border border-primaryColor size-5 overflow-hidden">
+                                {showPassword ?
+                                    <div className='size-5 bg-primaryColor text-secondaryTextColor center-of-div flex-col text-sm'><FontAwesomeIcon icon={faCheck} /></div>
+                                    : <div className='hidden'></div>}
+                            </Checkbox>
+                            <div>Show password</div>
+                        </div>
 
                         <input className='primary-color-button hover:secondary-color-button button-animation disabled:hover:primary-color-button mt-12 disabled:cursor-not-allowed' type="submit" value="Sign Up" disabled={!(validEmail && validUsername && validPassword && validPasswordConfirm)} />
                     </form>

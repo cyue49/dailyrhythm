@@ -5,11 +5,12 @@ import BottomBar from '../components/common/BottomBar'
 import UserCard from '../components/profile/UserCard'
 import SettingsCard from '../components/profile/SettingsCard'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretRight } from '@fortawesome/free-solid-svg-icons'
+import { faCaretRight, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
 import Toast from '../components/common/Toast'
 import { updatePassword } from '../services/UserServices'
 import { signOut } from '../services/AuthServices'
+import { Checkbox } from '@headlessui/react'
 
 const Profile = ({ appTheme, setAppTheme }) => {
     // states for popup modal for change password
@@ -21,6 +22,7 @@ const Profile = ({ appTheme, setAppTheme }) => {
     const [validOldPassword, setValidOldPassword] = useState(false)
     const [validNewPassword, setValidNewPassword] = useState(false)
     const [generalErrorMessage, setGeneralErrorMessage] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
 
     // states for toast message
     const [isVisible, setIsVisible] = useState(false)
@@ -115,10 +117,20 @@ const Profile = ({ appTheme, setAppTheme }) => {
                             <div className={`text-importantColor text-sm border-[1px] border-importantColor rounded-full py-2 px-6 mb-6  ${(generalErrorMessage !== '') ? '' : 'hidden'}`}>{generalErrorMessage}</div>
                             <div className='flex flex-col justify-start items-start gap-2 w-full lg:w-10/12'>
                                 <div>Please enter your old password <span className='text-importantColor'>*</span> : </div>
-                                <input className='form-text-input w-full truncate' type='password' name='old_password' id='old_password' onChange={handleChange} />
+                                <input className='form-text-input w-full truncate' type={showPassword ? 'text' : 'password'} name='old_password' id='old_password' onChange={handleChange} />
                                 <div>Please enter your new password <span className='text-importantColor'>*</span> : </div>
-                                <input className='form-text-input w-full truncate' type='password' name='new_password' id='new_password' onChange={handleChange} />
+                                <input className='form-text-input w-full truncate' type={showPassword ? 'text' : 'password'} name='new_password' id='new_password' onChange={handleChange} />
                                 <div className={`text-importantColor text-sm ${(form.new_password !== '' && !validNewPassword) ? '' : 'hidden'}`}>Passwords needs to be at least 8 characters long and contain an uppercase, a lowercase, a special character, and a number.</div>
+
+                                <div className='flex flex-row gap-2 justify-start itemx-center mt-2'>
+                                    <Checkbox checked={showPassword} onChange={setShowPassword} className="rounded-md border border-primaryColor size-5 overflow-hidden">
+                                        {showPassword ?
+                                            <div className='size-5 bg-primaryColor text-secondaryTextColor center-of-div flex-col text-sm'><FontAwesomeIcon icon={faCheck} /></div>
+                                            : <div className='hidden'></div>}
+                                    </Checkbox>
+                                    <div>Show password</div>
+                                </div>
+
                                 <div className='center-of-div flex-col gap-4 w-full my-6'>
                                     <button className='primary-color-button hover:secondary-color-button disabled:hover:primary-color-button disabled:cursor-not-allowed button-animation w-full' onClick={handlePasswordChange} disabled={!(validNewPassword && validOldPassword)}>Update password</button>
                                     <button className='primary-neutral-button hover:secondary-neutral-button button-animation w-full' onClick={() => setModalOpen(false)}>Cancel</button>
