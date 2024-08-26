@@ -7,6 +7,7 @@
   - [Description](#description)
   - [Technologies Used](#technologies-used)
   - [Features of the Application](#features-of-the-application)
+  - [Preview](#preview)
 
 ## Description
 
@@ -54,3 +55,17 @@ Once signed in, the following pages are available:
   * The user can access the Archived Habits page from this page.
   * The user can change their password and logout from this page
 * **Archived Habits Page:** This page shows all the habits that have been archived. From this page, the user can delete or unarchive the archived habits.
+
+## Preview
+
+Here is a preview of the app:
+
+<img src="docs/images/preview-1.png" alt="Preview 1">
+
+<img src="docs/images/preview-2.png" alt="Preview 2">
+
+<img src="docs/images/preview-3.png" alt="Preview 3">
+
+<img src="docs/images/preview-4.png" alt="Preview 4">
+
+<img src="docs/images/preview-5.png" alt="Preview 5">
